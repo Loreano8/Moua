@@ -9,7 +9,7 @@ import math, struct, wave, os
 
 SR, BPM = 44100, 108
 BEAT = 60 / BPM
-DUR = 40 * BEAT          # 22.22 s
+DUR = 44 * BEAT          # 24.44 s
 INTRO = 8 * BEAT         # groove drops on scene 2
 N = int(SR * DUR)
 OUT = os.path.join(os.path.dirname(__file__), "..", "assets", "audio", "bgm.wav")
