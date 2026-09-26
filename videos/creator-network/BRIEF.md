@@ -15,7 +15,7 @@ Annonce à la communauté, un mois après : Loreano a postulé au Binance Creato
 
 ## Assets
 
-- assets/img/accepted.png — message Telegram d'acceptation (recadré depuis la capture de Loreano ; expéditeur et lien d'invitation déjà floutés par lui)
+- assets/img/accepted.png — message Telegram d'acceptation, recadré au-dessus de la carte d'invitation (bouton « VOIR LE GROUPE » en français) pour que la vidéo reste 100 % en anglais ; lien déjà flouté par Loreano
 - assets/video/desk.mp4 — clip de Loreano au bureau (scène finale)
 - assets/audio/bgm.m4a — groove original d'inspiration afrobeat généré par scripts/make-bgm.py (108 BPM)
 - assets/sfx/*.mp3 — bruitages de la bibliothèque HyperFrames (licence Pixabay)

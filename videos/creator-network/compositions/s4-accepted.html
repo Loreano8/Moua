@@ -13,11 +13,11 @@
         .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
 
         #s4-blob { left: -200px; top: 300px; width: 1500px; height: 1500px; }
-        #s4-date { position: absolute; left: 90px; top: 190px; padding: 14px 26px; border-radius: 999px; background: #f0b90b; color: #0b0b0a; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; letter-spacing: 0.12em; opacity: 0; will-change: transform; }
-        #s4-ttl { position: absolute; left: 90px; right: 90px; top: 270px; font-family: "Archivo Black", sans-serif; font-size: 128px; line-height: 1; letter-spacing: -0.045em; color: #f5f1e6; }
-        #s4-card { position: absolute; left: 130px; top: 600px; width: 820px; border-radius: 40px; overflow: hidden; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7); border: 3px solid #2d2c27; will-change: transform; }
+        #s4-date { position: absolute; left: 90px; top: 245px; padding: 14px 26px; border-radius: 999px; background: #f0b90b; color: #0b0b0a; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; letter-spacing: 0.12em; opacity: 0; will-change: transform; }
+        #s4-ttl { position: absolute; left: 90px; right: 90px; top: 330px; font-family: "Archivo Black", sans-serif; font-size: 128px; line-height: 1; letter-spacing: -0.045em; color: #f5f1e6; }
+        #s4-card { position: absolute; left: 90px; top: 720px; width: 900px; border-radius: 40px; overflow: hidden; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7); border: 3px solid #2d2c27; will-change: transform; }
         #s4-img { display: block; width: 100%; height: auto; }
-        #s4-hl { position: absolute; left: 12px; top: 262px; width: 792px; height: 118px; border: 6px solid #f0b90b; border-radius: 22px; box-shadow: 0 0 40px rgba(240, 185, 11, 0.55); opacity: 0; }
+        #s4-hl { position: absolute; left: 12px; top: 288px; width: 872px; height: 126px; border: 6px solid #f0b90b; border-radius: 22px; box-shadow: 0 0 40px rgba(240, 185, 11, 0.55); opacity: 0; }
         #s4-conf { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
       </style>
       <div id="root" data-composition-id="s4-accepted" data-start="0" data-duration="5.556" data-width="1080" data-height="1920">
@@ -64,7 +64,7 @@
             const a = -Math.PI / 2 + (rnd() - 0.5) * 2.4, v = 900 + rnd() * 900;
             parts.push({ e, vx: Math.cos(a) * v, vy: Math.sin(a) * v, spin: (rnd() - 0.5) * 900 });
           }
-          const OX = 540, OY = 900, G = 1900;
+          const OX = 540, OY = 1040, G = 1900;
           const drv = { t: 0 };
           const draw = () => {
             const t = drv.t;
