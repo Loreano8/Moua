@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #end-card-panel {
+          position: absolute;
+          inset: 0;
+          background: #0f0d0a;
+          overflow: hidden;
+        }
+        #end-card-glow {
+          position: absolute;
+          left: 50%;
+          top: 44%;
+          width: 1400px;
+          height: 1400px;
+          margin-left: -700px;
+          margin-top: -700px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(242, 182, 50, 0.34) 0%,
+            rgba(242, 182, 50, 0.1) 38%,
+            rgba(242, 182, 50, 0) 68%
+          );
+        }
+        #end-card-ghost {
+          position: absolute;
+          left: -40px;
+          bottom: 120px;
+          font-family: "Archivo Black", sans-serif;
+          font-size: 520px;
+          line-height: 1;
+          letter-spacing: -0.05em;
+          color: rgba(244, 239, 228, 0.07);
+          white-space: nowrap;
+        }
+        #end-card-content {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 56px;
+          padding: 0 90px 160px;
+        }
+        #end-card-wordmark {
+          font-family: "Archivo Black", sans-serif;
+          font-size: 260px;
+          line-height: 1;
+          letter-spacing: -0.05em;
+          color: #f4efe4;
+          will-change: transform;
+        }
+        #end-card-wordmark span {
+          color: #f2b632;
+        }
+        #end-card-slogan {
+          font-family: "JetBrains Mono", monospace;
+          font-weight: 400;
+          font-size: 40px;
+          letter-spacing: 0.02em;
+          color: #c9c1b2;
+          text-align: center;
+        }
+        #end-card-cta {
+          margin-top: 24px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          padding: 36px 64px;
+          border-radius: 999px;
+          background: #f2b632;
+          color: #0f0d0a;
+          font-family: "Archivo Black", sans-serif;
+          font-size: 56px;
+          letter-spacing: -0.01em;
+          will-change: transform;
+        }
+        #end-card-arrow {
+          display: block;
+          font-family: "JetBrains Mono", monospace;
+          font-weight: 700;
+        }
+      </style>
+      <div id="root" data-composition-id="end-card" data-start="0" data-duration="2.2" data-width="1080" data-height="1920">
+        <div id="end-card-panel">
+          <div id="end-card-glow"></div>
+          <div id="end-card-ghost">moua</div>
+          <div id="end-card-content">
+            <div id="end-card-wordmark">moua<span>.</span></div>
+            <div id="end-card-slogan">Travaille mieux, pas plus.</div>
+            <div id="end-card-cta"><span>Essaie gratuitement</span><span id="end-card-arrow">→</span></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          // Panel wipes up over the footage
+          tl.fromTo(
+            "#end-card-panel",
+            { clipPath: "inset(100% 0% 0% 0%)" },
+            { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power4.inOut" },
+            0,
+          );
+          // Ambient layer: glow blooms then breathes, ghost type drifts
+          tl.fromTo("#end-card-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.2);
+          tl.to("#end-card-glow", { scale: 1.08, duration: 0.8, ease: "sine.inOut" }, 1.4);
+          tl.fromTo("#end-card-ghost", { x: 0 }, { x: -120, duration: 2.2, ease: "none" }, 0);
+          // Wordmark, slogan, CTA
+          tl.fromTo("#end-card-wordmark", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "power3.out" }, 0.3);
+          tl.fromTo("#end-card-slogan", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.65);
+          tl.fromTo("#end-card-cta", { scale: 0, opacity: 0, y: 24 }, { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.8);
+          tl.fromTo("#end-card-arrow", { x: 0 }, { x: 14, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.4);
+          window.__timelines["end-card"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #beat-a-inner {
+          position: absolute;
+          left: 90px;
+          right: 90px;
+          bottom: 440px;
+          will-change: transform, opacity;
+        }
+        #beat-a-inner .line {
+          font-family: "Archivo Black", sans-serif;
+          font-size: 158px;
+          line-height: 0.98;
+          letter-spacing: -0.035em;
+          color: #f4efe4;
+        }
+        #beat-a-inner .w {
+          display: inline-block;
+          opacity: 0;
+          will-change: transform;
+        }
+        #beat-a-inner .hl {
+          color: #f2b632;
+        }
+        #beat-a-rule {
+          display: block;
+          width: 260px;
+          height: 10px;
+          margin-top: 36px;
+          background: #f2b632;
+          transform-origin: 0% 50%;
+        }
+      </style>
+      <div id="root" data-composition-id="beat-a" data-start="0" data-duration="2" data-width="1080" data-height="1920">
+        <div id="beat-a-inner">
+          <div class="line"><span class="w">Moins</span> <span class="w">de</span></div>
+          <div class="line"><span class="w">tâches.</span></div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const F = 1 / 60;
+          // Waterfall entry: anchors (first/last word) travel further and settle longer
+          const words = gsap.utils.toArray("#beat-a-inner .w");
+          let t = 0;
+          words.forEach((el, i) => {
+            const heavy = i === 0 || i === words.length - 1;
+            const d = heavy ? 0.18 : 0.15;
+            tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+            tl.to(el, { y: 0, duration: d, ease: "power4.out" }, t);
+            t += d - F;
+          });
+          tl.to("#beat-a-inner", { y: -60, opacity: 0, duration: 0.22, ease: "power3.in" }, 1.78);
+
+          window.__timelines["beat-a"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

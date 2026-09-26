@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #beat-c-inner {
+          position: absolute;
+          left: 90px;
+          right: 90px;
+          bottom: 440px;
+          will-change: transform, opacity;
+        }
+        #beat-c-inner .line {
+          font-family: "Archivo Black", sans-serif;
+          font-size: 118px;
+          line-height: 0.98;
+          letter-spacing: -0.035em;
+          color: #f4efe4;
+        }
+        #beat-c-inner .w {
+          display: inline-block;
+          opacity: 0;
+          will-change: transform;
+        }
+        #beat-c-inner .hl {
+          color: #f2b632;
+        }
+        #beat-c-rule {
+          display: block;
+          width: 260px;
+          height: 10px;
+          margin-top: 36px;
+          background: #f2b632;
+          transform-origin: 0% 50%;
+        }
+      </style>
+      <div id="root" data-composition-id="beat-c" data-start="0" data-duration="2.1" data-width="1080" data-height="1920">
+        <div id="beat-c-inner">
+          <div class="line"><span class="w hl">Moua</span> <span class="w">gère</span></div>
+          <div class="line"><span class="w">le</span> <span class="w">reste.</span></div>
+          <span id="beat-c-rule"></span>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const F = 1 / 60;
+          // Waterfall entry: anchors (first/last word) travel further and settle longer
+          const words = gsap.utils.toArray("#beat-c-inner .w");
+          let t = 0;
+          words.forEach((el, i) => {
+            const heavy = i === 0 || i === words.length - 1;
+            const d = heavy ? 0.18 : 0.15;
+            tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+            tl.to(el, { y: 0, duration: d, ease: "power4.out" }, t);
+            t += d - F;
+          });
+          tl.fromTo("#beat-c-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "expo.out" }, 0.55);
+
+          window.__timelines["beat-c"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

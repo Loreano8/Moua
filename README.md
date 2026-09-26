@@ -14,8 +14,10 @@ Nécessite Node.js 22+. Le rendu local utilise Chrome et ffmpeg (`npx hyperframe
 
 ## Structure
 
-- `index.html` — composition principale (timeline racine `main`, 1920×1080, 10 s)
-- `compositions/` — sous-compositions (`data-composition-src`)
+- `index.html` — promo verticale Moua (1080×1920, 8,5 s) : fond vidéo, label et montage des scènes
+- `compositions/` — scènes en sous-compositions : `beat-a/b/c.html` (accroches animées), `end-card.html` (logo + appel à l'action)
+- `assets/` — clip vidéo, musique (`audio/bgm.m4a`, générée par `scripts/make-bgm.py`) et GSAP en local
+- `BRIEF.md` — le brief de la vidéo (message, format, choix retenus)
 - `hyperframes.json` — configuration du projet et du registre de blocs
 - `meta.json` — métadonnées du projet
 - `CLAUDE.md` / `AGENTS.md` — consignes pour les agents IA
