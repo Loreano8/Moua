@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          background: #0e1311;
+        }
+        #finale-cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 30%;
+          will-change: transform;
+        }
+        #finale-video {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #finale-scrim {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(to top, rgba(14, 19, 17, 0.94) 0%, rgba(14, 19, 17, 0.8) 34%, rgba(14, 19, 17, 0) 60%),
+            linear-gradient(to bottom, rgba(14, 19, 17, 0.5) 0%, rgba(14, 19, 17, 0) 14%);
+        }
+        #finale-text {
+          position: absolute;
+          left: 80px;
+          right: 80px;
+          bottom: 420px;
+          font-family: "Archivo Black", sans-serif;
+          color: #f4f1e8;
+        }
+        .finale-beat {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+        #finale-q {
+          font-size: 150px;
+          line-height: 0.98;
+          letter-spacing: -0.035em;
+        }
+        #finale-q .y,
+        #finale-a .y {
+          color: #f0b90b;
+        }
+        #finale-a {
+          font-size: 112px;
+          line-height: 1.02;
+          letter-spacing: -0.03em;
+        }
+        #finale-c {
+          font-size: 84px;
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+        }
+        #finale-c .dim {
+          color: #c9c3b4;
+        }
+        .w {
+          display: inline-block;
+          opacity: 0;
+          will-change: transform;
+        }
+        #finale-tag {
+          position: absolute;
+          left: 80px;
+          bottom: 250px;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding: 20px 36px;
+          border-radius: 999px;
+          background: #f0b90b;
+          color: #16140c;
+          font-family: "JetBrains Mono", monospace;
+          font-weight: 700;
+          font-size: 40px;
+          opacity: 0;
+          will-change: transform;
+        }
+      </style>
+      <div id="root" data-composition-id="finale" data-start="0" data-duration="9.5" data-width="1080" data-height="1920">
+        <div id="finale-cam">
+          <video
+            id="finale-video"
+            class="clip"
+            src="assets/video/desk.mp4"
+            data-start="0"
+            data-duration="9.4"
+            data-playback-rate="0.64"
+            data-track-index="0"
+            muted
+            playsinline
+          ></video>
+        </div>
+        <div id="finale-scrim"></div>
+        <div id="finale-text">
+          <div id="finale-q" class="finale-beat">
+            <span class="w">Why</span> <span class="w y">Binance?</span>
+          </div>
+          <div id="finale-a" class="finale-beat">
+            <span class="w">Because</span> <span class="w">it</span> <span class="w">never</span>
+            <span class="w">asked</span> <span class="w">for</span> <span class="w">my</span>
+            <span class="w y">passport.</span>
+          </div>
+          <div id="finale-c" class="finale-beat">
+            <span class="w">Just</span> <span class="w">a</span> <span class="w">guy</span>
+            <span class="w">from</span> <span class="w">Benin,</span>
+            <span class="w dim">a</span> <span class="w dim">laptop,</span>
+            <span class="w dim">and</span> <span class="w dim">a</span> <span class="w dim">few</span>
+            <span class="w dim">hours</span> <span class="w dim">of</span> <span class="w dim">Wi‑Fi.</span>
+          </div>
+        </div>
+        <div id="finale-tag">#HumansOfBinance</div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const F = 1 / 60;
+          // Footage: slow push-in
+          tl.fromTo("#finale-cam", { scale: 1.04 }, { scale: 1.14, duration: 9.5, ease: "none" }, 0);
+
+          // Waterfall entry, capped so a long line still lands as one wave
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+          function liftOut(sel, t) {
+            tl.to(sel, { y: -60, opacity: 0, duration: 0.22, ease: "power3.in" }, t);
+          }
+          waterfall("#finale-q", 0.35, 0.3);
+          liftOut("#finale-q", 1.9);
+          waterfall("#finale-a", 2.15, 0.8);
+          liftOut("#finale-a", 4.55);
+          waterfall("#finale-c", 4.8, 1.5);
+          tl.fromTo("#finale-tag", { opacity: 0, scale: 0.6, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "power3.out" }, 7.2);
+          window.__timelines["finale"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

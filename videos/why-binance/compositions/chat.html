@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #chat-app {
+          position: absolute;
+          inset: 0;
+          background: #0e1311;
+          font-family: "Montserrat", sans-serif;
+          color: #eef1ec;
+          overflow: hidden;
+        }
+        #chat-pattern {
+          position: absolute;
+          inset: -80px;
+          background-image: radial-gradient(rgba(240, 185, 11, 0.13) 3px, transparent 3.5px);
+          background-size: 64px 64px;
+        }
+        /* Header */
+        #chat-header {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 250px;
+          padding: 90px 56px 0;
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          background: #18201d;
+          border-bottom: 3px solid #26302c;
+          z-index: 2;
+        }
+        #chat-back {
+          font-size: 56px;
+          color: #cfd6d1;
+          font-weight: 700;
+        }
+        #chat-avatar {
+          width: 112px;
+          height: 112px;
+          border-radius: 50%;
+          background: #2b3632;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 62px;
+          flex: none;
+        }
+        #chat-title-wrap {
+          flex: 1;
+          min-width: 0;
+        }
+        #chat-title {
+          font-size: 48px;
+          font-weight: 700;
+          letter-spacing: -0.01em;
+        }
+        #chat-status {
+          position: relative;
+          height: 40px;
+          margin-top: 6px;
+          font-size: 30px;
+          color: #a9b3ad;
+        }
+        #chat-status span {
+          position: absolute;
+          left: 0;
+          top: 0;
+          white-space: nowrap;
+          opacity: 0;
+        }
+        #chat-status .typing {
+          color: #7fd1ae;
+        }
+        #chat-year {
+          font-family: "Archivo Black", sans-serif;
+          font-size: 64px;
+          letter-spacing: -0.02em;
+          color: #f0b90b;
+          font-variant-numeric: tabular-nums;
+          will-change: transform;
+        }
+        /* Messages */
+        #chat-viewport {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 250px;
+          bottom: 200px;
+          overflow: hidden;
+        }
+        #chat-list {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          padding: 40px 48px;
+          display: flex;
+          flex-direction: column;
+          gap: 26px;
+          will-change: transform;
+        }
+        .row {
+          display: flex;
+          opacity: 0;
+          will-change: transform, opacity;
+        }
+        .row-them {
+          justify-content: flex-start;
+        }
+        .row-me {
+          justify-content: flex-end;
+        }
+        .row-center {
+          justify-content: center;
+          padding: 8px 0;
+        }
+        .bubble {
+          position: relative;
+          max-width: 800px;
+          padding: 24px 34px 26px;
+          border-radius: 36px;
+          font-size: 46px;
+          line-height: 1.25;
+          font-weight: 400;
+        }
+        .bubble.them {
+          background: #202a26;
+          border-top-left-radius: 10px;
+          color: #eef1ec;
+        }
+        .bubble.me {
+          background: #f0b90b;
+          border-top-right-radius: 10px;
+          color: #16140c;
+          font-weight: 700;
+        }
+        .name {
+          display: block;
+          font-size: 30px;
+          font-weight: 700;
+          margin-bottom: 6px;
+        }
+        .chip {
+          display: block;
+          padding: 14px 32px;
+          border-radius: 999px;
+          background: #26302c;
+          font-family: "JetBrains Mono", monospace;
+          font-weight: 700;
+          font-size: 30px;
+          letter-spacing: 0.04em;
+          color: #d5dcd7;
+        }
+        .sys {
+          display: block;
+          font-family: "JetBrains Mono", monospace;
+          font-size: 28px;
+          color: #a9b3ad;
+        }
+        .react {
+          position: absolute;
+          left: -26px;
+          bottom: -30px;
+          display: block;
+          padding: 8px 18px;
+          border-radius: 999px;
+          background: #26302c;
+          border: 3px solid #0e1311;
+          font-family: "Montserrat", sans-serif;
+          font-weight: 700;
+          font-size: 30px;
+          color: #eef1ec;
+          white-space: nowrap;
+          opacity: 0;
+          will-change: transform;
+        }
+        /* Input bar */
+        #chat-input {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 200px;
+          padding: 34px 48px 70px;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          background: #18201d;
+          border-top: 3px solid #26302c;
+          z-index: 2;
+        }
+        #chat-field {
+          flex: 1;
+          height: 96px;
+          border-radius: 999px;
+          background: #26302c;
+          padding: 0 40px;
+          display: flex;
+          align-items: center;
+          font-size: 36px;
+          color: #a9b3ad;
+        }
+        #chat-send {
+          width: 96px;
+          height: 96px;
+          border-radius: 50%;
+          background: #f0b90b;
+          color: #16140c;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 44px;
+          font-weight: 700;
+          flex: none;
+        }
+      </style>
+      <div id="root" data-composition-id="chat" data-start="0" data-duration="25" data-width="1080" data-height="1920">
+        <div id="chat-app">
+          <div id="chat-pattern" data-layout-allow-overflow></div>
+          <div id="chat-header">
+            <div id="chat-back">‹</div>
+            <div id="chat-avatar">🇧🇯</div>
+            <div id="chat-title-wrap">
+              <div id="chat-title">Family 🇧🇯</div>
+              <div id="chat-status">
+                <span id="chat-st-members">Uncle, Cousin, Friend, You</span>
+                <span id="chat-st-uncle" class="typing">Uncle is typing…</span>
+                <span id="chat-st-cousin" class="typing">Cousin is typing…</span>
+                <span id="chat-st-friend" class="typing">Friend is typing…</span>
+              </div>
+            </div>
+            <div id="chat-year">2020</div>
+          </div>
+          <div id="chat-viewport">
+            <div id="chat-list" data-layout-allow-overflow data-layout-allow-occlusion>
+            <div class="row row-center" id="chat-m0"><span class="chip">2020</span></div>
+            <div class="row row-them" id="chat-m1"><div class="bubble them"><span class="name" style="color:#7fd1ae">Uncle</span>Crypto? That’s a scam 😂</div></div>
+            <div class="row row-them" id="chat-m2"><div class="bubble them"><span class="name" style="color:#f19a8e">Cousin</span>That’s for rich people.</div></div>
+            <div class="row row-them" id="chat-m3"><div class="bubble them"><span class="name" style="color:#9db7ff">Friend</span>That’s for people in the West, bro.</div></div>
+            <div class="row row-me" id="chat-m4"><div class="bubble me">Then I’ll learn.</div></div>
+            <div class="row row-center" id="chat-m5"><span class="sys">Seen by 12 · no replies</span></div>
+            <div class="row row-center" id="chat-m6"><span class="chip">A few years later ⏩</span></div>
+            <div class="row row-me" id="chat-m7"><div class="bubble me">Joined Binance Academy 📚<span class="react" id="chat-m7-r">😂 3</span></div></div>
+            <div class="row row-me" id="chat-m8"><div class="bubble me">Strangers on Telegram &amp; X → now my mentors 🤝<span class="react" id="chat-m8-r">😂 1</span></div></div>
+            <div class="row row-me" id="chat-m9"><div class="bubble me">Cybersecurity certified ✅<span class="react" id="chat-m9-r">👀 2</span></div></div>
+            <div class="row row-me" id="chat-m10"><div class="bubble me">Blockchain certificate ✅<span class="react" id="chat-m10-r">👀 5</span></div></div>
+            <div class="row row-me" id="chat-m11"><div class="bubble me">Built my first AI agent 🤖<span class="react" id="chat-m11-r">👀 12 🔥</span></div></div>
+            <div class="row row-center" id="chat-m12"><span class="chip">Today</span></div>
+            <div class="row row-them" id="chat-m13"><div class="bubble them"><span class="name" style="color:#7fd1ae">Uncle</span>Nephew… how do I open this Binance? 👀</div></div>
+            <div class="row row-them" id="chat-m14"><div class="bubble them"><span class="name" style="color:#f19a8e">Cousin</span>Do I need a passport? A foreign bank account?</div></div>
+            <div class="row row-me" id="chat-m15"><div class="bubble me">No. Just your national ID. 🪪</div></div>
+            <div class="row row-them" id="chat-m16"><div class="bubble them"><span class="name" style="color:#9db7ff">Friend</span>…wait. That’s it?</div></div>
+            </div>
+          </div>
+          <div id="chat-input">
+            <div id="chat-field">Message</div>
+            <div id="chat-send">➤</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const EVENTS = [{"id": "chat-m0", "t": 0.3, "who": "chip"}, {"id": "chat-m1", "t": 1.0, "who": "Uncle"}, {"id": "chat-m2", "t": 2.8, "who": "Cousin"}, {"id": "chat-m3", "t": 4.6, "who": "Friend"}, {"id": "chat-m4", "t": 6.6, "who": "me"}, {"id": "chat-m5", "t": 8.0, "who": "sys"}, {"id": "chat-m6", "t": 9.4, "who": "chip"}, {"id": "chat-m7", "t": 9.9, "who": "me", "rt": 10.5}, {"id": "chat-m8", "t": 11.3, "who": "me", "rt": 11.9}, {"id": "chat-m9", "t": 12.7, "who": "me", "rt": 13.3}, {"id": "chat-m10", "t": 14.0, "who": "me", "rt": 14.6}, {"id": "chat-m11", "t": 15.3, "who": "me", "rt": 15.9}, {"id": "chat-m12", "t": 17.0, "who": "chip"}, {"id": "chat-m13", "t": 17.6, "who": "Uncle"}, {"id": "chat-m14", "t": 19.6, "who": "Cousin"}, {"id": "chat-m15", "t": 21.8, "who": "me"}, {"id": "chat-m16", "t": 23.4, "who": "Friend"}];
+          const tl = gsap.timeline({ paused: true });
+          const list = document.getElementById("chat-list");
+          const viewport = document.getElementById("chat-viewport");
+
+          function build() {
+            // Scroll offsets are measured once, after fonts load (single-scene composition)
+            const viewH = viewport.offsetHeight;
+            const pad = 40;
+            let scrolled = 0;
+
+            // Status line: members by default, "<who> is typing…" before each incoming message
+            const statusIds = { Uncle: "#chat-st-uncle", Cousin: "#chat-st-cousin", Friend: "#chat-st-friend" };
+            tl.set("#chat-st-members", { opacity: 1 }, 0);
+
+            EVENTS.forEach((ev) => {
+              const el = document.getElementById(ev.id);
+              const bottom = el.offsetTop + el.offsetHeight + pad;
+              const target = Math.max(0, bottom - viewH);
+              if (statusIds[ev.who]) {
+                const typingAt = Math.max(0, ev.t - 0.7);
+                tl.set("#chat-st-members", { opacity: 0 }, typingAt);
+                tl.set(statusIds[ev.who], { opacity: 1 }, typingAt);
+                tl.set(statusIds[ev.who], { opacity: 0 }, ev.t);
+                tl.set("#chat-st-members", { opacity: 1 }, ev.t);
+              }
+              if (target !== scrolled) {
+                tl.to(list, { y: -target, duration: 0.35, ease: "power3.out" }, ev.t);
+                scrolled = target;
+              }
+              const fromX = ev.who === "me" ? 40 : ev.who === "chip" || ev.who === "sys" ? 0 : -40;
+              tl.fromTo(
+                el,
+                { opacity: 0, y: 36, x: fromX, scale: 0.92 },
+                { opacity: 1, y: 0, x: 0, scale: 1, duration: 0.32, ease: "power3.out", immediateRender: false },
+                ev.t,
+              );
+              if (ev.rt != null) {
+                tl.fromTo(
+                  "#" + ev.id + "-r",
+                  { opacity: 0, scale: 0 },
+                  { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" },
+                  ev.rt,
+                );
+              }
+            });
+
+            // Year badge counts 2020 -> 2026 across the fast-forward
+            const year = document.getElementById("chat-year");
+            const proxy = { v: 2020 };
+            tl.to(
+              proxy,
+              {
+                v: 2026,
+                duration: 7.4,
+                ease: "power1.inOut",
+                onUpdate: () => {
+                  year.textContent = String(Math.round(proxy.v));
+                },
+              },
+              9.4,
+            );
+            tl.fromTo("#chat-year", { scale: 1 }, { scale: 1.25, duration: 0.25, ease: "power3.out" }, 16.8);
+            tl.to("#chat-year", { scale: 1, duration: 0.4, ease: "power3.out" }, 17.05);
+
+            // Ambient drift of the background pattern
+            tl.fromTo("#chat-pattern", { x: 0, y: 0 }, { x: 64, y: -64, duration: 25, ease: "none" }, 0);
+
+            window.__timelines["chat"] = tl;
+          }
+          document.fonts.ready.then(build);
+        })();
+      </script>
+    </template>
+  </body>
+</html>
