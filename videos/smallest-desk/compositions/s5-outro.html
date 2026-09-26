@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0e1311; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+
+        #s5-cam { position: absolute; inset: 0; transform-origin: 50% 35%; will-change: transform; }
+        #s5-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        #s5-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,19,17,0.95) 0%, rgba(14,19,17,0.8) 34%, rgba(14,19,17,0) 60%); }
+        #s5-text { position: absolute; left: 80px; right: 80px; bottom: 420px; font-family: "Archivo Black", sans-serif; font-size: 98px; line-height: 1.04; letter-spacing: -0.035em; color: #f4f1e8; }
+        #s5-text .line { display: block; white-space: nowrap; }
+        #s5-foot { position: absolute; left: 80px; right: 80px; bottom: 300px; font-family: "JetBrains Mono", monospace; font-size: 30px; line-height: 1.4; color: #c9c3b4; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s5-outro" data-start="0" data-duration="5" data-width="1080" data-height="1920">
+        <div id="s5-cam" data-layout-allow-overflow>
+          <video id="s5-video" class="clip" src="assets/video/desk.mp4" data-start="0" data-duration="5" data-media-start="0.5" data-playback-rate="0.9" data-track-index="0" muted playsinline></video>
+        </div>
+        <div id="s5-scrim"></div>
+        <div id="s5-text">
+          <div class="line" id="s5-l1"><span class="w">Desk:</span> <span class="w">1</span> <span class="w">laptop.</span></div>
+          <div class="line" id="s5-l2"><span class="w y">Staff:</span> <span class="w y">2</span> <span class="w y">AIs</span> <span class="w y">+</span> <span class="w y">me.</span></div>
+        </div>
+        <div id="s5-foot">Binance AI for ideas · Claude for the check · me for the decision</div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s5-cam", { scale: 1.1 }, { scale: 1.02, duration: 5, ease: "none" }, 0);
+          waterfall("#s5-l1", 0.3, 0.3);
+          waterfall("#s5-l2", 1.1, 0.4);
+          tl.fromTo("#s5-foot", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 2.1);
+          window.__timelines["s5-outro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0e1311; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+
+        .hdr { position: absolute; left: 80px; right: 80px; top: 190px; }
+        .step { display: block; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.16em; color: #f0b90b; opacity: 0; }
+        .ttl { margin-top: 18px; font-family: "Archivo Black", sans-serif; font-size: 112px; line-height: 0.98; letter-spacing: -0.035em; color: #f4f1e8; }
+        .sub { margin-top: 16px; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 44px; color: #c9c3b4; opacity: 0; }
+        .dots { position: absolute; inset: -80px; background-image: radial-gradient(rgba(240, 185, 11, 0.12) 3px, transparent 3.5px); background-size: 64px 64px; }
+
+        #s3-win { position: absolute; left: 50px; right: 50px; top: 540px; padding: 24px 20px 24px; border-radius: 40px; background: #faf9f5; will-change: transform; }
+        #s3-win img { display: block; }
+        #s3-q { width: 900px; height: 109px; margin-left: auto; opacity: 0; }
+        #s3-a-wrap { position: relative; margin-top: 18px; width: 940px; opacity: 0; }
+        #s3-a { width: 940px; height: 353px; }
+        #s3-v { margin: 10px 10px 0; padding: 22px 28px; border-left: 8px solid #f0b90b; background: #f0ede4; border-radius: 12px; font-family: "Montserrat", sans-serif; font-size: 36px; line-height: 1.35; color: #1f1e1a; opacity: 0; }
+        #s3-v b { font-weight: 700; }
+        #s3-hl { position: absolute; left: 0; top: 285px; width: 460px; height: 74px; border: 5px solid #f0b90b; border-radius: 14px; opacity: 0; }
+        #s3-cap { position: absolute; left: 80px; right: 80px; bottom: 250px; font-family: "Archivo Black", sans-serif; font-size: 80px; line-height: 1.02; letter-spacing: -0.03em; color: #f4f1e8; }
+        #s3-cap .line { display: block; }
+        #s3-cap .r { color: #f6465d; }
+      </style>
+      <div id="root" data-composition-id="s3-claude" data-start="0" data-duration="6.5" data-width="1080" data-height="1920">
+        <div id="s3-dots" class="dots" data-layout-allow-overflow></div>
+        <div class="hdr">
+          <span class="step" id="s3-step">STEP 2</span>
+          <div class="ttl" id="s3-ttl"><span class="w">Deep</span> <span class="w y">check.</span></div>
+          <div class="sub" id="s3-sub">Claude + my live Binance data</div>
+        </div>
+        <div id="s3-win">
+          <img id="s3-q" src="assets/img/claude-q.png" alt="How's my BNB DCA doing? My last buy was $706.48 on Aug 27." />
+          <div id="s3-a-wrap">
+            <img id="s3-a" src="assets/img/claude-a.png" alt="BNB DCA check: last buy $706.48, current spot $689.34, change -2.43%" />
+            <div id="s3-hl"></div>
+          </div>
+          <div id="s3-v"><b>Verdict:</b> Slightly underwater since your last buy — nothing dramatic, just a normal short-term dip.</div>
+        </div>
+        <div id="s3-cap">
+          <div class="line" id="s3-c1"><span class="w r">Down</span> <span class="w r">2.4%.</span></div>
+          <div class="line" id="s3-c2"><span class="w">AI:</span> <span class="w">normal</span> <span class="w">dip.</span></div>
+          <div class="line" id="s3-c3"><span class="w">Me:</span> <span class="w y">no</span> <span class="w y">panic.</span></div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s3-dots", { x: 0, y: 0 }, { x: 64, y: -64, duration: 6.5, ease: "none" }, 0);
+          tl.fromTo("#s3-step", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, 0.1);
+          waterfall("#s3-ttl", 0.2, 0.3);
+          tl.fromTo("#s3-sub", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.55);
+          tl.fromTo("#s3-win", { opacity: 0, y: 120 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.4);
+          tl.fromTo("#s3-q", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, 0.8);
+          tl.fromTo("#s3-a-wrap", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.5);
+          tl.fromTo("#s3-hl", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 2.1);
+          tl.fromTo("#s3-v", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 2.6);
+          waterfall("#s3-c1", 3.2, 0.3);
+          waterfall("#s3-c2", 3.9, 0.3);
+          waterfall("#s3-c3", 4.6, 0.3);
+          window.__timelines["s3-claude"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
