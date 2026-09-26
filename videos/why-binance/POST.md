@@ -1,11 +1,7 @@
-# Texte du post X (brouillon)
+# Texte du post X (brouillon, sans hashtag)
 
-In 2020 my family group chat said crypto was a scam. For the rich. For the West. 😂
+Since 2020, while most platforms asked for complicated verification, Binance just asked for my national ID.
 
-I stayed. I learned.
+Why Binance? More access. Less asked of you.
 
-2026: same group chat, new question 👀
-
-Why Binance? Because it never asked for my passport. Just my national ID. 🇧🇯
-
-@binance #HumansOfBinance
+@binance

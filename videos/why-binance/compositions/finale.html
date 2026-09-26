@@ -50,55 +50,47 @@
           line-height: 0.98;
           letter-spacing: -0.035em;
         }
-        #finale-q .y,
-        #finale-a .y {
+        #finale-q .y {
           color: #f0b90b;
         }
         #finale-a {
+          font-size: 92px;
+          line-height: 1.04;
+          letter-spacing: -0.025em;
+        }
+        #finale-b {
           font-size: 112px;
           line-height: 1.02;
           letter-spacing: -0.03em;
         }
-        #finale-c {
-          font-size: 84px;
-          line-height: 1.08;
-          letter-spacing: -0.02em;
+        #finale-b .y,
+        #finale-a .y,
+        #finale-c .y {
+          color: #f0b90b;
         }
-        #finale-c .dim {
-          color: #c9c3b4;
+        #finale-c .c-line {
+          white-space: nowrap;
+        }
+        #finale-c {
+          font-size: 108px;
+          line-height: 1.02;
+          letter-spacing: -0.035em;
         }
         .w {
           display: inline-block;
           opacity: 0;
           will-change: transform;
         }
-        #finale-tag {
-          position: absolute;
-          left: 80px;
-          bottom: 250px;
-          display: flex;
-          align-items: center;
-          gap: 20px;
-          padding: 20px 36px;
-          border-radius: 999px;
-          background: #f0b90b;
-          color: #16140c;
-          font-family: "JetBrains Mono", monospace;
-          font-weight: 700;
-          font-size: 40px;
-          opacity: 0;
-          will-change: transform;
-        }
       </style>
-      <div id="root" data-composition-id="finale" data-start="0" data-duration="9.5" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="finale" data-start="0" data-duration="12" data-width="1080" data-height="1920">
         <div id="finale-cam">
           <video
             id="finale-video"
             class="clip"
             src="assets/video/desk.mp4"
             data-start="0"
-            data-duration="9.4"
-            data-playback-rate="0.64"
+            data-duration="12"
+            data-playback-rate="0.5"
             data-track-index="0"
             muted
             playsinline
@@ -110,26 +102,28 @@
             <span class="w">Why</span> <span class="w y">Binance?</span>
           </div>
           <div id="finale-a" class="finale-beat">
-            <span class="w">Because</span> <span class="w">it</span> <span class="w">never</span>
-            <span class="w">asked</span> <span class="w">for</span> <span class="w">my</span>
-            <span class="w y">passport.</span>
+            <span class="w">Since</span> <span class="w y">2020,</span> <span class="w">while</span>
+            <span class="w">most</span> <span class="w">platforms</span> <span class="w">asked</span>
+            <span class="w">for</span> <span class="w">complicated</span> <span class="w">verification,</span>
+          </div>
+          <div id="finale-b" class="finale-beat">
+            <span class="w">Binance</span> <span class="w">just</span> <span class="w">asked</span>
+            <span class="w">for</span> <span class="w">my</span> <span class="w y">national</span>
+            <span class="w y">ID.</span>
           </div>
           <div id="finale-c" class="finale-beat">
-            <span class="w">Just</span> <span class="w">a</span> <span class="w">guy</span>
-            <span class="w">from</span> <span class="w">Benin,</span>
-            <span class="w dim">a</span> <span class="w dim">laptop,</span>
-            <span class="w dim">and</span> <span class="w dim">a</span> <span class="w dim">few</span>
-            <span class="w dim">hours</span> <span class="w dim">of</span> <span class="w dim">Wi‑Fi.</span>
+            <div class="c-line"><span class="w">More</span> <span class="w">access.</span></div>
+            <div class="c-line"><span class="w y">Less</span> <span class="w y">asked</span></div>
+            <div class="c-line"><span class="w y">of</span> <span class="w y">you.</span></div>
           </div>
         </div>
-        <div id="finale-tag">#HumansOfBinance</div>
       </div>
       <script>
         (() => {
           const tl = gsap.timeline({ paused: true });
           const F = 1 / 60;
           // Footage: slow push-in
-          tl.fromTo("#finale-cam", { scale: 1.04 }, { scale: 1.14, duration: 9.5, ease: "none" }, 0);
+          tl.fromTo("#finale-cam", { scale: 1.04 }, { scale: 1.16, duration: 12, ease: "none" }, 0);
 
           // Waterfall entry, capped so a long line still lands as one wave
           function waterfall(sel, t0, maxSpan) {
@@ -147,10 +141,13 @@
           }
           waterfall("#finale-q", 0.35, 0.3);
           liftOut("#finale-q", 1.9);
-          waterfall("#finale-a", 2.15, 0.8);
-          liftOut("#finale-a", 4.55);
-          waterfall("#finale-c", 4.8, 1.5);
-          tl.fromTo("#finale-tag", { opacity: 0, scale: 0.6, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "power3.out" }, 7.2);
+          waterfall("#finale-a", 2.15, 1.0);
+          liftOut("#finale-a", 4.9);
+          waterfall("#finale-b", 5.15, 0.8);
+          liftOut("#finale-b", 7.7);
+          waterfall("#finale-c .c-line:nth-child(1)", 7.95, 0.2);
+          waterfall("#finale-c .c-line:nth-child(2)", 8.65, 0.2);
+          waterfall("#finale-c .c-line:nth-child(3)", 8.95, 0.2);
           window.__timelines["finale"] = tl;
         })();
       </script>

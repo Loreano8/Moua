@@ -6,7 +6,7 @@ the finale. Writes assets/audio/bgm.wav; encode to bgm.m4a afterwards.
 """
 import math, struct, wave, os
 
-SR, DUR, BPM, DROP = 44100, 34.5, 96, 25.0
+SR, DUR, BPM, DROP = 44100, 37.0, 96, 25.0
 BEAT = 60 / BPM
 N = int(SR * DUR)
 OUT = os.path.join(os.path.dirname(__file__), "..", "assets", "audio", "bgm.wav")
