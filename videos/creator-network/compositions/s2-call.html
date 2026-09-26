@@ -14,26 +14,17 @@
 
         #s2-blob { right: -500px; top: 900px; width: 1400px; height: 1400px; }
         #s2-label { position: absolute; left: 90px; top: 250px; opacity: 0; }
-        #s2-card { position: absolute; left: 70px; right: 70px; top: 360px; padding: 56px 60px 64px; border-radius: 44px; background: #161614; border: 3px solid #2d2c27; will-change: transform; }
-        #s2-who { display: flex; align-items: center; gap: 26px; }
-        #s2-av { width: 96px; height: 96px; border-radius: 50%; background: #f0b90b; display: flex; align-items: center; justify-content: center; font-family: "Archivo Black", sans-serif; font-size: 50px; color: #0b0b0a; flex: none; }
-        #s2-handle { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 44px; color: #f5f1e6; }
-        #s2-sub { font-family: "JetBrains Mono", monospace; font-size: 28px; color: #a9a391; margin-top: 4px; }
-        #s2-q1 { margin-top: 50px; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 60px; line-height: 1.22; color: #f5f1e6; opacity: 0; }
-        #s2-q2 { margin-top: 34px; font-family: "Archivo Black", sans-serif; font-size: 92px; line-height: 1.08; letter-spacing: -0.03em; color: #f5f1e6; }
-        .mark { background-image: linear-gradient(#f0b90b, #f0b90b); background-repeat: no-repeat; background-position: 0 50%; background-size: 0% 100%; padding: 0 10px; margin: 0 -4px; border-radius: 6px; }
-        #s2-foot { position: absolute; left: 90px; right: 90px; top: 1130px; font-family: "JetBrains Mono", monospace; font-size: 42px; line-height: 1.45; color: #d8d2c2; opacity: 0; }
+        #s2-card { position: absolute; left: 70px; top: 330px; width: 940px; border-radius: 36px; overflow: hidden; border: 3px solid #2d2c27; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7); background: #000; will-change: transform; }
+        #s2-img { display: block; width: 100%; height: auto; }
+        #s2-hl { position: absolute; left: 8px; top: 768px; width: 922px; height: 110px; border: 6px solid #f0b90b; border-radius: 20px; box-shadow: 0 0 44px rgba(240, 185, 11, 0.55); opacity: 0; }
+        #s2-foot { position: absolute; left: 90px; right: 90px; top: 1430px; font-family: "JetBrains Mono", monospace; font-size: 42px; line-height: 1.45; color: #d8d2c2; opacity: 0; }
       </style>
       <div id="root" data-composition-id="s2-call" data-start="0" data-duration="4.444" data-width="1080" data-height="1920">
         <div id="s2-blob" class="blob" data-layout-allow-overflow></div>
         <div id="s2-label" class="label">THE CALL</div>
         <div id="s2-card">
-          <div id="s2-who">
-            <div id="s2-av">D</div>
-            <div><div id="s2-handle">@dianabinance</div><div id="s2-sub">Binance Creator Network</div></div>
-          </div>
-          <div id="s2-q1">“You don’t need a huge following.</div>
-          <div id="s2-q2"><span class="w mark">Quality</span> <span class="w mark">content</span> <span class="w mark">matters</span> <span class="w mark">more.”</span></div>
+          <img id="s2-img" src="assets/img/diana-post.png" alt="Post by @dianabinance inviting crypto and finance creators to join the Binance Creator Network" />
+          <div id="s2-hl" data-layout-allow-overflow></div>
         </div>
         <div id="s2-foot">So I applied.</div>
       </div>
@@ -55,10 +46,9 @@
           tl.fromTo("#s2-blob", { x: 0, y: 0 }, { x: -200, y: -240, duration: 8 * B, ease: "none" }, 0);
           tl.fromTo("#s2-label", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
           tl.fromTo("#s2-card", { opacity: 0, y: 160, rotation: -2 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "power3.out" }, 0.15);
-          tl.fromTo("#s2-q1", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 2 * B);
-          waterfall("#s2-q2", 3 * B, 0.4);
-          tl.fromTo("#s2-q2 .mark", { backgroundSize: "0% 100%", color: "#f5f1e6" }, { backgroundSize: "100% 100%", color: "#0b0b0a", duration: 0.45, ease: "power2.out", stagger: 0.12 }, 4.3 * B);
-          tl.fromTo("#s2-foot", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 6 * B);
+          tl.to("#s2-card", { y: -30, duration: 8 * B - 0.8, ease: "sine.inOut" }, 0.65);
+          tl.fromTo("#s2-hl", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 3 * B);
+          tl.fromTo("#s2-foot", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 5 * B);
           tl.to("#s2-card, #s2-label, #s2-foot", { opacity: 0, y: -50, duration: 0.2, ease: "power3.in" }, 8 * B - 0.22);
           window.__timelines["s2-call"] = tl;
         })();
