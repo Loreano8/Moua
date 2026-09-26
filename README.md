@@ -20,4 +20,7 @@ Nécessite Node.js 22+. Le rendu local utilise Chrome et ffmpeg (`npx hyperframe
 - `meta.json` — métadonnées du projet
 - `CLAUDE.md` / `AGENTS.md` — consignes pour les agents IA
 
-Pour les skills IA HyperFrames : `npx hyperframes skills update`.
+
+## Skills IA
+
+Les skills HyperFrames sont versionnés dans `.claude/skills/` et chargés automatiquement par Claude Code. Pour les mettre à jour : `npx hyperframes skills update`, puis recopier `~/.claude/skills/<nom>` dans `.claude/skills/`.
