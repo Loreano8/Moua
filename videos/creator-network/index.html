@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0b0b0a; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0b0b0a; }
+      .slab { position: absolute; inset: 0; background: #f0b90b; z-index: 10; will-change: transform; }
+    </style>
+  </head>
+  <body>
+    <!-- Binance Creator Network announcement. 108 BPM; every cut lands on a beat. -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="22.222" data-width="1080" data-height="1920">
+      <div id="s1-hook" data-composition-id="s1-hook" data-composition-src="compositions/s1-hook.html" data-start="0" data-duration="4.444" data-track-index="0" data-width="1080" data-height="1920"></div>
+      <div id="s2-call" data-composition-id="s2-call" data-composition-src="compositions/s2-call.html" data-start="4.444" data-duration="4.444" data-track-index="1" data-width="1080" data-height="1920"></div>
+      <div id="s3-encouraged" data-composition-id="s3-encouraged" data-composition-src="compositions/s3-encouraged.html" data-start="8.889" data-duration="2.222" data-track-index="2" data-width="1080" data-height="1920"></div>
+      <div id="s4-accepted" data-composition-id="s4-accepted" data-composition-src="compositions/s4-accepted.html" data-start="11.111" data-duration="5.556" data-track-index="3" data-width="1080" data-height="1920"></div>
+      <div id="s5-now" data-composition-id="s5-now" data-composition-src="compositions/s5-now.html" data-start="16.667" data-duration="5.556" data-track-index="4" data-width="1080" data-height="1920"></div>
+      <div class="slab" id="slab-0"></div>
+      <div class="slab" id="slab-1"></div>
+      <div class="slab" id="slab-2"></div>
+      <div class="slab" id="slab-3"></div>
+      <audio id="bgm" src="assets/audio/bgm.m4a" data-start="0" data-duration="22.222" data-track-index="10" data-volume="0.85"></audio>
+      <audio id="sfx-wh-0" src="assets/sfx/whoosh-short.mp3" data-start="4.244" data-duration="0.57" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-wh-1" src="assets/sfx/whoosh-short.mp3" data-start="8.689" data-duration="0.57" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-wh-2" src="assets/sfx/whoosh-short.mp3" data-start="10.911" data-duration="0.57" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-wh-3" src="assets/sfx/whoosh-short.mp3" data-start="16.467" data-duration="0.57" data-track-index="11" data-volume="0.5"></audio>
+      <audio id="sfx-slam-0" src="assets/sfx/click-soft.mp3" data-start="0.05" data-duration="0.37" data-track-index="12" data-volume="0.8"></audio>
+      <audio id="sfx-slam-1" src="assets/sfx/click-soft.mp3" data-start="0.606" data-duration="0.37" data-track-index="12" data-volume="0.8"></audio>
+      <audio id="sfx-slam-2" src="assets/sfx/click-soft.mp3" data-start="1.161" data-duration="0.37" data-track-index="12" data-volume="0.8"></audio>
+      <audio id="sfx-slam-3" src="assets/sfx/click-soft.mp3" data-start="1.717" data-duration="0.37" data-track-index="12" data-volume="0.8"></audio>
+      <audio id="sfx-impact" src="assets/sfx/impact-bass-2.mp3" data-start="12.222" data-duration="2" data-track-index="13" data-volume="0.6"></audio>
+      <audio id="sfx-sparkle" src="assets/sfx/sparkle.mp3" data-start="12.222" data-duration="1.8" data-track-index="14" data-volume="0.6"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Yellow wipe slabs cover each cut on the beat
+      tl.fromTo("#slab-0", { xPercent: -101 }, { xPercent: 0, duration: 0.18, ease: "power3.in" }, 4.264);
+      tl.to("#slab-0", { xPercent: 101, duration: 0.22, ease: "power3.out" }, 4.444);
+      tl.fromTo("#slab-1", { xPercent: -101 }, { xPercent: 0, duration: 0.18, ease: "power3.in" }, 8.709);
+      tl.to("#slab-1", { xPercent: 101, duration: 0.22, ease: "power3.out" }, 8.889);
+      tl.fromTo("#slab-2", { xPercent: -101 }, { xPercent: 0, duration: 0.18, ease: "power3.in" }, 10.931);
+      tl.to("#slab-2", { xPercent: 101, duration: 0.22, ease: "power3.out" }, 11.111);
+      tl.fromTo("#slab-3", { xPercent: -101 }, { xPercent: 0, duration: 0.18, ease: "power3.in" }, 16.487);
+      tl.to("#slab-3", { xPercent: 101, duration: 0.22, ease: "power3.out" }, 16.667);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

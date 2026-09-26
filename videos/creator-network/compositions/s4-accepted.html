@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0b0b0a; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .blob { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(240, 185, 11, 0.30) 0%, rgba(240, 185, 11, 0.08) 45%, rgba(240, 185, 11, 0) 70%); }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+
+        #s4-blob { left: -200px; top: 300px; width: 1500px; height: 1500px; }
+        #s4-date { position: absolute; left: 90px; top: 190px; padding: 14px 26px; border-radius: 999px; background: #f0b90b; color: #0b0b0a; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; letter-spacing: 0.12em; opacity: 0; will-change: transform; }
+        #s4-ttl { position: absolute; left: 90px; right: 90px; top: 270px; font-family: "Archivo Black", sans-serif; font-size: 128px; line-height: 1; letter-spacing: -0.045em; color: #f5f1e6; }
+        #s4-card { position: absolute; left: 130px; top: 600px; width: 820px; border-radius: 40px; overflow: hidden; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7); border: 3px solid #2d2c27; will-change: transform; }
+        #s4-img { display: block; width: 100%; height: auto; }
+        #s4-hl { position: absolute; left: 12px; top: 262px; width: 792px; height: 118px; border: 6px solid #f0b90b; border-radius: 22px; box-shadow: 0 0 40px rgba(240, 185, 11, 0.55); opacity: 0; }
+        #s4-conf { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+      </style>
+      <div id="root" data-composition-id="s4-accepted" data-start="0" data-duration="5.556" data-width="1080" data-height="1920">
+        <div id="s4-blob" class="blob" data-layout-allow-overflow></div>
+        <div id="s4-date">AUG 26</div>
+        <div id="s4-ttl"><span class="w">I</span> <span class="w">got</span><br /><span class="w y">selected.</span></div>
+        <div id="s4-card">
+          <img id="s4-img" src="assets/img/accepted.png" alt="Telegram message: Congratulations, you've been selected to the Binance Creator Network" />
+          <div id="s4-hl"></div>
+        </div>
+        <svg id="s4-conf" viewBox="0 0 1080 1920" data-layout-allow-overflow></svg>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 60 / 108;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s4-blob", { x: 0 }, { x: 200, duration: 10 * B, ease: "none" }, 0);
+          tl.fromTo("#s4-date", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s4-card", { opacity: 0, y: 260, rotation: 4, scale: 0.9 }, { opacity: 1, y: 0, rotation: 0, scale: 1, duration: 0.6, ease: "power3.out" }, 0.1);
+          tl.fromTo("#s4-hl", { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 2 * B);
+          waterfall("#s4-ttl", 2 * B + 0.05, 0.3);
+          // Deterministic confetti burst: each piece is a pure ballistic function of one driver
+          const svg = document.getElementById("s4-conf");
+          const COLS = ["#f0b90b", "#f5f1e6", "#ff8c1a", "#2ebd85", "#4d7cff", "#ff5d8f"];
+          let seed = 7;
+          const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 4294967296);
+          const parts = [];
+          for (let i = 0; i < 44; i++) {
+            const e = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            e.setAttribute("width", 16 + rnd() * 10); e.setAttribute("height", 10 + rnd() * 6); e.setAttribute("rx", 2);
+            e.setAttribute("fill", COLS[i % COLS.length]); e.setAttribute("opacity", 0);
+            svg.appendChild(e);
+            const a = -Math.PI / 2 + (rnd() - 0.5) * 2.4, v = 900 + rnd() * 900;
+            parts.push({ e, vx: Math.cos(a) * v, vy: Math.sin(a) * v, spin: (rnd() - 0.5) * 900 });
+          }
+          const OX = 540, OY = 900, G = 1900;
+          const drv = { t: 0 };
+          const draw = () => {
+            const t = drv.t;
+            parts.forEach((p) => {
+              const x = OX + p.vx * t, y = OY + p.vy * t + 0.5 * G * t * t;
+              p.e.setAttribute("x", x); p.e.setAttribute("y", y);
+              p.e.setAttribute("transform", `rotate(${p.spin * t} ${x} ${y})`);
+              p.e.setAttribute("opacity", t <= 0 ? 0 : Math.max(0, 1 - t / 2.2));
+            });
+          };
+          tl.fromTo(drv, { t: 0 }, { t: 2.2, duration: 2.2, ease: "none", onUpdate: draw }, 2 * B);
+          tl.to("#s4-card, #s4-ttl, #s4-date", { opacity: 0, y: -50, duration: 0.2, ease: "power3.in" }, 10 * B - 0.22);
+          window.__timelines["s4-accepted"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
