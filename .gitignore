@@ -4,4 +4,4 @@ renders/
 *.webm
 .hyperframes/
 .DS_Store
-!assets/**/*.mp4
+!**/assets/**/*.mp4
