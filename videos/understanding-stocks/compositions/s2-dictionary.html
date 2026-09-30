@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+        .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+
+        #s2-grid { }
+        #s2-label { position: absolute; left: 90px; top: 220px; opacity: 0; }
+        #s2-ttl { position: absolute; left: 90px; right: 90px; top: 280px; font-family: "Archivo Black", sans-serif; font-size: 110px; line-height: 1; letter-spacing: -0.04em; color: #f5f1e6; }
+        .card { position: absolute; left: 80px; right: 80px; top: 640px; min-height: 820px; padding: 80px 76px 90px; border-radius: 36px; background: #f4ecd8; box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6); opacity: 0; will-change: transform; transform-origin: 50% 0%; }
+        .sec { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; letter-spacing: 0.14em; color: #8a6a00; }
+        .word { margin-top: 60px; font-family: "EB Garamond", serif; font-weight: 700; font-size: 150px; line-height: 1; color: #1a1712; white-space: nowrap; }
+        .pos { font-weight: 400; font-style: italic; font-size: 64px; color: #6b6356; }
+        .rule { margin-top: 50px; width: 140px; height: 8px; background: #f0b90b; }
+        .def { margin-top: 50px; font-family: "EB Garamond", serif; font-weight: 400; font-size: 84px; line-height: 1.18; color: #1a1712; }
+        #s2-c2 .word { font-size: 112px; }
+      </style>
+      <div id="root" data-composition-id="s2-dictionary" data-start="0" data-duration="8.182" data-width="1080" data-height="1920">
+        <div id="s2-grid" class="grid" data-layout-allow-overflow></div>
+        <div id="s2-label" class="label">MY NEW VOCABULARY</div>
+        <div id="s2-ttl"><span class="w">Learning</span> <span class="w">the</span> <span class="w y">language.</span></div>
+        <div class="card" id="s2-c0" data-layout-allow-overlap>
+          <div class="sec" data-layout-allow-overlap>01 · STOCKS AND OWNERSHIP</div>
+          <div class="word" data-layout-allow-overlap>share <span class="pos" data-layout-allow-overlap>(n.)</span></div>
+          <div class="rule" data-layout-allow-overlap></div>
+          <div class="def" data-layout-allow-overlap>A small piece of direct ownership in a business.</div>
+        </div>
+        <div class="card" id="s2-c1" data-layout-allow-overlap>
+          <div class="sec" data-layout-allow-overlap>02 · TRADING STOCKS</div>
+          <div class="word" data-layout-allow-overlap>spread <span class="pos" data-layout-allow-overlap>(n.)</span></div>
+          <div class="rule" data-layout-allow-overlap></div>
+          <div class="def" data-layout-allow-overlap>The gap between the bid and the ask.</div>
+        </div>
+        <div class="card" id="s2-c2" data-layout-allow-overlap>
+          <div class="sec" data-layout-allow-overlap>03 · PRICES AND INVESTING</div>
+          <div class="word" data-layout-allow-overlap>diversification <span class="pos" data-layout-allow-overlap>(n.)</span></div>
+          <div class="rule" data-layout-allow-overlap></div>
+          <div class="def" data-layout-allow-overlap>Not betting everything on one company.</div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 60 / 88;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s2-grid", { x: 0, y: 0 }, { x: -120, y: -120, duration: 12 * B, ease: "none" }, 0);
+          tl.fromTo("#s2-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.05);
+          waterfall("#s2-ttl", 0.15, 0.3);
+          // Each entry slides up over the previous one; the previous card steps back
+          [0, 1, 2].forEach((i) => {
+            const t = (1 + i * 3.7) * B;
+            tl.fromTo("#s2-c" + i, { opacity: 0, y: 260, rotation: i % 2 ? 2 : -2 }, { opacity: 1, y: 0, rotation: 0, duration: 0.45, ease: "power3.out" }, t);
+            if (i > 0) tl.to("#s2-c" + (i - 1), { scale: 0.92, y: -60, opacity: 0, duration: 0.4, ease: "power2.in" }, t);
+          });
+          tl.to("#s2-c2, #s2-ttl, #s2-label", { opacity: 0, y: -50, duration: 0.2, ease: "power3.in" }, 12 * B - 0.22);
+          window.__timelines["s2-dictionary"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

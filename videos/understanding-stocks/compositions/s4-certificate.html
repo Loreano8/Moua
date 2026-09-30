@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+        .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+
+        #s4-glow { position: absolute; left: 50%; top: 860px; width: 1400px; height: 1100px; margin: -550px 0 0 -700px; border-radius: 50%; background: radial-gradient(ellipse, rgba(240, 185, 11, 0.24) 0%, rgba(240, 185, 11, 0.06) 45%, rgba(240, 185, 11, 0) 70%); }
+        #s4-label { position: absolute; left: 60px; top: 360px; opacity: 0; }
+        #s4-stage { position: absolute; left: 60px; top: 440px; width: 960px; height: 678px; perspective: 1400px; }
+        #s4-card { position: absolute; inset: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6); will-change: transform; }
+        #s4-img { display: block; width: 100%; height: 100%; }
+        #s4-sheen { position: absolute; top: -20%; left: 0; width: 240px; height: 140%; background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 100%); transform: rotate(18deg); opacity: 0; }
+        #s4-hl { position: absolute; left: 246px; top: 500px; width: 472px; height: 76px; border: 6px solid #0c0b09; border-radius: 16px; opacity: 0; }
+        #s4-big { position: absolute; left: 60px; right: 60px; top: 1200px; font-family: "Archivo Black", sans-serif; font-size: 130px; line-height: 1; letter-spacing: -0.04em; color: #f0b90b; }
+      </style>
+      <div id="root" data-composition-id="s4-certificate" data-start="0" data-duration="5.455" data-width="1080" data-height="1920">
+        <div id="s4-glow" data-layout-allow-overflow></div>
+        <div id="s4-label" class="label">COURSE COMPLETED ✓</div>
+        <div id="s4-stage">
+          <div id="s4-card" data-layout-allow-overflow>
+            <img id="s4-img" src="assets/img/certificate.jpg" alt="Binance Academy certificate of completion: Understanding Stocks" />
+            <div id="s4-sheen" data-layout-allow-overflow></div>
+            <div id="s4-hl"></div>
+          </div>
+        </div>
+        <div id="s4-big"><span class="w">Certified.</span></div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 60 / 88;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s4-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0);
+          tl.fromTo("#s4-card", { opacity: 0, y: 220, scale: 0.72, rotationX: 28 }, { opacity: 1, y: 0, scale: 1, rotationX: 0, duration: 0.8, ease: "power3.out" }, 0.05);
+          tl.fromTo("#s4-label", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 0.6);
+          tl.fromTo("#s4-sheen", { opacity: 1, x: -320 }, { opacity: 1, x: 1180, duration: 0.9, ease: "power2.inOut" }, 2 * B);
+          tl.fromTo("#s4-hl", { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 4 * B);
+          waterfall("#s4-big", 5 * B, 0.1);
+          tl.to("#s4-card, #s4-label, #s4-big", { opacity: 0, y: -50, duration: 0.2, ease: "power3.in" }, 8 * B - 0.22);
+          window.__timelines["s4-certificate"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

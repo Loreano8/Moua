@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+        .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+
+        #s5-cam { position: absolute; inset: 0; transform-origin: 50% 40%; will-change: transform; }
+        #s5-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        #s5-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.96) 0%, rgba(12,11,9,0.84) 36%, rgba(12,11,9,0) 62%); }
+        #s5-label { position: absolute; left: 80px; top: 1180px; opacity: 0; }
+        #s5-text { position: absolute; left: 80px; right: 60px; top: 1240px; font-family: "Archivo Black", sans-serif; font-size: 104px; line-height: 1.02; letter-spacing: -0.035em; color: #f5f1e6; }
+        #s5-text .ln { display: block; white-space: nowrap; }
+        #s5-foot { position: absolute; left: 80px; right: 80px; top: 1560px; font-family: "JetBrains Mono", monospace; font-size: 30px; color: #cfc8b8; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s5-outro" data-start="0" data-duration="5.455" data-width="1080" data-height="1920">
+        <div id="s5-cam" data-layout-allow-overflow>
+          <video id="s5-video" class="clip" src="assets/video/pc.mp4" data-start="0" data-duration="5.455" data-media-start="3.9" data-playback-rate="0.75" data-track-index="0" muted playsinline></video>
+        </div>
+        <div id="s5-scrim"></div>
+        <div id="s5-label" class="label">THE LINE I'M KEEPING</div>
+        <div id="s5-text">
+          <span class="ln" id="s5-l1"><span class="w">A</span> <span class="w">share</span> <span class="w">is</span> <span class="w">never</span></span>
+          <span class="ln" id="s5-l2"><span class="w y">a</span> <span class="w y">guarantee</span></span>
+          <span class="ln" id="s5-l3"><span class="w y">of</span> <span class="w y">profit.</span></span>
+        </div>
+        <div id="s5-foot">Understanding Stocks · Binance Academy</div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 60 / 88;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s5-cam", { scale: 1.02 }, { scale: 1.1, duration: 8 * B, ease: "none" }, 0);
+          tl.fromTo("#s5-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.2);
+          waterfall("#s5-l1", 0.4, 0.4);
+          waterfall("#s5-l2", 0.4 + B, 0.2);
+          waterfall("#s5-l3", 0.4 + 2 * B, 0.2);
+          tl.fromTo("#s5-foot", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 4 * B);
+          window.__timelines["s5-outro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
