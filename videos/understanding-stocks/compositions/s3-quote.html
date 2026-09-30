@@ -15,9 +15,11 @@
         #s3-label { position: absolute; left: 90px; top: 220px; opacity: 0; }
         #s3-ttl { position: absolute; left: 90px; right: 90px; top: 280px; font-family: "Archivo Black", sans-serif; font-size: 110px; line-height: 1; letter-spacing: -0.04em; color: #f5f1e6; }
         #s3-panel { position: absolute; left: 80px; right: 80px; top: 560px; padding: 56px 60px; border-radius: 36px; background: #15140f; border: 3px solid #2e2c24; font-family: "JetBrains Mono", monospace; color: #f5f1e6; opacity: 0; }
-        #s3-head { display: flex; align-items: baseline; justify-content: space-between; }
+        #s3-head { position: relative; display: flex; align-items: flex-start; justify-content: space-between; padding: 16px 24px; margin: -16px -24px 0; border-radius: 18px; }
+        #s3-name { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 34px; color: #a39c8c; margin-top: 6px; }
+        .qrow .v.neg { color: #f6465d; }
         #s3-tick { font-family: "Archivo Black", sans-serif; font-size: 110px; letter-spacing: -0.02em; }
-        #s3-ex { font-size: 26px; letter-spacing: 0.14em; color: #8f887a; }
+        #s3-ex { margin-top: 24px; font-size: 26px; letter-spacing: 0.14em; color: #f0b90b; }
         .qrow { position: relative; display: flex; justify-content: space-between; align-items: baseline; margin-top: 30px; padding: 20px 24px; border-radius: 18px; font-size: 48px; }
         .qrow .k { color: #a39c8c; }
         .qrow .v { font-weight: 700; }
@@ -29,17 +31,16 @@
         <div id="s3-label" class="label">MODULE 3.1</div>
         <div id="s3-ttl"><span class="w">Now</span> <span class="w">I</span> <span class="w">can</span> <span class="w y">read</span> <span class="w y">this.</span></div>
         <div id="s3-panel">
-          <div id="s3-head"><span id="s3-tick">XYZ</span><span id="s3-ex">EXAMPLE QUOTE</span></div>
-          <div class="qrow" id="s3-r1"><span class="k">BID</span><span class="v">$99.98</span><div class="qhl" id="s3-h1"></div></div>
-          <div class="qrow" id="s3-r2"><span class="k">ASK</span><span class="v">$100.02</span><div class="qhl" id="s3-h2"></div></div>
-          <div class="qrow" id="s3-r3"><span class="k">SPREAD</span><span class="v">$0.04</span><div class="qhl" id="s3-h3"></div></div>
-          <div class="qrow" id="s3-r4"><span class="k">VOLUME</span><span class="v">1.2M</span><div class="qhl" id="s3-h4"></div></div>
+          <div id="s3-head"><div><span id="s3-tick">NVDA</span><div id="s3-name">NVIDIA Corporation</div></div><span id="s3-ex">BINANCE STOCKS</span><div class="qhl" id="s3-h1"></div></div>
+          <div class="qrow" id="s3-r2"><span class="k">LAST PRICE</span><span class="v">$227.21</span><div class="qhl" id="s3-h2"></div></div>
+          <div class="qrow" id="s3-r3"><span class="k">CHANGE</span><span class="v neg">−0.72%</span><div class="qhl" id="s3-h3"></div></div>
+          <div class="qrow" id="s3-r4"><span class="k">VOLUME</span><span class="v">$61.99M</span><div class="qhl" id="s3-h4"></div></div>
         </div>
-        <div class="note" id="s3-n1" style="top: 1330px">Bid: the best price buyers offer</div>
-        <div class="note" id="s3-n2" style="top: 1330px">Ask: the best price sellers accept</div>
-        <div class="note" id="s3-n3" style="top: 1330px">Spread: the gap between the two</div>
-        <div class="note" id="s3-n4" style="top: 1330px">Volume: how many shares traded</div>
-        <div id="s3-foot">Illustrative numbers, not a real stock.</div>
+        <div class="note" id="s3-n1" style="top: 1330px">Ticker: the stock’s short name</div>
+        <div class="note" id="s3-n2" style="top: 1330px">Last price: the latest trade</div>
+        <div class="note" id="s3-n3" style="top: 1330px">Change: how far the price moved</div>
+        <div class="note" id="s3-n4" style="top: 1330px">Volume: how much was traded</div>
+        <div id="s3-foot">Snapshot from Binance Stocks, Sep 30, 2026. Not financial advice.</div>
       </div>
       <script>
         (() => {

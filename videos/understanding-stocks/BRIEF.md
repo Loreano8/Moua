@@ -11,7 +11,7 @@ length: 31.4s
 
 ## Intent
 
-Campagne Binance Academy « Understanding Stocks » (du 30/09 au 11/10/2026, 10 gagnants le 12/10). Il y a deux posts : la vidéo, puis le certificat. Le concept « Learning the language » reprend l'accroche de la campagne (« Stocks are the language the modern economy speaks ») : un dictionnaire animé des termes du cours, la lecture d'une cotation d'exemple, le certificat, et la phrase clé de Loreano.
+Campagne Binance Academy « Understanding Stocks » (du 30/09 au 11/10/2026, 10 gagnants le 12/10). Il y a deux posts : la vidéo, puis le certificat. Le concept « Learning the language » reprend l'accroche de la campagne (« Stocks are the language the modern economy speaks ») : un dictionnaire animé des termes du cours, la lecture d'une vraie cotation Binance Stocks (NVDA), le certificat, et la phrase clé de Loreano.
 
 ## Assets
 
@@ -23,5 +23,6 @@ Campagne Binance Academy « Understanding Stocks » (du 30/09 au 11/10/2026, 10 
 ## Notes
 
 - Phrase clé choisie par Loreano : « A share is never a guarantee of profit » (module 1.1).
-- Les définitions viennent des descriptions du cours ; la cotation XYZ est un exemple fictif, signalé à l'écran.
+- Les définitions viennent des descriptions du cours.
+- Cotation : vraies données NVDA tirées de la capture Binance Stocks de Loreano du 30/09/2026 (dernier prix 227,21 $, −0,72 %, volume 61,99 M$). Le bid et l'ask n'y figurent pas, donc la carte montre ticker, dernier prix, variation et volume. Source indiquée à l'écran, avec « Not financial advice ».
 - #BinanceAcademyCourse seulement dans les posts, pas dans la vidéo.
