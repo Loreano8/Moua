@@ -24,5 +24,5 @@ Campagne Binance Academy « Understanding Stocks » (du 30/09 au 11/10/2026, 10 
 
 - Phrase clé choisie par Loreano : « A share is never a guarantee of profit » (module 1.1).
 - Les définitions viennent des descriptions du cours.
-- Cotation : vraies données NVDA tirées de la capture Binance Stocks de Loreano du 30/09/2026 (dernier prix 227,21 $, −0,72 %, volume 61,99 M$). Le bid et l'ask n'y figurent pas, donc la carte montre ticker, dernier prix, variation et volume. Source indiquée à l'écran, avec « Not financial advice ».
+- Cotation : vraies données NVDA tirées des captures Binance Stocks de Loreano du 30/09/2026, en pré-marché (Bid 228,01 $, Ask 228,10 $, soit un spread de 0,09 $ ; volume 269 778 actions). Ce sont exactement les éléments du module 3.1 : ticker, bid, ask, spread, volume. Source indiquée à l'écran, avec « Not financial advice ».
 - #BinanceAcademyCourse seulement dans les posts, pas dans la vidéo.
