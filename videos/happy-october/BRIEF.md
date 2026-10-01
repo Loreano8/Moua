@@ -15,7 +15,7 @@ Message vidéo du 1er octobre pour sa chérie : un selfie filmé « vite fait, s
 
 ## Assets
 
-- assets/video/selfie.mp4 — selfie d'origine (10,7 s), stabilisé (vidstab), légèrement accentué, 1080×1920 à 30 i/s ; grade « warm-daylight » appliqué dans la composition
+- assets/video/selfie.mp4 — selfie d'origine (10,7 s), stabilisé (vidstab), légèrement accentué, teinte chaude intégrée via ffmpeg (le grade WebGL en direct était trop lent sans GPU), 1080×1920 à 30 i/s
 - assets/audio/voice.m4a — voix nettoyée : très fort bruit de moteur à l'origine (rapport signal/bruit ≈ 1 dB → ≈ 15 dB). Chaîne ffmpeg : passe-haut 90 Hz, RNNoise ×2 (modèle « somnolent-hogwash »), gate doux, EQ de présence, compresseur, loudnorm −16 LUFS
 - assets/audio/bgm.m4a — musique originale générée par scripts/make-bgm.py (72 BPM, boîte à musique + nappe)
 - assets/img/portrait.jpg — image fixe extraite du selfie (t = 3 s) pour la carte de fin
