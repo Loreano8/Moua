@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Great Vibes"; src: url("assets/fonts/great-vibes.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "Playfair Display"; src: url("assets/fonts/playfair-700-italic.woff2") format("woff2"); font-weight: 700; font-style: italic; }
+      @font-face { font-family: "Montserrat"; src: url("assets/fonts/montserrat-500.woff2") format("woff2"); font-weight: 500; }
+      @font-face { font-family: "Montserrat"; src: url("assets/fonts/montserrat-700.woff2") format("woff2"); font-weight: 700; }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #2a0d17; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #2a0d17; }
+
+      .warm-bg { position: absolute; inset: 0; background:
+        radial-gradient(120% 70% at 50% 30%, #8a3b22 0%, #5a1a24 45%, #2a0d17 100%); }
+      .leaf { position: absolute; top: 0; left: 0; width: 90px; height: 90px; will-change: transform; }
+      .leaves { position: absolute; inset: 0; pointer-events: none; }
+
+      /* Intro */
+      #intro { position: absolute; inset: 0; }
+      #intro-copy { position: absolute; left: 80px; right: 80px; top: 620px; display: flex; flex-direction: column; align-items: center; gap: 30px; text-align: center; }
+      #intro-date { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 34px; letter-spacing: 0.42em; color: #f6c27a; opacity: 0; }
+      #intro-title { font-family: "Great Vibes", cursive; font-size: 190px; line-height: 1.05; color: #fff4e6; opacity: 0; text-shadow: 0 8px 40px rgba(0,0,0,0.35); }
+      #intro-crown { width: 150px; height: 110px; opacity: 0; }
+
+      /* Main footage */
+      #cam { position: absolute; inset: 0; transform-origin: 50% 40%; will-change: transform; }
+      #selfie { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      #glow { position: absolute; inset: 0; background:
+        radial-gradient(90% 60% at 50% 35%, rgba(255,190,120,0.10) 0%, rgba(255,190,120,0) 60%),
+        linear-gradient(to top, rgba(42,13,23,0.88) 0%, rgba(42,13,23,0.55) 22%, rgba(42,13,23,0) 42%),
+        linear-gradient(to bottom, rgba(42,13,23,0.45) 0%, rgba(42,13,23,0) 16%); }
+      #frame { position: absolute; inset: 34px; border: 3px solid rgba(246,194,122,0.55); border-radius: 46px; }
+      #tag { position: absolute; top: 120px; left: 0; right: 0; text-align: center; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 30px; letter-spacing: 0.42em; color: #fff4e6; opacity: 0; text-shadow: 0 2px 14px rgba(0,0,0,0.6); }
+
+      .cap { position: absolute; left: 90px; right: 90px; bottom: 300px; text-align: center; font-family: "Playfair Display", serif; font-style: italic; font-weight: 700; font-size: 92px; line-height: 1.1; color: #fff4e6; text-shadow: 0 4px 24px rgba(0,0,0,0.65); opacity: 0; }
+      .cap .gold { color: #f6c27a; }
+      #c5 .gold { display: inline-block; }
+      #big { position: absolute; left: 40px; right: 40px; bottom: 360px; text-align: center; font-family: "Great Vibes", cursive; font-size: 200px; line-height: 1; color: #f6c27a; text-shadow: 0 6px 34px rgba(0,0,0,0.7); opacity: 0; }
+
+      /* End card */
+      #end { position: absolute; inset: 0; }
+      #end-photo { position: absolute; left: 290px; top: 330px; width: 500px; height: 500px; border-radius: 50%; overflow: hidden; border: 8px solid #f6c27a; box-shadow: 0 20px 70px rgba(0,0,0,0.5); opacity: 0; }
+      #end-photo img { width: 100%; height: 100%; object-fit: cover; }
+      #end-copy { position: absolute; left: 80px; right: 80px; top: 900px; display: flex; flex-direction: column; align-items: center; gap: 24px; text-align: center; }
+      #end-title { font-family: "Great Vibes", cursive; font-size: 170px; line-height: 1; color: #f6c27a; opacity: 0; }
+      #end-sub { font-family: "Playfair Display", serif; font-style: italic; font-weight: 700; font-size: 70px; color: #fff4e6; opacity: 0; }
+      #end-note { font-family: "Montserrat", sans-serif; font-weight: 500; font-size: 42px; line-height: 1.4; color: #f3dcc4; max-width: 820px; opacity: 0; }
+      #end-heart { width: 120px; height: 110px; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <!-- "Happy October" — a good-morning message for his Queen. Selfie cleaned (RNNoise x2), stabilized, warm-graded. -->
+    <div data-hf-id="hf-qv3y" id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1080" data-height="1920">
+
+      <!-- 1. Intro -->
+      <div data-hf-id="hf-z7u7" id="intro" class="clip" data-start="0" data-duration="2.3" data-track-index="0">
+        <div data-hf-id="hf-thbd" class="warm-bg"></div>
+        <div data-hf-id="hf-8yw1" class="leaves" id="intro-leaves"></div>
+        <div data-hf-id="hf-v7k5" id="intro-copy">
+          <div data-hf-id="hf-u3yu" id="intro-date">OCTOBER 1ST</div>
+          <svg data-hf-id="hf-ps9w" id="intro-crown" viewBox="0 0 150 110" aria-hidden="true">
+            <path data-hf-id="hf-ogkl" d="M10 95 L18 30 L48 62 L75 12 L102 62 L132 30 L140 95 Z" fill="#f6c27a" stroke="#fff4e6" stroke-width="4" stroke-linejoin="round" />
+            <circle data-hf-id="hf-wa9n" cx="18" cy="26" r="8" fill="#fff4e6" /><circle data-hf-id="hf-uv4z" cx="75" cy="9" r="8" fill="#fff4e6" /><circle data-hf-id="hf-4u5s" cx="132" cy="26" r="8" fill="#fff4e6" />
+          </svg>
+          <div data-hf-id="hf-0xhl" id="intro-title">For my Queen</div>
+        </div>
+      </div>
+
+      <!-- 2. The selfie message -->
+      <div data-hf-id="hf-frxh" id="cam" data-layout-allow-overflow="">
+        <video id="selfie" data-color-grading='{"preset":"warm-daylight","intensity":0.8}' class="clip" src="assets/video/selfie.mp4" data-start="1.8" data-duration="8.8" data-media-start="0.6" data-track-index="1" muted playsinline></video>
+      </div>
+      <div data-hf-id="hf-ams1" id="main-overlay" class="clip" data-start="1.8" data-duration="8.8" data-track-index="2">
+        <div data-hf-id="hf-27c6" id="glow"></div>
+        <div data-hf-id="hf-xfzw" id="frame"></div>
+        <div data-hf-id="hf-9g6i" id="tag">GOOD MORNING</div>
+        <div data-hf-id="hf-lwul" class="leaves" id="burst-leaves"></div>
+        <div data-hf-id="hf-540d" class="cap" id="c1">Good morning, <span data-hf-id="hf-6a7f" class="gold">Queen</span></div>
+        <div data-hf-id="hf-5q6g" class="cap" id="c2">I just want to say…</div>
+        <div data-hf-id="hf-8lrp" id="big">Happy October</div>
+        <div data-hf-id="hf-zvt7" class="cap" id="c3">Bye!</div>
+        <div data-hf-id="hf-lnpn" class="cap" id="c4">Peace ✌</div>
+        <div data-hf-id="hf-4c0t" class="cap" id="c5">Love you <span data-hf-id="hf-j0ku" class="gold">♥</span></div>
+      </div>
+
+      <!-- 3. End card -->
+      <div data-hf-id="hf-ic29" id="end" class="clip" data-start="10.3" data-duration="4.7" data-track-index="3">
+        <div data-hf-id="hf-s8v1" class="warm-bg"></div>
+        <div data-hf-id="hf-auxu" class="leaves" id="end-leaves"></div>
+        <div data-hf-id="hf-clbr" id="end-photo"><img data-hf-id="hf-qu8m" src="assets/img/portrait.jpg" alt=""></div>
+        <div data-hf-id="hf-tzi6" id="end-copy">
+          <div data-hf-id="hf-aijl" id="end-title">Happy October</div>
+          <div data-hf-id="hf-onl1" id="end-sub">my Queen</div>
+          <div data-hf-id="hf-b79z" id="end-note">May this month bring you as much joy as you bring me.</div>
+          <svg data-hf-id="hf-ktk5" id="end-heart" viewBox="0 0 120 110" aria-hidden="true">
+            <path data-hf-id="hf-sc59" d="M60 104 C20 74 4 52 4 32 C4 14 18 4 34 4 C46 4 55 11 60 22 C65 11 74 4 86 4 C102 4 116 14 116 32 C116 52 100 74 60 104 Z" fill="#e2574c" stroke="#f6c27a" stroke-width="4" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Sound -->
+      <audio data-hf-id="hf-fw7m" id="voice" src="assets/audio/voice.m4a" data-start="1.8" data-duration="8.8" data-media-start="0.6" data-track-index="10" data-volume="1" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.15,&quot;v&quot;:1},{&quot;t&quot;:8.45,&quot;v&quot;:1},{&quot;t&quot;:8.8,&quot;v&quot;:0}]}]}"></audio>
+      <audio data-hf-id="hf-m7u9" id="bgm" src="assets/audio/bgm.m4a" data-start="0" data-duration="15" data-track-index="11" data-volume="1" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0.55},{&quot;t&quot;:1.6,&quot;v&quot;:0.55},{&quot;t&quot;:2.1,&quot;v&quot;:0.14},{&quot;t&quot;:10.2,&quot;v&quot;:0.14},{&quot;t&quot;:10.9,&quot;v&quot;:0.6},{&quot;t&quot;:15,&quot;v&quot;:0.6}]}]}"></audio>
+      <audio data-hf-id="hf-prz0" id="sfx-chime" src="assets/sfx/chime.mp3" data-start="0.35" data-duration="2.5" data-track-index="12" data-volume="0.45"></audio>
+      <audio data-hf-id="hf-7b3a" id="sfx-chime-end" src="assets/sfx/chime.mp3" data-start="10.5" data-duration="2.5" data-track-index="13" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      (() => {
+        const LEAF = '<svg viewBox="0 0 100 100"><path d="M50 4 L58 28 L78 18 L72 40 L96 42 L76 56 L86 76 L62 70 L54 96 L50 74 L46 96 L38 70 L14 76 L24 56 L4 42 L28 40 L22 18 L42 28 Z" fill="COLOR"/><path d="M50 30 L50 96" stroke="rgba(0,0,0,0.25)" stroke-width="3"/></svg>';
+        const COLORS = ["#e8742c", "#c9432b", "#f2a33a", "#a8321f", "#f6c27a"];
+        // Deterministic pseudo-random (seeded LCG)
+        let seed = 1001;
+        const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+        const tl = gsap.timeline({ paused: true });
+
+        function fall(containerId, count, t0, span, fromY) {
+          const box = document.getElementById(containerId);
+          for (let i = 0; i < count; i++) {
+            const el = document.createElement("div");
+            el.className = "leaf";
+            el.innerHTML = LEAF.replace("COLOR", COLORS[i % COLORS.length]);
+            box.appendChild(el);
+            const x = 40 + rnd() * 1000, s = 0.5 + rnd() * 0.8, drift = (rnd() - 0.5) * 260;
+            const r0 = rnd() * 360, dur = span * (0.75 + rnd() * 0.4), delay = rnd() * span * 0.35;
+            tl.fromTo(el, { x: x, y: fromY - rnd() * 300, rotation: r0, scale: s, opacity: 0.9 },
+              { x: x + drift, y: 2050, rotation: r0 + (rnd() > 0.5 ? 300 : -300), duration: dur, ease: "none" }, t0 + delay);
+          }
+        }
+
+        // Intro
+        fall("intro-leaves", 14, 0, 2.6, -150);
+        tl.fromTo("#intro-date", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+        tl.fromTo("#intro-crown", { opacity: 0, scale: 0.6, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(2)" }, 0.35);
+        tl.fromTo("#intro-title", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.5);
+        tl.to("#intro-copy", { opacity: 0, y: -40, duration: 0.45, ease: "power2.in" }, 1.75);
+        tl.to("#intro", { opacity: 0, duration: 0.5, ease: "none" }, 1.8);
+
+        // Footage: slow push-in, frame + tag
+        tl.fromTo("#cam", { scale: 1.0 }, { scale: 1.07, duration: 8.8, ease: "none" }, 1.8);
+        tl.fromTo("#tag", { opacity: 0, y: -20 }, { opacity: 0.95, y: 0, duration: 0.5, ease: "power2.out" }, 2.1);
+        tl.to("#tag", { opacity: 0, duration: 0.4 }, 4.7);
+
+        // Captions, synced to the voice (comp time = source time + 1.2)
+        function cap(id, tIn, tOut) {
+          tl.fromTo(id, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, tIn);
+          tl.to(id, { opacity: 0, y: -20, duration: 0.25, ease: "power2.in" }, tOut);
+        }
+        cap("#c1", 2.05, 3.55);
+        cap("#c2", 3.7, 4.85);
+        tl.fromTo("#big", { opacity: 0, scale: 0.7, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(1.6)" }, 4.95);
+        tl.to("#big", { opacity: 0, scale: 1.05, duration: 0.35, ease: "power2.in" }, 6.45);
+        fall("burst-leaves", 12, 4.4, 3.2, -200);
+        cap("#c3", 6.75, 7.75);
+        cap("#c4", 8.15, 9.05);
+        cap("#c5", 9.35, 10.25);
+        tl.fromTo("#c5 .gold", { scale: 1 }, { scale: 1.25, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut", transformOrigin: "50% 60%" }, 9.5);
+
+        // End card
+        tl.fromTo("#end", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "none" }, 10.3);
+        fall("end-leaves", 14, 10.3, 4.8, -150);
+        tl.fromTo("#end-photo", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.4)" }, 10.5);
+        tl.fromTo("#end-title", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 10.9);
+        tl.fromTo("#end-sub", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 11.4);
+        tl.fromTo("#end-note", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 11.9);
+        tl.fromTo("#end-heart", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2.5)" }, 12.5);
+        tl.to("#end-heart", { scale: 1.15, duration: 0.3, yoyo: true, repeat: 5, ease: "sine.inOut" }, 13.0);
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
