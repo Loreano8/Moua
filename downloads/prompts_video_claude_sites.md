@@ -35,3 +35,26 @@ Le prompt n'apparaît pas à l'écran dans la vidéo : on voit seulement le rés
 ---
 
 Dans les 5 cas, il utilise Claude (onglet « Code », modèle Opus) puis déploie le site via GitHub et Hostinger. Le PDF qu'on voit vers 27:00 (« Les 5 types de sites ») contient probablement tous les prompts : c'est sûrement la ressource qu'il distribue à sa communauté.
+
+---
+
+## Bonus : le GitHub de skills montré vers 17:20 — « Taste Skill »
+
+https://github.com/Leonxlnx/taste-skill (site : https://tasteskill.dev)
+
+Une collection de skills qui poussent l'IA à produire des interfaces plus soignées (« anti-slop ») au lieu de designs génériques.
+
+Installation dans Claude Code :
+
+```
+/plugin marketplace add Leonxlnx/taste-skill
+/plugin install taste-skill@taste-skill
+```
+
+Ou avec npx (Claude Code, Cursor, Codex…) :
+
+```
+npx skills add https://github.com/Leonxlnx/taste-skill
+```
+
+Le skill principal (`design-taste-frontend`) se règle avec 3 curseurs de 1 à 10 en haut du fichier : DESIGN_VARIANCE (mise en page sage ou asymétrique), MOTION_INTENSITY (animations), VISUAL_DENSITY (quantité de contenu par écran). Il existe aussi des variantes : soft, minimalist, brutalist, redesign, etc.
