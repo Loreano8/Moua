@@ -1,0 +1,47 @@
+{
+  "total": 23.16,
+  "lines": [
+    {
+      "who": "bernard",
+      "text": "Bonjour ! Je vous ai refait mon gâteau aux carottes !",
+      "start": 0.6,
+      "end": 3.974
+    },
+    {
+      "who": "mere",
+      "text": "Oh, il ne fallait pas ! On l'adore, votre gâteau !",
+      "start": 4.324,
+      "end": 7.483
+    },
+    {
+      "who": "leo",
+      "text": "Bah non. La dernière fois, tu l'as donné au chien.",
+      "start": 7.783,
+      "end": 10.45
+    },
+    {
+      "who": "mere",
+      "text": "Euh... Il plaisante, hein !",
+      "start": 11.05,
+      "end": 12.41
+    },
+    {
+      "who": "leo",
+      "text": "Non, c'est vrai. Même le chien, il l'a pas fini.",
+      "start": 12.71,
+      "end": 15.784
+    },
+    {
+      "who": "mere",
+      "text": "Léo. Dans ta chambre.",
+      "start": 17.384,
+      "end": 18.836
+    },
+    {
+      "who": "leo",
+      "text": "D'accord ! Je peux prendre le gâteau ? Pour le chien ?",
+      "start": 19.336,
+      "end": 22.16
+    }
+  ]
+}
