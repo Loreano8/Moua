@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: linear-gradient(to bottom, #f7b84a 0%, #f07a3a 45%, #8a3b4f 80%, #2b1a4a 100%); overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #140f2b; }
+
+        #s5-sun { position: absolute; left: 540px; top: 420px; width: 360px; height: 360px; margin: -180px 0 0 -180px; border-radius: 50%; background: radial-gradient(circle, #fffbe6 0%, #fff0a8 50%, rgba(255,240,168,0) 72%); will-change: transform; }
+        #s5-chip { position: absolute; left: 50%; top: 720px; transform: translateX(-50%); padding: 16px 34px; border-radius: 999px; background: #140f2b; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; color: #f0b90b; white-space: nowrap; opacity: 0; }
+        #s5-text { position: absolute; left: 60px; right: 60px; top: 840px; text-align: center; font-family: "Archivo Black", sans-serif; font-size: 136px; line-height: 0.98; letter-spacing: -0.045em; color: #140f2b; }
+        #s5-cta { position: absolute; left: 60px; right: 60px; top: 1190px; text-align: center; font-family: "Archivo Black", sans-serif; font-size: 60px; line-height: 1.1; letter-spacing: -0.02em; color: #140f2b; opacity: 0; }
+        #s5-foot { position: absolute; left: 80px; right: 80px; top: 1560px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 26px; line-height: 1.45; color: #e9def8; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s5-outro" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+        <div id="s5-sun" data-layout-allow-overflow></div>
+        <div id="s5-chip">OCT 23 → NOV 20</div>
+        <div id="s5-text"><span class="w">Have</span> <span class="w">a</span> <span class="w">great</span><br /><span class="w">week!</span></div>
+        <div id="s5-cta">Hold RLUSD. Earn XRP.</div>
+        <div id="s5-foot">Not financial advice · Region &amp; eligibility rules apply<br />Source: Binance announcement, Oct 21, 2026</div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 0.5;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 90 : 50 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.2 : 0.16, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s5-sun", { y: 120, scale: 0.8 }, { y: 0, scale: 1.1, duration: 8 * B, ease: "power1.out" }, 0);
+          tl.fromTo("#s5-chip", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+          waterfall("#s5-text", 0.25, 0.45);
+          tl.fromTo("#s5-cta", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" }, 2 * B);
+          tl.fromTo("#s5-foot", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 3 * B);
+          window.__timelines["s5-outro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

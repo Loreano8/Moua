@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #140f2b; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+
+        #s1-sky { position: absolute; inset: 0; background: linear-gradient(to bottom, #140f2b 0%, #2b1a4a 38%, #8a3b4f 66%, #f07a3a 86%, #f7b84a 100%); will-change: opacity; }
+        #s1-sun { position: absolute; left: 540px; top: 1500px; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, #fff3c4 0%, #f7d25a 38%, #f0b90b 62%, rgba(240,185,11,0) 72%); will-change: transform; }
+        #s1-glow { position: absolute; left: 540px; top: 1500px; width: 1500px; height: 1500px; margin: -750px 0 0 -750px; border-radius: 50%; background: radial-gradient(circle, rgba(247,184,74,0.45) 0%, rgba(247,184,74,0) 60%); will-change: transform; }
+        #s1-label { position: absolute; left: 80px; top: 300px; opacity: 0; }
+        #s1-a { position: absolute; left: 80px; right: 80px; top: 380px; font-family: "Archivo Black", sans-serif; font-size: 172px; line-height: 0.95; letter-spacing: -0.045em; color: #fff7e6; }
+        #s1-b { position: absolute; left: 80px; right: 80px; top: 790px; font-family: "Archivo Black", sans-serif; font-size: 84px; line-height: 1.05; letter-spacing: -0.03em; color: #fff7e6; }
+      </style>
+      <div id="root" data-composition-id="s1-morning" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+        <div id="s1-sky"></div>
+        <div id="s1-glow" data-layout-allow-overflow></div>
+        <div id="s1-sun" data-layout-allow-overflow></div>
+        <div id="s1-label" class="label">MONDAY · OCT 26</div>
+        <div id="s1-a"><span class="w">Good</span><br /><span class="w y">morning!</span></div>
+        <div id="s1-b"><span class="w">New</span> <span class="w">week.</span><br /><span class="w y">New</span> <span class="w y">rewards.</span></div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 0.5;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 90 : 50 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.2 : 0.16, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s1-sun", { y: 420, scale: 0.85 }, { y: 0, scale: 1, duration: 8 * B, ease: "power2.out" }, 0);
+          tl.fromTo("#s1-glow", { y: 420, scale: 0.6 }, { y: 0, scale: 1.1, duration: 8 * B, ease: "power2.out" }, 0);
+          tl.fromTo("#s1-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+          waterfall("#s1-a", 0.25, 0.3);
+          waterfall("#s1-b", 4 * B, 0.5);
+          tl.to("#s1-label, #s1-a, #s1-b", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in" }, 8 * B - 0.22);
+          window.__timelines["s1-morning"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

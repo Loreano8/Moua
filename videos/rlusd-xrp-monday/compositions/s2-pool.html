@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #140f2b; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+        .rays { position: absolute; left: 540px; top: 760px; width: 2400px; height: 2400px; margin: -1200px 0 0 -1200px; background: repeating-conic-gradient(rgba(240,185,11,0.10) 0deg 8deg, rgba(240,185,11,0) 8deg 20deg); border-radius: 50%; will-change: transform; }
+
+        #s2-label { position: absolute; left: 0; right: 0; top: 420px; text-align: center; opacity: 0; }
+        #s2-num { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font-family: "Archivo Black", sans-serif; font-size: 190px; line-height: 1; letter-spacing: -0.05em; color: #f0b90b; font-variant-numeric: tabular-nums; opacity: 0; }
+        #s2-unit { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-family: "Archivo Black", sans-serif; font-size: 120px; line-height: 1; letter-spacing: -0.03em; color: #fff7e6; opacity: 0; }
+        #s2-sub { position: absolute; left: 0; right: 0; top: 900px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 40px; letter-spacing: 0.12em; color: #d9cfee; opacity: 0; }
+        #s2-b { position: absolute; left: 80px; right: 80px; top: 1180px; text-align: center; font-family: "Archivo Black", sans-serif; font-size: 96px; line-height: 1.05; letter-spacing: -0.03em; color: #fff7e6; }
+      </style>
+      <div id="root" data-composition-id="s2-pool" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+        <div class="rays" id="s2-rays" data-layout-allow-overflow></div>
+        <div id="s2-label" class="label">PRIZE POOL</div>
+        <div id="s2-num">0</div>
+        <div id="s2-unit">XRP</div>
+        <div id="s2-sub">TO SHARE · NO INDIVIDUAL CAP</div>
+        <div id="s2-b"><span class="w">Just</span> <span class="w">hold</span><br /><span class="w y">RLUSD.</span></div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 0.5;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 90 : 50 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.2 : 0.16, ease: "power4.out" }, t);
+            });
+          }
+
+          const num = document.querySelector("#s2-num");
+          const counter = { v: 0 };
+          tl.fromTo("#s2-rays", { rotation: 0 }, { rotation: 40, duration: 8 * B, ease: "none" }, 0);
+          tl.fromTo("#s2-label", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+          tl.fromTo("#s2-num", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.2);
+          tl.fromTo(counter, { v: 0 }, {
+            v: 600000, duration: 2.5 * B, ease: "power3.out",
+            onUpdate: () => { num.textContent = Math.round(counter.v).toLocaleString("en-US"); }
+          }, 0.2);
+          tl.fromTo("#s2-num", { scale: 1 }, { scale: 1.08, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, 0.2 + 2.5 * B);
+          tl.fromTo("#s2-unit", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.25, ease: "power4.out" }, 0.2 + 2.5 * B);
+          tl.fromTo("#s2-sub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 4 * B);
+          waterfall("#s2-b", 5 * B, 0.3);
+          tl.to("#s2-label, #s2-num, #s2-unit, #s2-sub, #s2-b", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in" }, 8 * B - 0.22);
+          window.__timelines["s2-pool"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: linear-gradient(to bottom, #140f2b 0%, #24183f 100%); overflow: hidden; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+
+        #s3-label { position: absolute; left: 80px; top: 300px; opacity: 0; }
+        #s3-title { position: absolute; left: 80px; right: 80px; top: 360px; font-family: "Archivo Black", sans-serif; font-size: 104px; line-height: 1; letter-spacing: -0.035em; color: #fff7e6; opacity: 0; }
+        .card { position: absolute; left: 80px; right: 80px; height: 250px; border-radius: 36px; background: #fff7e6; color: #140f2b; opacity: 0; will-change: transform; }
+        .card .n { position: absolute; left: 40px; top: 50%; width: 120px; height: 120px; margin-top: -60px; border-radius: 50%; background: #f0b90b; font-family: "Archivo Black", sans-serif; font-size: 64px; line-height: 120px; text-align: center; color: #140f2b; }
+        .card .t { position: absolute; left: 200px; right: 30px; top: 52px; font-family: "Archivo Black", sans-serif; font-size: 60px; line-height: 1.05; letter-spacing: -0.02em; }
+        .card .s { position: absolute; left: 200px; right: 30px; top: 140px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; line-height: 1.25; color: #4a3d66; }
+        #s3-c1 { top: 600px; }
+        #s3-c2 { top: 890px; }
+        #s3-c3 { top: 1180px; }
+      </style>
+      <div id="root" data-composition-id="s3-how" data-start="0" data-duration="5" data-width="1080" data-height="1920">
+        <div id="s3-label" class="label">HOW IT WORKS</div>
+        <div id="s3-title">3 easy steps</div>
+        <div class="card" id="s3-c1"><div class="n">1</div><div class="t">Hold ≥ 0.01 RLUSD</div><div class="s">Spot · Funding · Earn · Margin</div></div>
+        <div class="card" id="s3-c2"><div class="n">2</div><div class="t">Verify &amp; join</div><div class="s">Confirm participation on Binance</div></div>
+        <div class="card" id="s3-c3"><div class="n">3</div><div class="t">Get XRP weekly</div><div class="s">Every Friday · first drop Oct 30</div></div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 0.5;
+          tl.fromTo("#s3-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+          tl.fromTo("#s3-title", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" }, 0.15);
+          ["#s3-c1", "#s3-c2", "#s3-c3"].forEach((sel, i) => {
+            const t = (2 + i * 2) * B;
+            tl.fromTo(sel, { opacity: 0, x: 220, rotation: 3 }, { opacity: 1, x: 0, rotation: 0, duration: 0.35, ease: "back.out(1.6)" }, t);
+            tl.fromTo(sel + " .n", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t + 0.12);
+          });
+          tl.to("#s3-label, #s3-title, .card", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in", stagger: 0.03 }, 10 * B - 0.3);
+          window.__timelines["s3-how"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #f0b90b; overflow: hidden; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #140f2b; }
+
+        #s4-label { position: absolute; left: 80px; top: 300px; opacity: 0; }
+        #s4-title { position: absolute; left: 80px; right: 80px; top: 360px; font-family: "Archivo Black", sans-serif; font-size: 112px; line-height: 0.98; letter-spacing: -0.04em; color: #140f2b; opacity: 0; }
+        .row { position: absolute; left: 80px; right: 80px; height: 220px; opacity: 0; will-change: transform; }
+        .row .x { position: absolute; left: 0; top: 0; width: 300px; height: 220px; border-radius: 32px; background: #140f2b; color: #f0b90b; font-family: "Archivo Black", sans-serif; font-size: 112px; line-height: 220px; text-align: center; letter-spacing: -0.04em; }
+        .row .d { position: absolute; left: 340px; right: 0; top: 50%; transform: translateY(-50%); font-family: "Archivo Black", sans-serif; font-size: 50px; line-height: 1.08; letter-spacing: -0.02em; color: #140f2b; }
+        #s4-r1 { top: 720px; }
+        #s4-r2 { top: 980px; }
+        #s4-r3 { top: 1240px; }
+        #s4-r3 .x { background: #fff7e6; color: #140f2b; }
+      </style>
+      <div id="root" data-composition-id="s4-boost" data-start="0" data-duration="3" data-width="1080" data-height="1920">
+        <div id="s4-label" class="label">BONUS</div>
+        <div id="s4-title">Boost your share</div>
+        <div class="row" id="s4-r1"><div class="x">1.2x</div><div class="d">Grow your RLUSD vs. the last 2 weeks</div></div>
+        <div class="row" id="s4-r2"><div class="x">1.1x</div><div class="d">Subscribe to RLUSD Simple Earn</div></div>
+        <div class="row" id="s4-r3"><div class="x">1.3x</div><div class="d">Do both</div></div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 0.5;
+          tl.fromTo("#s4-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.25, ease: "expo.out" }, 0.05);
+          tl.fromTo("#s4-title", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.28, ease: "power4.out" }, 0.1);
+          ["#s4-r1", "#s4-r2", "#s4-r3"].forEach((sel, i) => {
+            const t = (1 + i) * B;
+            tl.fromTo(sel, { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.25, ease: "power4.out" }, t);
+            tl.fromTo(sel + " .x", { scale: 0.6 }, { scale: 1, duration: 0.3, ease: "back.out(3)" }, t);
+          });
+          tl.to("#s4-r3 .x", { scale: 1.1, duration: 0.15, yoyo: true, repeat: 1, ease: "power2.out" }, 4 * B);
+          tl.to("#s4-label, #s4-title, .row", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in" }, 6 * B - 0.22);
+          window.__timelines["s4-boost"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
