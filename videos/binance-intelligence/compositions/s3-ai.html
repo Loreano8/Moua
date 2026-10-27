@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+        .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+
+        #s3-label { position: absolute; left: 90px; top: 300px; opacity: 0; }
+        #s3-ttl { position: absolute; left: 90px; right: 90px; top: 370px; font-family: "Archivo Black", sans-serif; font-size: 150px; line-height: 1.0; letter-spacing: -0.045em; color: #f5f1e6; }
+        #s3-ttl .ln { display: block; white-space: nowrap; }
+        #s3-chips { position: absolute; left: 90px; right: 90px; top: 1000px; display: flex; flex-wrap: wrap; gap: 26px; }
+        .chip { padding: 22px 36px; border-radius: 999px; background: #f4ecd8; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 38px; color: #1a1712; opacity: 0; will-change: transform; }
+        #s3-foot { position: absolute; left: 90px; right: 90px; top: 1440px; font-family: "JetBrains Mono", monospace; font-size: 34px; line-height: 1.4; color: #cfc8b8; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s3-ai" data-start="0" data-duration="5" data-width="1080" data-height="1920">
+        <div id="s3-grid" class="grid" data-layout-allow-overflow></div>
+        <div id="s3-label" class="label">01 · BINANCE AI</div>
+        <div id="s3-ttl">
+          <span class="ln" id="s3-l1"><span class="w">It</span> <span class="w">explains.</span></span>
+          <span class="ln" id="s3-l2"><span class="w y">It</span> <span class="w y">never</span></span>
+          <span class="ln" id="s3-l3"><span class="w y">trades.</span></span>
+        </div>
+        <div id="s3-chips">
+          <div class="chip" id="s3-c0">Market Brief</div>
+          <div class="chip" id="s3-c1">Smart Tool Tips</div>
+          <div class="chip" id="s3-c2">Generative UI</div>
+          <div class="chip" id="s3-c3">Master Trade</div>
+        </div>
+        <div id="s3-foot">Your 24/7 assistant inside the app. Context on what you hold. You make every call.</div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 60 / 96;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s3-grid", { y: 0 }, { y: -120, duration: 8 * B, ease: "none" }, 0);
+          tl.fromTo("#s3-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+          waterfall("#s3-l1", 0.25, 0.2);
+          waterfall("#s3-l2", 0.25 + B, 0.2);
+          waterfall("#s3-l3", 0.25 + 1.5 * B, 0.1);
+          ["#s3-c0", "#s3-c1", "#s3-c2", "#s3-c3"].forEach((id, i) => {
+            tl.fromTo(id, { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, (3 + 0.5 * i) * B);
+          });
+          tl.fromTo("#s3-foot", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 5.5 * B);
+          tl.to("#s3-ttl, #s3-label, #s3-chips, #s3-foot", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in" }, 8 * B - 0.25);
+          window.__timelines["s3-ai"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

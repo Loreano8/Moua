@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #f0b90b; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+
+        #s6-label { position: absolute; left: 90px; top: 300px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #0c0b09; opacity: 0; }
+        #s6-ttl { position: absolute; left: 90px; right: 90px; top: 370px; font-family: "Archivo Black", sans-serif; font-size: 150px; line-height: 1.0; letter-spacing: -0.045em; color: #0c0b09; }
+        #s6-ttl .ln { display: block; white-space: nowrap; }
+        .chk { position: absolute; left: 90px; right: 90px; height: 130px; display: flex; align-items: center; gap: 40px; opacity: 0; will-change: transform; }
+        #s6-k0 { top: 900px; }
+        #s6-k1 { top: 1060px; }
+        #s6-k2 { top: 1220px; }
+        #s6-k3 { top: 1380px; }
+        .box { flex: none; width: 96px; height: 96px; border-radius: 22px; background: #0c0b09; color: #f0b90b; font-family: "Archivo Black", sans-serif; font-size: 64px; display: flex; align-items: center; justify-content: center; }
+        .kt { font-family: "Archivo Black", sans-serif; font-size: 64px; letter-spacing: -0.03em; color: #0c0b09; white-space: nowrap; }
+      </style>
+      <div id="root" data-composition-id="s6-control" data-start="0" data-duration="3.75" data-width="1080" data-height="1920">
+        <div id="s6-label">ALL THREE PRODUCTS</div>
+        <div id="s6-ttl">
+          <span class="ln" id="s6-l1"><span class="w">You</span> <span class="w">stay</span></span>
+          <span class="ln" id="s6-l2"><span class="w">in</span> <span class="w">control.</span></span>
+        </div>
+        <div class="chk" id="s6-k0"><div class="box">✓</div><div class="kt">Permissions you set</div></div>
+        <div class="chk" id="s6-k1"><div class="box">✓</div><div class="kt">Funding limits</div></div>
+        <div class="chk" id="s6-k2"><div class="box">✓</div><div class="kt">Isolated sub-accounts</div></div>
+        <div class="chk" id="s6-k3"><div class="box">✓</div><div class="kt">Revoke anytime</div></div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          const B = 60 / 96;
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+
+          tl.fromTo("#s6-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+          waterfall("#s6-l1", 0.2, 0.2);
+          waterfall("#s6-l2", 0.2 + 0.6 * B, 0.2);
+          ["#s6-k0", "#s6-k1", "#s6-k2", "#s6-k3"].forEach((id, i) => {
+            tl.fromTo(id, { opacity: 0, x: -120 }, { opacity: 1, x: 0, duration: 0.3, ease: "back.out(1.8)" }, (2 + 0.75 * i) * B);
+          });
+          tl.to("#s6-ttl, #s6-label, #s6-k0, #s6-k1, #s6-k2, #s6-k3", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in" }, 6 * B - 0.25);
+          window.__timelines["s6-control"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
