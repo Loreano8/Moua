@@ -2,9 +2,9 @@
 
 Binance now has 3 AI products. Which one is for you? 🤖
 
-🟡 Binance AI explains your market, never trades
-🟡 AI Pro turns a plain-English idea into a tested, automated workflow
-🟡 Agent OS plugs your own AI agent into Binance, permissions OFF by default
+🟡 Binance AI explains the market around what you hold, and never trades for you
+🟡 AI Pro turns a trading idea in plain language into an automated workflow you can test, then approve
+🟡 Agent OS plugs your own AI agent into Binance, with every permission except read access OFF by default
 
 And with all three, you stay in control.
 
