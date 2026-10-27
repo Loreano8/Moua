@@ -1,12 +1,20 @@
-# Post X (anglais)
+# Post X (anglais) — avec la vidéo, lien en commentaire
 
-Binance now has 3 AI products. Which one is for you? 🤖
+## Post
 
-🟡 Binance AI explains the market around what you hold, and never trades for you
-🟡 AI Pro turns a trading idea in plain language into an automated workflow you can test, then approve
-🟡 Agent OS plugs your own AI agent into Binance, with every permission except read access OFF by default
+gm ☀️
 
-And with all three, you stay in control.
+Binance now has 3 AI products. Which one is for you?
 
-Full breakdown 👇
+🟡 Binance AI explains, never trades
+🟡 AI Pro: plain-language idea → automated workflow you approve
+🟡 Agent OS: plug in your own AI agent
+
+All three keep you in control.
+
+Full breakdown in the comments 👇
+
+## Commentaire (réponse au post)
+
+📖 Binance Intelligence Explained: Binance AI vs. Binance AI Pro vs. Agent OS
 https://www.binance.com/en/blog/tech/2612927534315150666
