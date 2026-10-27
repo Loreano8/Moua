@@ -11,16 +11,38 @@
         .y { color: #f0b90b; }
         .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
         .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+        .spark { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: #f0b90b; box-shadow: 0 0 18px 4px rgba(240,185,11,0.7); opacity: 0; }
 
-        #s3-label { position: absolute; left: 90px; top: 300px; opacity: 0; }
-        #s3-ttl { position: absolute; left: 90px; right: 90px; top: 370px; font-family: "Archivo Black", sans-serif; font-size: 150px; line-height: 1.0; letter-spacing: -0.045em; color: #f5f1e6; }
+        #s3-glow { position: absolute; left: 90px; top: 200px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(240,185,11,0.32) 0%, rgba(240,185,11,0) 65%); opacity: 0; }
+        #s3-art { position: absolute; left: 90px; top: 180px; width: 900px; height: 900px; opacity: 0; transform-origin: 50% 50%; will-change: transform; }
+        #s3-img { display: block; width: 100%; height: 100%; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 70%); mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 70%); }
+        #s3-intro { position: absolute; left: 80px; right: 80px; top: 1180px; }
+        #s3-num { opacity: 0; }
+        #s3-name { margin-top: 24px; font-family: "Archivo Black", sans-serif; font-size: 150px; line-height: 1; letter-spacing: -0.045em; color: #f5f1e6; white-space: nowrap; }
+        #s3-tag { margin-top: 30px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 40px; color: #f0b90b; opacity: 0; }
+
+        #s3-label { position: absolute; left: 90px; top: 250px; opacity: 0; }
+        #s3-ttl { position: absolute; left: 90px; right: 90px; top: 320px; font-family: "Archivo Black", sans-serif; font-size: 140px; line-height: 1.0; letter-spacing: -0.045em; color: #f5f1e6; }
         #s3-ttl .ln { display: block; white-space: nowrap; }
-        #s3-chips { position: absolute; left: 90px; right: 90px; top: 1000px; display: flex; flex-wrap: wrap; gap: 26px; }
-        .chip { padding: 22px 36px; border-radius: 999px; background: #f4ecd8; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 38px; color: #1a1712; opacity: 0; will-change: transform; }
-        #s3-foot { position: absolute; left: 90px; right: 90px; top: 1440px; font-family: "JetBrains Mono", monospace; font-size: 34px; line-height: 1.4; color: #cfc8b8; opacity: 0; }
+        #s3-chips { position: absolute; left: 90px; right: 90px; top: 790px; display: flex; flex-wrap: wrap; gap: 24px; }
+        .chip { padding: 20px 34px; border-radius: 999px; background: #f4ecd8; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 36px; color: #1a1712; opacity: 0; will-change: transform; }
       </style>
-      <div id="root" data-composition-id="s3-ai" data-start="0" data-duration="5" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="s3-ai" data-start="0" data-duration="6.85" data-width="1080" data-height="1920">
         <div id="s3-grid" class="grid" data-layout-allow-overflow></div>
+        <div id="s3-glow"></div>
+        <div id="s3-art" data-layout-allow-overlap><img id="s3-img" src="assets/img/i1-phone.jpg" alt="A smartphone with golden holographic market charts and a friendly AI orb" /></div>
+        <div class="spark" style="left: 170px; top: 980px"></div>
+        <div class="spark" style="left: 300px; top: 1060px"></div>
+        <div class="spark" style="left: 470px; top: 1010px"></div>
+        <div class="spark" style="left: 640px; top: 1080px"></div>
+        <div class="spark" style="left: 790px; top: 990px"></div>
+        <div class="spark" style="left: 900px; top: 1050px"></div>
+        <div id="s3-intro">
+          <div id="s3-num" class="label">01 · BINANCE AI</div>
+          <div id="s3-name"><span class="w">Binance</span> <span class="w y">AI</span></div>
+          <div id="s3-tag">Your assistant inside the app</div>
+        </div>
+
         <div id="s3-label" class="label">01 · BINANCE AI</div>
         <div id="s3-ttl">
           <span class="ln" id="s3-l1"><span class="w">It</span> <span class="w">explains.</span></span>
@@ -33,12 +55,10 @@
           <div class="chip" id="s3-c2">Generative UI</div>
           <div class="chip" id="s3-c3">Master Trade</div>
         </div>
-        <div id="s3-foot">Your 24/7 assistant inside the app. Context on what you hold. You make every call.</div>
       </div>
       <script>
         (() => {
           const tl = gsap.timeline({ paused: true });
-          const B = 60 / 96;
           function waterfall(sel, t0, maxSpan) {
             const words = gsap.utils.toArray(sel + " .w");
             const step = Math.min(0.13, maxSpan / words.length);
@@ -50,16 +70,32 @@
             });
           }
 
-          tl.fromTo("#s3-grid", { y: 0 }, { y: -120, duration: 8 * B, ease: "none" }, 0);
-          tl.fromTo("#s3-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
-          waterfall("#s3-l1", 0.25, 0.2);
-          waterfall("#s3-l2", 0.25 + B, 0.2);
-          waterfall("#s3-l3", 0.25 + 1.5 * B, 0.1);
-          ["#s3-c0", "#s3-c1", "#s3-c2", "#s3-c3"].forEach((id, i) => {
-            tl.fromTo(id, { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, (3 + 0.5 * i) * B);
+          tl.fromTo("#s3-grid", { y: 0 }, { y: -160, duration: 6.85, ease: "none" }, 0);
+          // Reveal: the assistant arrives big while the voice introduces it
+          tl.fromTo("#s3-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.1, duration: 1.0, ease: "power2.out" }, 0);
+          tl.fromTo("#s3-art", { opacity: 0, scale: 0.6, rotation: 8, y: 80 }, { opacity: 1, scale: 1, rotation: 0, y: 0, duration: 0.7, ease: "back.out(1.5)" }, 0);
+          tl.to("#s3-art", { y: -24, duration: 1.0, ease: "sine.inOut" }, 0.7);
+          gsap.utils.toArray("#root .spark").forEach((el, i) => {
+            tl.fromTo(el, { opacity: 0, y: 0, scale: 0.4 }, { opacity: 1, y: -260 - 40 * (i % 3), scale: 1, duration: 1.1, ease: "power1.out" }, 0.3 + 0.12 * i);
+            tl.to(el, { opacity: 0, duration: 0.35, ease: "power1.in" }, 1.1 + 0.12 * i);
           });
-          tl.fromTo("#s3-foot", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 5.5 * B);
-          tl.to("#s3-ttl, #s3-label, #s3-chips, #s3-foot", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in" }, 8 * B - 0.25);
+          tl.fromTo("#s3-num", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.25);
+          waterfall("#s3-name", 0.35, 0.2);
+          tl.fromTo("#s3-tag", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 0.95);
+          // Transition: intro text leaves, the phone shrinks into the lower half
+          tl.to("#s3-intro", { opacity: 0, y: -60, duration: 0.25, ease: "power3.in" }, 2.3);
+          tl.to("#s3-glow", { opacity: 0.6, x: 120, y: 860, scale: 0.75, duration: 0.6, ease: "expo.inOut" }, 2.35);
+          tl.to("#s3-art", { x: 120, y: 880, scale: 0.72, rotation: -4, duration: 0.6, ease: "expo.inOut" }, 2.35);
+          tl.to("#s3-art", { y: 850, duration: 3.6, ease: "sine.inOut" }, 2.95);
+          // Info, synced to "It explains ... never trades"
+          tl.fromTo("#s3-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 2.6);
+          waterfall("#s3-l1", 2.85, 0.2);
+          ["#s3-c0", "#s3-c1", "#s3-c2", "#s3-c3"].forEach((id, i) => {
+            tl.fromTo(id, { opacity: 0, scale: 0.6, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 3.55 + 0.3 * i);
+          });
+          waterfall("#s3-l2", 5.35, 0.2);
+          waterfall("#s3-l3", 5.6, 0.1);
+          tl.to("#s3-ttl, #s3-label, #s3-chips, #s3-art, #s3-glow", { opacity: 0, duration: 0.2, ease: "power3.in" }, 6.6);
           window.__timelines["s3-ai"] = tl;
         })();
       </script>

@@ -12,29 +12,31 @@
         .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
         .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
 
-        #s2-label { position: absolute; left: 90px; top: 240px; opacity: 0; }
-        #s2-ttl { position: absolute; left: 90px; right: 90px; top: 300px; font-family: "Archivo Black", sans-serif; font-size: 100px; line-height: 1.02; letter-spacing: -0.04em; color: #f5f1e6; }
-        .row { position: absolute; left: 80px; right: 80px; height: 300px; padding: 0 56px; border-radius: 32px; background: #f4ecd8; display: flex; align-items: center; gap: 44px; opacity: 0; will-change: transform; }
-        #s2-r0 { top: 640px; }
-        #s2-r1 { top: 980px; }
-        #s2-r2 { top: 1320px; }
-        .num { flex: none; width: 128px; height: 128px; border-radius: 28px; background: #0c0b09; color: #f0b90b; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 52px; display: flex; align-items: center; justify-content: center; }
-        .txt { display: flex; flex-direction: column; gap: 14px; }
-        .name { font-family: "Archivo Black", sans-serif; font-size: 72px; line-height: 1; letter-spacing: -0.03em; color: #1a1712; white-space: nowrap; }
-        .verb { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; letter-spacing: 0.06em; color: #6b5200; white-space: nowrap; }
+        #s2-glow { position: absolute; left: 140px; top: 120px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(240,185,11,0.30) 0%, rgba(240,185,11,0) 65%); opacity: 0; }
+        #s2-art { position: absolute; left: 90px; top: 70px; width: 900px; height: 900px; opacity: 0; will-change: transform; }
+        #s2-img { display: block; width: 100%; height: 100%; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 48%, transparent 70%); mask-image: radial-gradient(circle at 50% 50%, #000 48%, transparent 70%); }
+        .row { position: absolute; left: 80px; right: 80px; height: 220px; padding: 0 50px; border-radius: 30px; background: #f4ecd8; display: flex; align-items: center; gap: 40px; opacity: 0; will-change: transform; }
+        #s2-r0 { top: 900px; }
+        #s2-r1 { top: 1145px; }
+        #s2-r2 { top: 1390px; }
+        .num { flex: none; width: 116px; height: 116px; border-radius: 26px; background: #0c0b09; color: #f0b90b; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 48px; display: flex; align-items: center; justify-content: center; }
+        .txt { display: flex; flex-direction: column; gap: 12px; }
+        .name { font-family: "Archivo Black", sans-serif; font-size: 66px; line-height: 1; letter-spacing: -0.03em; color: #1a1712; white-space: nowrap; }
+        .verb { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.06em; color: #6b5200; white-space: nowrap; }
+        #s2-ttl { position: absolute; left: 80px; right: 80px; top: 1650px; font-family: "Archivo Black", sans-serif; font-size: 92px; line-height: 1.02; letter-spacing: -0.04em; color: #f5f1e6; }
       </style>
-      <div id="root" data-composition-id="s2-trio" data-start="0" data-duration="3.75" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="s2-trio" data-start="0" data-duration="6" data-width="1080" data-height="1920">
         <div id="s2-grid" class="grid" data-layout-allow-overflow></div>
-        <div id="s2-label" class="label">BINANCE INTELLIGENCE</div>
-        <div id="s2-ttl"><span class="w">Three</span> <span class="w">tools.</span> <span class="w y">Three</span> <span class="w y">jobs.</span></div>
+        <div id="s2-glow"></div>
+        <div id="s2-art"><img id="s2-img" src="assets/img/i0-trio.jpg" alt="Three golden 3D objects: an AI eye, a workflow gear cube and a robot hand" /></div>
         <div class="row" id="s2-r0"><div class="num">01</div><div class="txt"><div class="name">Binance AI</div><div class="verb">INFORMS · everyday users</div></div></div>
         <div class="row" id="s2-r1"><div class="num">02</div><div class="txt"><div class="name">AI Pro</div><div class="verb">BUILDS · no-code traders</div></div></div>
         <div class="row" id="s2-r2"><div class="num">03</div><div class="txt"><div class="name">Agent OS</div><div class="verb">CONNECTS · developers</div></div></div>
+        <div id="s2-ttl"><span class="w">Three</span> <span class="w">tools.</span> <span class="w y">Three</span> <span class="w y">jobs.</span></div>
       </div>
       <script>
         (() => {
           const tl = gsap.timeline({ paused: true });
-          const B = 60 / 96;
           function waterfall(sel, t0, maxSpan) {
             const words = gsap.utils.toArray(sel + " .w");
             const step = Math.min(0.13, maxSpan / words.length);
@@ -46,13 +48,16 @@
             });
           }
 
-          tl.fromTo("#s2-grid", { y: 0 }, { y: -120, duration: 6 * B, ease: "none" }, 0);
-          tl.fromTo("#s2-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
-          waterfall("#s2-ttl", 0.2, 0.5);
-          ["#s2-r0", "#s2-r1", "#s2-r2"].forEach((id, i) => {
-            tl.fromTo(id, { opacity: 0, x: 220, rotation: 3 }, { opacity: 1, x: 0, rotation: 0, duration: 0.45, ease: "back.out(1.6)" }, (1.5 + i) * B);
+          tl.fromTo("#s2-grid", { y: 0 }, { y: -120, duration: 6, ease: "none" }, 0);
+          tl.fromTo("#s2-art", { opacity: 0, scale: 0.7, rotation: -6 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: "back.out(1.4)" }, 0);
+          tl.to("#s2-art", { scale: 1.06, y: -20, duration: 5.4, ease: "sine.inOut" }, 0.6);
+          tl.fromTo("#s2-glow", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1.1, duration: 1.2, ease: "power2.out" }, 0.1);
+          // Each product lands as the voice names it
+          [["#s2-r0", 0.15], ["#s2-r1", 1.4], ["#s2-r2", 2.8]].forEach(([id, t]) => {
+            tl.fromTo(id, { opacity: 0, x: 220, rotation: 3 }, { opacity: 1, x: 0, rotation: 0, duration: 0.45, ease: "back.out(1.6)" }, t);
           });
-          tl.to("#s2-ttl, #s2-label, #s2-r0, #s2-r1, #s2-r2", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in", stagger: 0.03 }, 6 * B - 0.3);
+          waterfall("#s2-ttl", 3.85, 0.9);
+          tl.to("#s2-art, #s2-glow, #s2-r0, #s2-r1, #s2-r2, #s2-ttl", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in", stagger: 0.03 }, 5.6);
           window.__timelines["s2-trio"] = tl;
         })();
       </script>

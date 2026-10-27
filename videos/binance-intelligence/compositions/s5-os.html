@@ -11,28 +11,51 @@
         .y { color: #f0b90b; }
         .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
         .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+        .spark { position: absolute; width: 14px; height: 14px; border-radius: 50%; background: #f0b90b; box-shadow: 0 0 18px 4px rgba(240,185,11,0.7); opacity: 0; }
+
+        #s5-glow { position: absolute; left: 90px; top: 200px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(240,185,11,0.32) 0%, rgba(240,185,11,0) 65%); opacity: 0; }
+        #s5-art { position: absolute; left: 90px; top: 180px; width: 900px; height: 900px; opacity: 0; transform-origin: 50% 50%; will-change: transform; }
+        #s5-img { display: block; width: 100%; height: 100%; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 70%); mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 70%); }
+        #s5-intro { position: absolute; left: 80px; right: 80px; top: 1180px; }
+        #s5-num { opacity: 0; }
+        #s5-name { margin-top: 24px; font-family: "Archivo Black", sans-serif; font-size: 150px; line-height: 1; letter-spacing: -0.045em; color: #f5f1e6; white-space: nowrap; }
+        #s5-tag { margin-top: 30px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 40px; color: #f0b90b; opacity: 0; }
 
         #s5-label { position: absolute; left: 90px; top: 240px; opacity: 0; }
         #s5-ttl { position: absolute; left: 90px; right: 90px; top: 300px; font-family: "Archivo Black", sans-serif; font-size: 104px; line-height: 1.02; letter-spacing: -0.04em; color: #f5f1e6; }
         #s5-ttl .ln { display: block; white-space: nowrap; }
-        #s5-panel { position: absolute; left: 80px; right: 80px; top: 680px; padding: 40px 48px 20px; border-radius: 32px; background: #f4ecd8; opacity: 0; will-change: transform; }
+        #s5-panel { position: absolute; left: 80px; right: 80px; top: 600px; padding: 40px 48px 20px; border-radius: 32px; background: #f4ecd8; opacity: 0; will-change: transform; }
         #s5-ph { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; letter-spacing: 0.14em; color: #6b5200; padding-bottom: 20px; }
-        .perm { height: 130px; border-top: 3px solid #d8ccae; display: flex; align-items: center; justify-content: space-between; }
+        .perm { height: 124px; border-top: 3px solid #d8ccae; display: flex; align-items: center; justify-content: space-between; }
         .pn { font-family: "Archivo Black", sans-serif; font-size: 52px; letter-spacing: -0.02em; color: #1a1712; white-space: nowrap; }
         .tg { position: relative; flex: none; width: 150px; height: 76px; border-radius: 999px; background: #bfb398; }
         .tg.on { background: #0c0b09; }
         .knob { position: absolute; top: 8px; left: 8px; width: 60px; height: 60px; border-radius: 50%; background: #f5f1e6; }
         .tg.on .knob { left: 82px; background: #f0b90b; }
         .perm.off { opacity: 0.55; }
-        #s5-stamp { position: absolute; right: 70px; top: 1340px; padding: 16px 30px; border: 5px solid #f0b90b; border-radius: 14px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 38px; letter-spacing: 0.08em; color: #f0b90b; opacity: 0; }
-        #s5-foot { position: absolute; left: 90px; right: 90px; top: 1500px; font-family: "JetBrains Mono", monospace; font-size: 32px; line-height: 1.45; color: #cfc8b8; opacity: 0; }
+        #s5-stamp { position: absolute; right: 70px; top: 1235px; padding: 16px 30px; border: 5px solid #f0b90b; border-radius: 14px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 38px; letter-spacing: 0.08em; color: #f0b90b; opacity: 0; }
+        #s5-foot { position: absolute; left: 90px; right: 470px; top: 1450px; font-family: "JetBrains Mono", monospace; font-size: 32px; line-height: 1.45; color: #cfc8b8; opacity: 0; }
       </style>
-      <div id="root" data-composition-id="s5-os" data-start="0" data-duration="5" data-width="1080" data-height="1920">
+      <div id="root" data-composition-id="s5-os" data-start="0" data-duration="6.8" data-width="1080" data-height="1920">
         <div id="s5-grid" class="grid" data-layout-allow-overflow></div>
+        <div id="s5-glow"></div>
+        <div id="s5-art" data-layout-allow-overlap><img id="s5-img" src="assets/img/i3-agent.jpg" alt="A black robot plugging a golden cable into a golden server, with a padlock floating nearby" /></div>
+        <div class="spark" style="left: 180px; top: 990px"></div>
+        <div class="spark" style="left: 320px; top: 1060px"></div>
+        <div class="spark" style="left: 480px; top: 1000px"></div>
+        <div class="spark" style="left: 650px; top: 1070px"></div>
+        <div class="spark" style="left: 800px; top: 990px"></div>
+        <div class="spark" style="left: 910px; top: 1050px"></div>
+        <div id="s5-intro">
+          <div id="s5-num" class="label">03 · AGENT OS</div>
+          <div id="s5-name"><span class="w">Agent</span> <span class="w y">OS</span></div>
+          <div id="s5-tag">Plug your own AI agent into Binance</div>
+        </div>
+
         <div id="s5-label" class="label">03 · AGENT OS</div>
         <div id="s5-ttl">
-          <span class="ln" id="s5-l1"><span class="w">Plug</span> <span class="w">your</span> <span class="w">AI</span></span>
-          <span class="ln" id="s5-l2"><span class="w y">agent</span> <span class="w y">in.</span></span>
+          <span class="ln" id="s5-l1"><span class="w">Your</span> <span class="w">agent.</span></span>
+          <span class="ln" id="s5-l2"><span class="w y">Your</span> <span class="w y">limits.</span></span>
         </div>
         <div id="s5-panel">
           <div id="s5-ph">AGENT PERMISSIONS</div>
@@ -47,7 +70,6 @@
       <script>
         (() => {
           const tl = gsap.timeline({ paused: true });
-          const B = 60 / 96;
           function waterfall(sel, t0, maxSpan) {
             const words = gsap.utils.toArray(sel + " .w");
             const step = Math.min(0.13, maxSpan / words.length);
@@ -59,14 +81,31 @@
             });
           }
 
-          tl.fromTo("#s5-grid", { y: 0 }, { y: -120, duration: 8 * B, ease: "none" }, 0);
-          tl.fromTo("#s5-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
-          waterfall("#s5-l1", 0.2, 0.3);
-          waterfall("#s5-l2", 0.2 + B, 0.2);
-          tl.fromTo("#s5-panel", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 2.5 * B);
-          tl.fromTo("#s5-stamp", { opacity: 0, scale: 1.8, rotation: -14 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.25, ease: "power4.in" }, 4.5 * B);
-          tl.fromTo("#s5-foot", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 5.5 * B);
-          tl.to("#s5-ttl, #s5-label, #s5-panel, #s5-stamp, #s5-foot", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in" }, 8 * B - 0.25);
+          tl.fromTo("#s5-grid", { y: 0 }, { y: -160, duration: 6.8, ease: "none" }, 0);
+          // Reveal: the robot plugs in while the voice says "Agent OS lets developers plug their own AI agent"
+          tl.fromTo("#s5-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.1, duration: 1.0, ease: "power2.out" }, 0);
+          tl.fromTo("#s5-art", { opacity: 0, scale: 0.6, x: 200 }, { opacity: 1, scale: 1, x: 0, duration: 0.7, ease: "back.out(1.4)" }, 0);
+          tl.to("#s5-art", { y: -24, duration: 1.6, ease: "sine.inOut" }, 0.7);
+          gsap.utils.toArray("#root .spark").forEach((el, i) => {
+            tl.fromTo(el, { opacity: 0, y: 0, scale: 0.4 }, { opacity: 1, y: -260 - 40 * (i % 3), scale: 1, duration: 1.1, ease: "power1.out" }, 0.4 + 0.12 * i);
+            tl.to(el, { opacity: 0, duration: 0.35, ease: "power1.in" }, 1.2 + 0.12 * i);
+          });
+          tl.fromTo("#s5-num", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.2);
+          waterfall("#s5-name", 0.3, 0.15);
+          tl.fromTo("#s5-tag", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 0.9);
+          // Transition: the robot settles into the bottom-right corner
+          tl.to("#s5-intro", { opacity: 0, y: -60, duration: 0.25, ease: "power3.in" }, 2.45);
+          tl.to("#s5-glow", { opacity: 0.7, x: 270, y: 1030, scale: 0.5, duration: 0.6, ease: "expo.inOut" }, 2.5);
+          tl.to("#s5-art", { x: 270, y: 1030, scale: 0.46, duration: 0.6, ease: "expo.inOut" }, 2.5);
+          tl.to("#s5-art", { y: 1005, duration: 3.6, ease: "sine.inOut" }, 3.1);
+          // Info, synced to "with every risky permission switched off by default"
+          tl.fromTo("#s5-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 2.7);
+          waterfall("#s5-l1", 2.75, 0.2);
+          waterfall("#s5-l2", 3.15, 0.2);
+          tl.fromTo("#s5-panel", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 3.4);
+          tl.fromTo("#s5-stamp", { opacity: 0, scale: 1.8, rotation: -14 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.25, ease: "power4.in" }, 5.4);
+          tl.fromTo("#s5-foot", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 5.8);
+          tl.to("#s5-ttl, #s5-label, #s5-panel, #s5-stamp, #s5-foot, #s5-art, #s5-glow", { opacity: 0, duration: 0.2, ease: "power3.in" }, 6.58);
           window.__timelines["s5-os"] = tl;
         })();
       </script>

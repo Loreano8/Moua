@@ -9,7 +9,7 @@ import math, struct, wave, os
 
 SR, BPM = 44100, 96
 BEAT = 60 / BPM
-DUR = 54 * BEAT
+DUR = 65 * BEAT
 N = int(SR * DUR)
 OUT = os.path.join(os.path.dirname(__file__), "..", "assets", "audio", "bgm.wav")
 
