@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; letter-spacing: 0.16em; color: #f0b90b; }
+        .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+        #s2-glow { position: absolute; left: 140px; top: 140px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(240,185,11,0.32) 0%, rgba(240,185,11,0) 65%); opacity: 0; }
+        #s2-art { position: absolute; left: 140px; top: 120px; width: 800px; height: 800px; opacity: 0; will-change: transform; }
+        #s2-img { display: block; width: 100%; height: 100%; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 70%); mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 70%); }
+        #s2-chip { position: absolute; left: 50%; top: 860px; width: 440px; margin-left: -220px; padding: 22px 0; border-radius: 999px; background: #3ddc84; text-align: center; font-family: "Archivo Black", sans-serif; font-size: 50px; color: #0c0b09; opacity: 0; will-change: transform; }
+        #s2-label { position: absolute; left: 80px; top: 1060px; opacity: 0; }
+        #s2-ttl { position: absolute; left: 80px; right: 80px; top: 1120px; font-family: "Archivo Black", sans-serif; font-size: 104px; line-height: 1.0; letter-spacing: -0.045em; color: #f5f1e6; }
+        #s2-ttl .ln { display: block; white-space: nowrap; }
+        #s2-foot { position: absolute; left: 80px; right: 80px; top: 1400px; font-family: "JetBrains Mono", monospace; font-size: 34px; line-height: 1.45; color: #cfc8b8; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s2-premium" data-start="0" data-duration="4.2" data-width="1080" data-height="1920">
+        <div id="s2-grid" class="grid" data-layout-allow-overflow></div>
+        <div id="s2-glow"></div>
+        <div id="s2-art"><img id="s2-img" src="assets/img/i-premium.jpg" alt="Golden coins falling into a black wallet" /></div>
+        <div id="s2-chip">+ PREMIUM</div>
+        <div id="s2-label" class="label">BEFORE: BUY ONLY · NOW: SELL TOO</div>
+        <div id="s2-ttl">
+          <span class="ln" id="s2-l1"><span class="w">Sell</span> <span class="w">options.</span></span>
+          <span class="ln" id="s2-l2"><span class="w y">Get</span> <span class="w y">paid</span> <span class="w y">upfront.</span></span>
+        </div>
+        <div id="s2-foot">You write the contract, the premium lands when your order fills.</div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+          tl.fromTo("#s2-grid", { y: 0 }, { y: -120, duration: 4.2, ease: "none" }, 0);
+          tl.fromTo("#s2-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.1, duration: 1, ease: "power2.out" }, 0);
+          tl.fromTo("#s2-art", { opacity: 0, scale: 0.6, y: 80 }, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.5)" }, 0.05);
+          tl.to("#s2-art", { y: -20, duration: 3.4, ease: "sine.inOut" }, 0.75);
+          tl.fromTo("#s2-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.4);
+          waterfall("#s2-l1", 0.85, 0.25);
+          waterfall("#s2-l2", 1.9, 0.35);
+          tl.fromTo("#s2-chip", { opacity: 0, scale: 0.4, y: -120 }, { opacity: 1, scale: 1, y: 0, duration: 0.45, ease: "back.out(2)" }, 2.75);
+          tl.fromTo("#s2-foot", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 3.1);
+          tl.to("#s2-art, #s2-glow, #s2-chip, #s2-ttl, #s2-label, #s2-foot", { opacity: 0, y: -40, duration: 0.18, ease: "power3.in" }, 4.0);
+          window.__timelines["s2-premium"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+        .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+        #s5-label { position: absolute; left: 80px; top: 140px; opacity: 0; }
+        #s5-ttl { position: absolute; left: 80px; right: 80px; top: 190px; font-family: "Archivo Black", sans-serif; font-size: 104px; line-height: 1.0; letter-spacing: -0.045em; color: #f5f1e6; }
+        #s5-glow { position: absolute; left: 320px; top: 360px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(240,185,11,0.3) 0%, rgba(240,185,11,0) 65%); opacity: 0; }
+        #s5-art { position: absolute; left: 380px; top: 420px; width: 320px; height: 320px; opacity: 0; will-change: transform; }
+        #s5-img { display: block; width: 100%; height: 100%; -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 70%); mask-image: radial-gradient(circle at 50% 50%, #000 50%, transparent 70%); }
+        .row { position: absolute; left: 70px; right: 70px; height: 136px; padding: 0 36px; border-radius: 26px; background: #1c1a15; border: 3px solid #2e2b24; display: flex; align-items: center; gap: 30px; opacity: 0; will-change: transform; }
+        .num { flex: none; width: 68px; height: 68px; border-radius: 50%; background: #f0b90b; color: #0c0b09; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; display: flex; align-items: center; justify-content: center; }
+        .rt { flex: 1; font-family: "Archivo Black", sans-serif; font-size: 46px; letter-spacing: -0.02em; color: #f5f1e6; white-space: nowrap; }
+        .rv { font-family: "Archivo Black", sans-serif; font-size: 64px; letter-spacing: -0.03em; white-space: nowrap; opacity: 0; will-change: transform; }
+        #s5-note { position: absolute; left: 80px; right: 80px; top: 1554px; font-family: "JetBrains Mono", monospace; font-size: 30px; line-height: 1.45; color: #cfc8b8; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s5-csp" data-start="0" data-duration="11.3" data-width="1080" data-height="1920">
+        <div id="s5-grid" class="grid" data-layout-allow-overflow></div>
+        <div id="s5-label" class="label">STRATEGY 2</div>
+        <div id="s5-ttl"><span class="w">Cash-Secured</span> <span class="w y">Put</span></div>
+        <div id="s5-glow"></div>
+        <div id="s5-art"><img id="s5-img" src="assets/img/i-vault.jpg" alt="A black and gold vault holding stacks of stablecoins" /></div>
+        <div class="row" id="s5-r0" style="top:770px"><div class="num">1</div><div class="rt">The stock trades at</div><div class="rv" id="s5-v0" style="color:#f5f1e6">$100</div></div>
+        <div class="row" id="s5-r1" style="top:922px"><div class="num">2</div><div class="rt">You'd rather buy at</div><div class="rv" id="s5-v1" style="color:#f0b90b">$90</div></div>
+        <div class="row" id="s5-r2" style="top:1074px"><div class="num">3</div><div class="rt">You set aside USDC</div><div class="rv" id="s5-v2" style="color:#7fb2ff;font-size:46px">LOCKED</div></div>
+        <div class="row" id="s5-r3" style="top:1226px"><div class="num">4</div><div class="rt">You sell a put at</div><div class="rv" id="s5-v3" style="color:#f0b90b">$90</div></div>
+        <div class="row" id="s5-r4" style="top:1378px"><div class="num">5</div><div class="rt">You collect a premium</div><div class="rv" id="s5-v4" style="color:#3ddc84">+$3</div></div>
+        <div id="s5-note">Enough USDC to cover the full purchase stays frozen in your Funding Wallet.</div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+          tl.fromTo("#s5-grid", { y: 0 }, { y: -140, duration: 11.3, ease: "none" }, 0);
+          tl.fromTo("#s5-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.15);
+          waterfall("#s5-ttl", 0.4, 0.2);
+          tl.fromTo("#s5-glow", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1.1, duration: 1, ease: "power2.out" }, 0.3);
+          tl.fromTo("#s5-art", { opacity: 0, scale: 0.6, rotation: -8 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(1.5)" }, 0.35);
+          tl.to("#s5-art", { y: -18, duration: 10.0, ease: "sine.inOut" }, 1.05);
+          tl.fromTo("#s5-r0", { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, 2.8);
+          tl.fromTo("#s5-v0", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 3.37);
+          tl.fromTo("#s5-r1", { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, 4.55);
+          tl.fromTo("#s5-v1", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 5.26);
+          tl.fromTo("#s5-r2", { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, 6.2);
+          tl.fromTo("#s5-v2", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 7.4);
+          tl.fromTo("#s5-r3", { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, 7.85);
+          tl.fromTo("#s5-v3", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 8.85);
+          tl.fromTo("#s5-r4", { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, 10.0);
+          tl.fromTo("#s5-v4", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 10.73);
+          tl.fromTo("#s5-note", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 10.9);
+          tl.to("#s5-ttl, #s5-label, #s5-art, #s5-glow, .row, #s5-note", { opacity: 0, y: -40, duration: 0.18, ease: "power3.in" }, 11.1);
+          window.__timelines["s5-csp"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

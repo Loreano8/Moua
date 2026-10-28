@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; letter-spacing: 0.16em; color: #f0b90b; }
+        #s1-cam { position: absolute; inset: 0; transform-origin: 50% 45%; will-change: transform; }
+        #s1-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        #s1-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.97) 0%, rgba(12,11,9,0.86) 40%, rgba(12,11,9,0) 64%), linear-gradient(to bottom, rgba(12,11,9,0.7) 0%, rgba(12,11,9,0) 18%); }
+        #s1-tape { position: absolute; left: 0; right: 0; top: 150px; height: 84px; background: #f0b90b; overflow: hidden; }
+        #s1-tape-in { position: absolute; left: 0; top: 0; white-space: nowrap; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 38px; line-height: 84px; letter-spacing: 0.06em; color: #0c0b09; will-change: transform; }
+        #s1-label { position: absolute; left: 80px; top: 1130px; opacity: 0; }
+        #s1-ttl { position: absolute; left: 80px; right: 80px; top: 1190px; font-family: "Archivo Black", sans-serif; font-size: 104px; line-height: 1.0; letter-spacing: -0.04em; color: #f5f1e6; }
+        #s1-ttl .ln { display: block; white-space: nowrap; }
+        #s1-toggle { position: absolute; left: 80px; top: 1470px; width: 560px; height: 120px; border-radius: 999px; background: #26231c; border: 3px solid #4a463e; opacity: 0; }
+        #s1-knob { position: absolute; left: 8px; top: 8px; width: 270px; height: 98px; border-radius: 999px; background: #3ddc84; }
+        .opt { position: absolute; top: 0; width: 280px; height: 114px; display: flex; align-items: center; justify-content: center; font-family: "Archivo Black", sans-serif; font-size: 46px; letter-spacing: 0.02em; }
+        #s1-buy { left: 0; color: #0c0b09; }
+        #s1-sell { left: 278px; color: #b9b2a3; }
+      </style>
+      <div id="root" data-composition-id="s1-hook" data-start="0" data-duration="4.1" data-width="1080" data-height="1920">
+        <div id="s1-cam" data-layout-allow-overflow>
+          <video id="s1-video" class="clip" src="assets/video/pc.mp4" data-start="0" data-duration="4.1" data-playback-rate="0.75" data-track-index="0" muted playsinline></video>
+        </div>
+        <div id="s1-scrim"></div>
+        <div id="s1-tape" data-layout-allow-overflow><div id="s1-tape-in" data-layout-allow-overflow>STOCK OPTIONS ▲ COVERED CALL ▲ CASH-SECURED PUT ▲ STOCK OPTIONS ▲ COVERED CALL ▲ CASH-SECURED PUT ▲ STOCK OPTIONS ▲ COVERED CALL ▲ CASH-SECURED PUT ▲ </div></div>
+        <div id="s1-label" class="label">NEW ON BINANCE STOCK OPTIONS</div>
+        <div id="s1-ttl">
+          <span class="ln" id="s1-l1"><span class="w">The</span> <span class="w">other</span> <span class="w">side</span></span>
+          <span class="ln" id="s1-l2"><span class="w y">of</span> <span class="w y">the</span> <span class="w y">trade.</span></span>
+        </div>
+        <div id="s1-toggle"><div id="s1-knob"></div><div class="opt" id="s1-buy">BUY</div><div class="opt" id="s1-sell">SELL</div></div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+          tl.fromTo("#s1-cam", { scale: 1.12 }, { scale: 1.02, duration: 4.1, ease: "none" }, 0);
+          tl.fromTo("#s1-tape-in", { x: 0 }, { x: -900, duration: 4.1, ease: "none" }, 0);
+          tl.fromTo("#s1-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.2);
+          waterfall("#s1-l1", 2.2, 0.3);
+          waterfall("#s1-l2", 2.75, 0.3);
+          tl.fromTo("#s1-toggle", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 0.6);
+          // BUY flips to SELL on "trade"
+          tl.to("#s1-knob", { x: 276, backgroundColor: "#f0b90b", duration: 0.35, ease: "back.out(1.6)" }, 3.3);
+          tl.to("#s1-buy", { color: "#b9b2a3", duration: 0.2 }, 3.3);
+          tl.to("#s1-sell", { color: "#0c0b09", duration: 0.2 }, 3.35);
+          tl.to("#s1-ttl, #s1-label, #s1-toggle", { opacity: 0, y: -40, duration: 0.18, ease: "power3.in" }, 3.9);
+          window.__timelines["s1-hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

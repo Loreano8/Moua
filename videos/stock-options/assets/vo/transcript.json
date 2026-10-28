@@ -1,0 +1,872 @@
+[
+  {
+    "text": "The",
+    "start": 0.03,
+    "end": 0.19,
+    "id": "w0"
+  },
+  {
+    "text": "Binance",
+    "start": 0.19,
+    "end": 0.63,
+    "id": "w1"
+  },
+  {
+    "text": "stock",
+    "start": 0.63,
+    "end": 0.95,
+    "id": "w2"
+  },
+  {
+    "text": "options",
+    "start": 0.95,
+    "end": 1.21,
+    "id": "w3"
+  },
+  {
+    "text": "just",
+    "start": 1.44,
+    "end": 1.66,
+    "id": "w4"
+  },
+  {
+    "text": "opened",
+    "start": 1.66,
+    "end": 2.02,
+    "id": "w5"
+  },
+  {
+    "text": "the",
+    "start": 2.08,
+    "end": 2.29,
+    "id": "w6"
+  },
+  {
+    "text": "other",
+    "start": 2.29,
+    "end": 2.63,
+    "id": "w7"
+  },
+  {
+    "text": "side",
+    "start": 2.63,
+    "end": 2.86,
+    "id": "w8"
+  },
+  {
+    "text": "of",
+    "start": 2.99,
+    "end": 3.08,
+    "id": "w9"
+  },
+  {
+    "text": "the",
+    "start": 3.08,
+    "end": 3.32,
+    "id": "w10"
+  },
+  {
+    "text": "trade.",
+    "start": 3.32,
+    "end": 3.91,
+    "id": "w11"
+  },
+  {
+    "text": "You",
+    "start": 3.95,
+    "end": 4.18,
+    "id": "w12"
+  },
+  {
+    "text": "can",
+    "start": 4.18,
+    "end": 4.43,
+    "id": "w13"
+  },
+  {
+    "text": "now",
+    "start": 4.47,
+    "end": 4.7,
+    "id": "w14"
+  },
+  {
+    "text": "sell",
+    "start": 4.7,
+    "end": 5.05,
+    "id": "w15"
+  },
+  {
+    "text": "options",
+    "start": 5.05,
+    "end": 5.66,
+    "id": "w16"
+  },
+  {
+    "text": "and",
+    "start": 5.66,
+    "end": 5.92,
+    "id": "w17"
+  },
+  {
+    "text": "get",
+    "start": 5.92,
+    "end": 6.18,
+    "id": "w18"
+  },
+  {
+    "text": "paid",
+    "start": 6.18,
+    "end": 6.53,
+    "id": "w19"
+  },
+  {
+    "text": "a",
+    "start": 6.53,
+    "end": 6.61,
+    "id": "w20"
+  },
+  {
+    "text": "premium",
+    "start": 6.61,
+    "end": 7.22,
+    "id": "w21"
+  },
+  {
+    "text": "upfront.",
+    "start": 7.22,
+    "end": 8.16,
+    "id": "w22"
+  },
+  {
+    "text": "Strategy",
+    "start": 8.19,
+    "end": 8.87,
+    "id": "w23"
+  },
+  {
+    "text": "1.",
+    "start": 8.88,
+    "end": 9.16,
+    "id": "w24"
+  },
+  {
+    "text": "The",
+    "start": 9.19,
+    "end": 9.37,
+    "id": "w25"
+  },
+  {
+    "text": "covered",
+    "start": 9.37,
+    "end": 9.86,
+    "id": "w26"
+  },
+  {
+    "text": "call.",
+    "start": 9.86,
+    "end": 10.16,
+    "id": "w27"
+  },
+  {
+    "text": "You",
+    "start": 10.19,
+    "end": 10.37,
+    "id": "w28"
+  },
+  {
+    "text": "own",
+    "start": 10.37,
+    "end": 10.58,
+    "id": "w29"
+  },
+  {
+    "text": "a",
+    "start": 10.58,
+    "end": 10.65,
+    "id": "w30"
+  },
+  {
+    "text": "stock",
+    "start": 10.65,
+    "end": 10.98,
+    "id": "w31"
+  },
+  {
+    "text": "at",
+    "start": 11.03,
+    "end": 11.14,
+    "id": "w32"
+  },
+  {
+    "text": "$100.",
+    "start": 11.14,
+    "end": 12.1,
+    "id": "w33"
+  },
+  {
+    "text": "You",
+    "start": 12.13,
+    "end": 12.33,
+    "id": "w34"
+  },
+  {
+    "text": "sell",
+    "start": 12.33,
+    "end": 12.61,
+    "id": "w35"
+  },
+  {
+    "text": "a",
+    "start": 12.65,
+    "end": 12.71,
+    "id": "w36"
+  },
+  {
+    "text": "call",
+    "start": 12.71,
+    "end": 13.02,
+    "id": "w37"
+  },
+  {
+    "text": "at",
+    "start": 13.02,
+    "end": 13.17,
+    "id": "w38"
+  },
+  {
+    "text": "$110",
+    "start": 13.17,
+    "end": 13.93,
+    "id": "w39"
+  },
+  {
+    "text": "and",
+    "start": 14,
+    "end": 14.12,
+    "id": "w40"
+  },
+  {
+    "text": "collect",
+    "start": 14.18,
+    "end": 14.71,
+    "id": "w41"
+  },
+  {
+    "text": "a",
+    "start": 14.71,
+    "end": 14.78,
+    "id": "w42"
+  },
+  {
+    "text": "$3",
+    "start": 14.78,
+    "end": 14.97,
+    "id": "w43"
+  },
+  {
+    "text": "premium.",
+    "start": 15.08,
+    "end": 15.92,
+    "id": "w44"
+  },
+  {
+    "text": "If",
+    "start": 15.95,
+    "end": 16.05,
+    "id": "w45"
+  },
+  {
+    "text": "the",
+    "start": 16.05,
+    "end": 16.24,
+    "id": "w46"
+  },
+  {
+    "text": "stock",
+    "start": 16.24,
+    "end": 16.56,
+    "id": "w47"
+  },
+  {
+    "text": "stays",
+    "start": 16.56,
+    "end": 16.87,
+    "id": "w48"
+  },
+  {
+    "text": "below",
+    "start": 16.87,
+    "end": 17.13,
+    "id": "w49"
+  },
+  {
+    "text": "$110,",
+    "start": 17.26,
+    "end": 17.94,
+    "id": "w50"
+  },
+  {
+    "text": "you",
+    "start": 18,
+    "end": 18.16,
+    "id": "w51"
+  },
+  {
+    "text": "keep",
+    "start": 18.16,
+    "end": 18.42,
+    "id": "w52"
+  },
+  {
+    "text": "your",
+    "start": 18.42,
+    "end": 18.68,
+    "id": "w53"
+  },
+  {
+    "text": "shares",
+    "start": 18.68,
+    "end": 19.05,
+    "id": "w54"
+  },
+  {
+    "text": "and",
+    "start": 19.06,
+    "end": 19.25,
+    "id": "w55"
+  },
+  {
+    "text": "the",
+    "start": 19.25,
+    "end": 19.4,
+    "id": "w56"
+  },
+  {
+    "text": "premium.",
+    "start": 19.77,
+    "end": 20.16,
+    "id": "w57"
+  },
+  {
+    "text": "If",
+    "start": 20.21,
+    "end": 20.34,
+    "id": "w58"
+  },
+  {
+    "text": "it",
+    "start": 20.34,
+    "end": 20.5,
+    "id": "w59"
+  },
+  {
+    "text": "rises",
+    "start": 20.5,
+    "end": 20.89,
+    "id": "w60"
+  },
+  {
+    "text": "above,",
+    "start": 20.9,
+    "end": 21.4,
+    "id": "w61"
+  },
+  {
+    "text": "you",
+    "start": 21.62,
+    "end": 21.7,
+    "id": "w62"
+  },
+  {
+    "text": "sell",
+    "start": 21.7,
+    "end": 22.01,
+    "id": "w63"
+  },
+  {
+    "text": "at",
+    "start": 22.08,
+    "end": 22.18,
+    "id": "w64"
+  },
+  {
+    "text": "$110,",
+    "start": 22.18,
+    "end": 23.05,
+    "id": "w65"
+  },
+  {
+    "text": "even",
+    "start": 23.18,
+    "end": 23.46,
+    "id": "w66"
+  },
+  {
+    "text": "if",
+    "start": 23.46,
+    "end": 23.61,
+    "id": "w67"
+  },
+  {
+    "text": "it",
+    "start": 23.61,
+    "end": 23.69,
+    "id": "w68"
+  },
+  {
+    "text": "hits",
+    "start": 24.03,
+    "end": 24.09,
+    "id": "w69"
+  },
+  {
+    "text": "$150.",
+    "start": 24.12,
+    "end": 25.17,
+    "id": "w70"
+  },
+  {
+    "text": "Strategy",
+    "start": 25.21,
+    "end": 25.75,
+    "id": "w71"
+  },
+  {
+    "text": "2.",
+    "start": 25.75,
+    "end": 26.18,
+    "id": "w72"
+  },
+  {
+    "text": "The",
+    "start": 26.21,
+    "end": 26.38,
+    "id": "w73"
+  },
+  {
+    "text": "cash-secured",
+    "start": 26.38,
+    "end": 27.18,
+    "id": "w74"
+  },
+  {
+    "text": "put.",
+    "start": 27.18,
+    "end": 27.64,
+    "id": "w75"
+  },
+  {
+    "text": "The",
+    "start": 27.67,
+    "end": 27.82,
+    "id": "w76"
+  },
+  {
+    "text": "stock",
+    "start": 27.82,
+    "end": 28.13,
+    "id": "w77"
+  },
+  {
+    "text": "is",
+    "start": 28.13,
+    "end": 28.25,
+    "id": "w78"
+  },
+  {
+    "text": "at",
+    "start": 28.25,
+    "end": 28.35,
+    "id": "w79"
+  },
+  {
+    "text": "$100,",
+    "start": 28.37,
+    "end": 29.11,
+    "id": "w80"
+  },
+  {
+    "text": "but",
+    "start": 29.11,
+    "end": 29.26,
+    "id": "w81"
+  },
+  {
+    "text": "you'd",
+    "start": 29.29,
+    "end": 29.59,
+    "id": "w82"
+  },
+  {
+    "text": "rather",
+    "start": 29.59,
+    "end": 29.96,
+    "id": "w83"
+  },
+  {
+    "text": "buy",
+    "start": 29.96,
+    "end": 30.14,
+    "id": "w84"
+  },
+  {
+    "text": "at",
+    "start": 30.14,
+    "end": 30.26,
+    "id": "w85"
+  },
+  {
+    "text": "$90.",
+    "start": 30.26,
+    "end": 30.96,
+    "id": "w86"
+  },
+  {
+    "text": "You",
+    "start": 30.99,
+    "end": 31.24,
+    "id": "w87"
+  },
+  {
+    "text": "set",
+    "start": 31.25,
+    "end": 31.54,
+    "id": "w88"
+  },
+  {
+    "text": "aside",
+    "start": 31.54,
+    "end": 32.02,
+    "id": "w89"
+  },
+  {
+    "text": "the",
+    "start": 32.02,
+    "end": 32.17,
+    "id": "w90"
+  },
+  {
+    "text": "USDC,",
+    "start": 32.4,
+    "end": 32.89,
+    "id": "w91"
+  },
+  {
+    "text": "sell",
+    "start": 32.89,
+    "end": 33.28,
+    "id": "w92"
+  },
+  {
+    "text": "a",
+    "start": 33.28,
+    "end": 33.37,
+    "id": "w93"
+  },
+  {
+    "text": "put",
+    "start": 33.37,
+    "end": 33.66,
+    "id": "w94"
+  },
+  {
+    "text": "at",
+    "start": 33.66,
+    "end": 33.82,
+    "id": "w95"
+  },
+  {
+    "text": "$90,",
+    "start": 33.85,
+    "end": 34.72,
+    "id": "w96"
+  },
+  {
+    "text": "and",
+    "start": 34.81,
+    "end": 35.01,
+    "id": "w97"
+  },
+  {
+    "text": "collect",
+    "start": 35.01,
+    "end": 35.67,
+    "id": "w98"
+  },
+  {
+    "text": "$3.",
+    "start": 35.73,
+    "end": 36.13,
+    "id": "w99"
+  },
+  {
+    "text": "If",
+    "start": 36.51,
+    "end": 36.61,
+    "id": "w100"
+  },
+  {
+    "text": "it",
+    "start": 36.61,
+    "end": 36.74,
+    "id": "w101"
+  },
+  {
+    "text": "stays",
+    "start": 36.74,
+    "end": 37.06,
+    "id": "w102"
+  },
+  {
+    "text": "above",
+    "start": 37.06,
+    "end": 37.38,
+    "id": "w103"
+  },
+  {
+    "text": "$90,",
+    "start": 37.38,
+    "end": 37.94,
+    "id": "w104"
+  },
+  {
+    "text": "you",
+    "start": 37.94,
+    "end": 38.1,
+    "id": "w105"
+  },
+  {
+    "text": "keep",
+    "start": 38.13,
+    "end": 38.39,
+    "id": "w106"
+  },
+  {
+    "text": "the",
+    "start": 38.39,
+    "end": 38.58,
+    "id": "w107"
+  },
+  {
+    "text": "premium.",
+    "start": 38.58,
+    "end": 39.27,
+    "id": "w108"
+  },
+  {
+    "text": "If",
+    "start": 39.31,
+    "end": 39.43,
+    "id": "w109"
+  },
+  {
+    "text": "it",
+    "start": 39.43,
+    "end": 39.58,
+    "id": "w110"
+  },
+  {
+    "text": "drops",
+    "start": 39.58,
+    "end": 39.93,
+    "id": "w111"
+  },
+  {
+    "text": "to",
+    "start": 39.97,
+    "end": 40.1,
+    "id": "w112"
+  },
+  {
+    "text": "$90",
+    "start": 40.15,
+    "end": 40.49,
+    "id": "w113"
+  },
+  {
+    "text": "or",
+    "start": 40.72,
+    "end": 40.81,
+    "id": "w114"
+  },
+  {
+    "text": "below,",
+    "start": 40.81,
+    "end": 41.3,
+    "id": "w115"
+  },
+  {
+    "text": "you",
+    "start": 41.36,
+    "end": 41.58,
+    "id": "w116"
+  },
+  {
+    "text": "buy",
+    "start": 41.58,
+    "end": 41.81,
+    "id": "w117"
+  },
+  {
+    "text": "at",
+    "start": 41.81,
+    "end": 41.96,
+    "id": "w118"
+  },
+  {
+    "text": "$90,",
+    "start": 41.96,
+    "end": 42.64,
+    "id": "w119"
+  },
+  {
+    "text": "$87",
+    "start": 42.64,
+    "end": 43.19,
+    "id": "w120"
+  },
+  {
+    "text": "after",
+    "start": 43.19,
+    "end": 43.58,
+    "id": "w121"
+  },
+  {
+    "text": "the",
+    "start": 43.58,
+    "end": 43.81,
+    "id": "w122"
+  },
+  {
+    "text": "premium.",
+    "start": 43.81,
+    "end": 44.45,
+    "id": "w123"
+  },
+  {
+    "text": "But",
+    "start": 44.77,
+    "end": 45.01,
+    "id": "w124"
+  },
+  {
+    "text": "if",
+    "start": 45.02,
+    "end": 45.2,
+    "id": "w125"
+  },
+  {
+    "text": "it",
+    "start": 45.2,
+    "end": 45.38,
+    "id": "w126"
+  },
+  {
+    "text": "crashes",
+    "start": 45.38,
+    "end": 45.95,
+    "id": "w127"
+  },
+  {
+    "text": "to",
+    "start": 46.18,
+    "end": 46.22,
+    "id": "w128"
+  },
+  {
+    "text": "$70,",
+    "start": 46.22,
+    "end": 47.05,
+    "id": "w129"
+  },
+  {
+    "text": "$3",
+    "start": 47.05,
+    "end": 47.42,
+    "id": "w130"
+  },
+  {
+    "text": "barely",
+    "start": 47.42,
+    "end": 47.98,
+    "id": "w131"
+  },
+  {
+    "text": "helps.",
+    "start": 47.98,
+    "end": 48.8,
+    "id": "w132"
+  },
+  {
+    "text": "Options",
+    "start": 48.83,
+    "end": 49.13,
+    "id": "w133"
+  },
+  {
+    "text": "are",
+    "start": 49.18,
+    "end": 49.31,
+    "id": "w134"
+  },
+  {
+    "text": "high",
+    "start": 49.35,
+    "end": 49.56,
+    "id": "w135"
+  },
+  {
+    "text": "risk.",
+    "start": 49.56,
+    "end": 49.96,
+    "id": "w136"
+  },
+  {
+    "text": "Read",
+    "start": 49.99,
+    "end": 50.24,
+    "id": "w137"
+  },
+  {
+    "text": "the",
+    "start": 50.25,
+    "end": 50.47,
+    "id": "w138"
+  },
+  {
+    "text": "full",
+    "start": 50.47,
+    "end": 50.76,
+    "id": "w139"
+  },
+  {
+    "text": "guide,",
+    "start": 50.76,
+    "end": 51.18,
+    "id": "w140"
+  },
+  {
+    "text": "link",
+    "start": 51.4,
+    "end": 51.56,
+    "id": "w141"
+  },
+  {
+    "text": "in",
+    "start": 51.56,
+    "end": 51.71,
+    "id": "w142"
+  },
+  {
+    "text": "the",
+    "start": 51.71,
+    "end": 51.93,
+    "id": "w143"
+  },
+  {
+    "text": "post.",
+    "start": 51.93,
+    "end": 52.28,
+    "id": "w144"
+  }
+]
