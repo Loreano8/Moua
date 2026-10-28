@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+        .grid { position: absolute; inset: -120px; background-image: linear-gradient(rgba(240, 185, 11, 0.07) 2px, transparent 2px), linear-gradient(90deg, rgba(240, 185, 11, 0.07) 2px, transparent 2px); background-size: 120px 120px; }
+        #s4-label { position: absolute; left: 80px; top: 170px; opacity: 0; }
+        #s4-ttl { position: absolute; left: 80px; right: 80px; top: 230px; font-family: "Archivo Black", sans-serif; font-size: 96px; line-height: 1.02; letter-spacing: -0.04em; color: #f5f1e6; }
+        #s4-ttl .ln { display: block; white-space: nowrap; }
+        #s4-chat { position: absolute; left: 60px; right: 60px; top: 500px; height: 1110px; border-radius: 36px; background: #17150f; border: 3px solid #2e2b24; opacity: 0; }
+        #s4-ch { height: 96px; padding: 0 36px; border-bottom: 3px solid #2e2b24; display: flex; align-items: center; gap: 18px; font-family: "Inter", sans-serif; font-weight: 800; font-size: 34px; color: #f5f1e6; }
+        #s4-ch .dot { width: 22px; height: 22px; border-radius: 50%; background: #f0b90b; }
+        #s4-user { position: absolute; right: 36px; top: 136px; max-width: 760px; padding: 26px 34px; border-radius: 30px 30px 8px 30px; background: #f0b90b; font-family: "Inter", sans-serif; font-weight: 700; font-size: 42px; color: #0c0b09; white-space: nowrap; opacity: 0; }
+        #s4-user .k { opacity: 0; }
+        #s4-agent { position: absolute; left: 36px; right: 36px; top: 290px; padding: 30px 34px; border-radius: 30px 30px 30px 8px; background: #26231c; opacity: 0; }
+        #s4-res { font-family: "JetBrains Mono", monospace; font-size: 32px; color: #cfc8b8; }
+        .kv { display: flex; justify-content: space-between; align-items: center; height: 92px; border-top: 2px solid #3a362e; opacity: 0; }
+        .kv:first-of-type { margin-top: 20px; }
+        .kk { font-family: "Inter", sans-serif; font-weight: 600; font-size: 34px; color: #b9b2a3; }
+        .kvv { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; color: #f5f1e6; }
+        .ok { color: #3ddc84; }
+        #s4-btn { position: absolute; left: 36px; right: 36px; top: 800px; height: 120px; border-radius: 24px; background: #f0b90b; display: flex; align-items: center; justify-content: center; font-family: "Archivo Black", sans-serif; font-size: 48px; color: #0c0b09; opacity: 0; will-change: transform; }
+        #s4-done { position: absolute; left: 36px; right: 36px; top: 950px; text-align: center; font-family: "Archivo Black", sans-serif; font-size: 46px; color: #3ddc84; opacity: 0; }
+        #s4-foot { position: absolute; left: 80px; right: 80px; top: 1650px; font-family: "JetBrains Mono", monospace; font-size: 28px; line-height: 1.45; color: #b9b2a3; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s4-send" data-start="0" data-duration="6" data-width="1080" data-height="1920">
+        <div id="s4-grid" class="grid" data-layout-allow-overflow></div>
+        <div id="s4-label" class="label">WHAT IT DOES</div>
+        <div id="s4-ttl">
+          <span class="ln"><span class="w">Your</span> <span class="w">name</span> <span class="w">is</span> <span class="w">your</span></span>
+          <span class="ln"><span class="w y">payment</span> <span class="w y">address.</span></span>
+        </div>
+        <div id="s4-chat">
+          <div id="s4-ch"><span class="dot"></span>Binance AI Pro · Agentic Wallet</div>
+          <div id="s4-user"></div>
+          <div id="s4-agent">
+            <div id="s4-res">Resolving loreano.ai…</div>
+            <div class="kv" id="s4-k0"><span class="kk">Address</span><span class="kvv">0x7f3A…19D2</span></div>
+            <div class="kv" id="s4-k1"><span class="kk">Type</span><span class="kvv">EOA · regular wallet</span></div>
+            <div class="kv" id="s4-k2"><span class="kk">Address Book</span><span class="kvv ok">✓ saved</span></div>
+          </div>
+          <div id="s4-btn">Confirm</div>
+          <div id="s4-done">✓ Sent only after you confirm</div>
+        </div>
+        <div id="s4-foot">Illustrative example. The agent shows the real address first, and the recipient must be in your Address Book.</div>
+      </div>
+      <script>
+        (() => {
+          const MSG = "Send 1 USDT to loreano.ai";
+          const u = document.getElementById("s4-user");
+          [...MSG].forEach((ch) => { const s = document.createElement("span"); s.className = "k"; s.textContent = ch === " " ? " " : ch; u.appendChild(s); });
+          const tl = gsap.timeline({ paused: true });
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+          tl.fromTo("#s4-grid", { y: 0 }, { y: -120, duration: 6, ease: "none" }, 0);
+          tl.fromTo("#s4-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.05);
+          waterfall("#s4-ttl", 0.1, 0.6);
+          tl.fromTo("#s4-chat", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 0.4);
+          tl.fromTo("#s4-user", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, 0.75);
+          gsap.utils.toArray("#s4-user .k").forEach((el, i) => tl.set(el, { opacity: 1 }, 0.8 + i * 0.03));
+          tl.fromTo("#s4-agent", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 1.8);
+          ["#s4-k0", "#s4-k1", "#s4-k2"].forEach((id, i) => tl.fromTo(id, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 2.3 + i * 0.4));
+          tl.fromTo("#s4-btn", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 3.6);
+          tl.fromTo("#s4-btn", { scale: 1 }, { scale: 0.94, duration: 0.1, ease: "power2.in", yoyo: true, repeat: 1, immediateRender: false }, 4.2);
+          tl.fromTo("#s4-done", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 4.45);
+          tl.fromTo("#s4-foot", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }, 4.7);
+          tl.to("#s4-ttl, #s4-label, #s4-chat, #s4-foot", { opacity: 0, y: -40, duration: 0.2, ease: "power3.in" }, 5.78);
+          window.__timelines["s4-send"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

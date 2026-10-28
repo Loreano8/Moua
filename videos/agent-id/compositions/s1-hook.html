@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; letter-spacing: 0.18em; color: #f0b90b; }
+        #s1-cam { position: absolute; inset: 0; transform-origin: 50% 40%; will-change: transform; }
+        #s1-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        #s1-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.97) 0%, rgba(12,11,9,0.86) 40%, rgba(12,11,9,0) 64%); }
+        #s1-label { position: absolute; left: 80px; top: 1130px; opacity: 0; }
+        #s1-ttl { position: absolute; left: 80px; right: 80px; top: 1190px; font-family: "Archivo Black", sans-serif; font-size: 92px; line-height: 1.02; letter-spacing: -0.035em; color: #f5f1e6; }
+        #s1-box { position: absolute; left: 70px; right: 70px; top: 1440px; padding: 34px 38px; border-radius: 26px; border: 3px solid #4a463e; background: rgba(23, 21, 15, 0.92); opacity: 0; }
+        #s1-addr { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 50px; line-height: 1.3; color: #f5f1e6; word-break: break-all; }
+        #s1-addr .k { opacity: 0; }
+        #s1-caret { display: inline-block; width: 24px; height: 56px; margin-left: 4px; background: #f0b90b; vertical-align: middle; }
+      </style>
+      <div id="root" data-composition-id="s1-hook" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+        <div id="s1-cam" data-layout-allow-overflow>
+          <video id="s1-video" class="clip" src="assets/video/pc.mp4" data-start="0" data-duration="4" data-playback-rate="0.75" data-track-index="0" muted playsinline></video>
+        </div>
+        <div id="s1-scrim"></div>
+        <div id="s1-label" class="label">A NORMAL WALLET ADDRESS</div>
+        <div id="s1-ttl"><span class="w">Would</span> <span class="w">you</span> <span class="w">remember</span> <span class="w y">this?</span></div>
+        <div id="s1-box"><div id="s1-addr"></div></div>
+      </div>
+      <script>
+        (() => {
+          const ADDR = "0x7f3A9c1E44b2d8F06aE91c5B3d7720Fe4C8a19D2";
+          const box = document.getElementById("s1-addr");
+          [...ADDR].forEach((ch) => { const s = document.createElement("span"); s.className = "k"; s.textContent = ch; box.appendChild(s); });
+          const caret = document.createElement("span"); caret.id = "s1-caret"; box.appendChild(caret);
+          const tl = gsap.timeline({ paused: true });
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+          tl.fromTo("#s1-cam", { scale: 1.12 }, { scale: 1.02, duration: 4, ease: "none" }, 0);
+          tl.fromTo("#s1-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+          tl.fromTo("#s1-box", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }, 0.25);
+          gsap.utils.toArray("#s1-addr .k").forEach((el, i) => tl.set(el, { opacity: 1 }, 0.4 + i * 0.045));
+          tl.fromTo("#s1-caret", { opacity: 1 }, { opacity: 0, duration: 0.18, ease: "steps(1)", repeat: 9, yoyo: true }, 0.4);
+          waterfall("#s1-ttl", 2.45, 0.45);
+          tl.to("#s1-box", { x: -10, duration: 0.05, ease: "none", yoyo: true, repeat: 5 }, 3.3);
+          window.__timelines["s1-hook"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

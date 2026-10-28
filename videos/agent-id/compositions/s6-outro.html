@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; background: #0c0b09; overflow: hidden; }
+        .w { display: inline-block; opacity: 0; will-change: transform; }
+        .y { color: #f0b90b; }
+        .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; letter-spacing: 0.16em; color: #f0b90b; }
+        #s6-cam { position: absolute; inset: 0; transform-origin: 50% 40%; will-change: transform; }
+        #s6-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        #s6-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.97) 0%, rgba(12,11,9,0.88) 40%, rgba(12,11,9,0) 64%); }
+        #s6-label { position: absolute; left: 80px; top: 1180px; opacity: 0; }
+        #s6-text { position: absolute; left: 80px; right: 60px; top: 1240px; font-family: "Archivo Black", sans-serif; font-size: 120px; line-height: 1.0; letter-spacing: -0.045em; color: #f5f1e6; }
+        #s6-text .ln { display: block; white-space: nowrap; }
+        #s6-tag { position: absolute; left: 80px; top: 1530px; padding: 16px 30px; border-radius: 999px; border: 3px solid #f0b90b; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 36px; color: #f5f1e6; opacity: 0; }
+      </style>
+      <div id="root" data-composition-id="s6-outro" data-start="0" data-duration="4" data-width="1080" data-height="1920">
+        <div id="s6-cam" data-layout-allow-overflow>
+          <video id="s6-video" class="clip" src="assets/video/pc.mp4" data-start="0" data-duration="4" data-media-start="3.9" data-playback-rate="0.65" data-track-index="0" muted playsinline></video>
+        </div>
+        <div id="s6-scrim"></div>
+        <div id="s6-label" class="label">EVERY ONCHAIN AGENT NEEDS A NAME</div>
+        <div id="s6-text">
+          <span class="ln" id="s6-l1"><span class="w">Mine</span> <span class="w">is</span></span>
+          <span class="ln" id="s6-l2"><span class="w y">loreano.ai</span></span>
+        </div>
+        <div id="s6-tag">#MyAgentID</div>
+      </div>
+      <script>
+        (() => {
+          const tl = gsap.timeline({ paused: true });
+          function waterfall(sel, t0, maxSpan) {
+            const words = gsap.utils.toArray(sel + " .w");
+            const step = Math.min(0.13, maxSpan / words.length);
+            words.forEach((el, i) => {
+              const heavy = i === 0 || i === words.length - 1;
+              const t = t0 + i * step;
+              tl.set(el, { opacity: 1, y: heavy ? 80 : 45 }, t);
+              tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
+            });
+          }
+          tl.fromTo("#s6-cam", { scale: 1.02 }, { scale: 1.1, duration: 4, ease: "none" }, 0);
+          tl.fromTo("#s6-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.15);
+          waterfall("#s6-l1", 0.5, 0.15);
+          tl.fromTo("#s6-l2 .w", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, 1.0);
+          tl.fromTo("#s6-tag", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 1.6);
+          window.__timelines["s6-outro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
