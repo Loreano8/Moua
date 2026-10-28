@@ -1,15 +1,15 @@
 """Original upbeat electronic bed for the Agent ID video (numpy only).
 
-120 BPM, A minor, Am - F - C - G (one chord per bar), 13 bars = 26 s.
+120 BPM, A minor, Am - F - C - G (one chord per bar), 14 bars = 28 s.
 Bars 0-1: filtered pad + pluck and a noise riser into the drop at 4 s.
-Bars 2-12: four-on-the-floor kick, claps on 2 and 4, off-beat open hats,
+Bars 2-13: four-on-the-floor kick, claps on 2 and 4, off-beat open hats,
 16th closed hats, off-beat sub bass, sidechained pad and a 16th pluck
 arpeggio. Writes assets/audio/bgm.wav; encode to bgm.m4a afterwards.
 """
 import os, wave
 import numpy as np
 
-SR, BPM, BARS = 44100, 120, 13
+SR, BPM, BARS = 44100, 120, 14
 BEAT = 60 / BPM
 BAR = 4 * BEAT
 DUR = BARS * BAR

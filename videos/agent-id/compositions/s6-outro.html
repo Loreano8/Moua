@@ -10,24 +10,28 @@
         .w { display: inline-block; opacity: 0; will-change: transform; }
         .y { color: #f0b90b; }
         .label { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; letter-spacing: 0.16em; color: #f0b90b; }
-        #s6-cam { position: absolute; inset: 0; transform-origin: 50% 40%; will-change: transform; }
-        #s6-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        #s6-video, #s6-cut { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         #s6-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,11,9,0.97) 0%, rgba(12,11,9,0.88) 40%, rgba(12,11,9,0) 64%); }
+        .layer { position: absolute; inset: 0; }
+        .card { position: absolute; left: 0; top: 0; width: 260px; height: 356px; opacity: 0; will-change: transform; }
+        .card img { display: block; width: 100%; height: 100%; filter: drop-shadow(0 22px 34px rgba(0,0,0,0.55)); }
+        #s6-veil { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 55% at 50% 32%, rgba(12,11,9,0.88) 0%, #0c0b09 75%); opacity: 0; }
+        #s6-glow { position: absolute; left: 90px; top: 140px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(240,185,11,0.42) 0%, rgba(240,185,11,0) 65%); opacity: 0; }
+        #s6-shine-clip { position: absolute; left: 12px; top: 12px; right: 12px; bottom: 12px; overflow: hidden; border-radius: 14px; mix-blend-mode: screen; }
+        #s6-shine { position: absolute; top: -20%; left: 0; width: 70px; height: 140%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.8), rgba(255,255,255,0)); }
         #s6-label { position: absolute; left: 80px; top: 1180px; opacity: 0; }
         #s6-text { position: absolute; left: 80px; right: 60px; top: 1240px; font-family: "Archivo Black", sans-serif; font-size: 120px; line-height: 1.0; letter-spacing: -0.045em; color: #f5f1e6; }
         #s6-text .ln { display: block; white-space: nowrap; }
-        #s6-glow { position: absolute; left: 610px; top: 300px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(240,185,11,0.38) 0%, rgba(240,185,11,0) 65%); opacity: 0; }
-        #s6-card { position: absolute; left: 740px; top: 330px; width: 300px; height: 411px; opacity: 0; will-change: transform; }
-        #s6-card img { display: block; width: 100%; height: 100%; filter: drop-shadow(0 26px 40px rgba(0,0,0,0.55)); }
         #s6-tag { position: absolute; left: 80px; top: 1530px; padding: 16px 30px; border-radius: 999px; border: 3px solid #f0b90b; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 36px; color: #f5f1e6; opacity: 0; }
       </style>
-      <div id="root" data-composition-id="s6-outro" data-start="0" data-duration="4" data-width="1080" data-height="1920">
-        <div id="s6-cam" data-layout-allow-overflow>
-          <video id="s6-video" class="clip" src="assets/video/pc.mp4" data-start="0" data-duration="4" data-media-start="3.9" data-playback-rate="0.65" data-track-index="0" muted playsinline></video>
-        </div>
+      <div id="root" data-composition-id="s6-outro" data-start="0" data-duration="6" data-width="1080" data-height="1920">
+        <video id="s6-video" class="clip" src="assets/video/pc.mp4" data-start="0" data-duration="6" data-media-start="3.9" data-playback-rate="0.65" data-track-index="0" muted playsinline></video>
+        <div class="layer" id="s6-back" data-layout-allow-overflow><div class="card" id="s6-cb"><img src="assets/img/agent-id-card.png" alt="Loreano's Binance Agent ID card" /></div></div>
+        <video id="s6-cut" class="clip" src="assets/video/pc-cutout.webm" data-start="0" data-duration="6" data-media-start="3.9" data-playback-rate="0.65" data-track-index="1" muted playsinline></video>
         <div id="s6-scrim"></div>
+        <div id="s6-veil"></div>
         <div id="s6-glow"></div>
-        <div id="s6-card"><img src="assets/img/agent-id-card.png" alt="Loreano's Binance Agent ID card" /></div>
+        <div class="layer" id="s6-front" data-layout-allow-overflow><div class="card" id="s6-cf"><img src="assets/img/agent-id-card.png" alt="Loreano's Binance Agent ID card" /><div id="s6-shine-clip"><div id="s6-shine"></div></div></div></div>
         <div id="s6-label" class="label">EVERY ONCHAIN AGENT NEEDS A NAME</div>
         <div id="s6-text">
           <span class="ln" id="s6-l1"><span class="w">Mine</span> <span class="w">is</span></span>
@@ -48,15 +52,44 @@
               tl.to(el, { y: 0, duration: heavy ? 0.18 : 0.15, ease: "power4.out" }, t);
             });
           }
-          tl.fromTo("#s6-cam", { scale: 1.02 }, { scale: 1.1, duration: 4, ease: "none" }, 0);
-          tl.fromTo("#s6-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.15);
-          waterfall("#s6-l1", 0.5, 0.15);
-          tl.fromTo("#s6-l2 .w", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, 1.0);
-          // Agent ID card slides in beside the speaker as the name lands
-          tl.fromTo("#s6-glow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 0.9);
-          tl.fromTo("#s6-card", { opacity: 0, x: 260, rotation: 22, scale: 0.8 }, { opacity: 1, x: 0, rotation: 8, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 0.95);
-          tl.to("#s6-card", { y: -18, rotation: 6, duration: 2.4, ease: "sine.inOut" }, 1.55);
-          tl.fromTo("#s6-tag", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 1.6);
+          // Text first
+          tl.fromTo("#s6-label", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.1);
+          waterfall("#s6-l1", 0.3, 0.15);
+          tl.fromTo("#s6-l2 .w", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, 0.6);
+          tl.fromTo("#s6-tag", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.35, ease: "expo.out" }, 1.0);
+
+          // The card circles the head (behind it at the back, via the cutout), then lands front and centre
+          const W = 260, H = 356, CX = 540, CY = 560, RX = 390, RY = 110;
+          const T0 = 0.4, T1 = 3.6, TH0 = 0, TH1 = 2 * Math.PI + Math.PI / 2;
+          const dt = 0.05;
+          function pose(t) {
+            const k = Math.min(1, Math.max(0, (t - T0) / (T1 - T0)));
+            const th = TH0 + (TH1 - TH0) * k;
+            const depth = Math.sin(th);
+            return { x: CX + RX * Math.cos(th) - W / 2, y: CY + RY * depth - H / 2, scale: 0.72 + 0.28 * (depth + 1) / 2, rotationY: -Math.cos(th) * 35, depth };
+          }
+          const p0 = pose(T0);
+          tl.set(["#s6-cf", "#s6-cb"], { x: p0.x, y: p0.y, scale: p0.scale, rotationY: p0.rotationY, transformPerspective: 900 }, 0);
+          tl.fromTo(["#s6-cf", "#s6-cb"], { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: false }, T0);
+          let front = null;
+          for (let t = T0; t < T1 - 1e-6; t += dt) {
+            const p = pose(t + dt);
+            tl.to(["#s6-cf", "#s6-cb"], { x: p.x, y: p.y, scale: p.scale, rotationY: p.rotationY, duration: dt, ease: "none" }, t);
+            const isFront = p.depth >= 0;
+            if (isFront !== front) {
+              tl.set("#s6-cf", { opacity: isFront ? 1 : 0 }, t);
+              tl.set("#s6-cb", { opacity: isFront ? 0 : 1 }, t);
+              front = isFront;
+            }
+          }
+          // Grow to full size over the top of the frame while the speaker fades out
+          const BIG = 650 / W;
+          tl.set("#s6-cb", { opacity: 0 }, T1);
+          tl.to("#s6-cf", { x: CX - W / 2, y: 600 - H / 2, scale: BIG, rotationY: 0, rotation: 0, duration: 0.7, ease: "expo.inOut" }, T1);
+          tl.fromTo("#s6-veil", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.inOut" }, T1 + 0.05);
+          tl.fromTo("#s6-glow", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" }, T1 + 0.2);
+          tl.fromTo("#s6-shine", { x: -120, rotation: 18 }, { x: 320, rotation: 18, duration: 0.6, ease: "power2.inOut" }, T1 + 0.8);
+          tl.to("#s6-cf", { y: 600 - H / 2 - 14, duration: 6 - T1 - 0.8, ease: "sine.inOut" }, T1 + 0.75);
           window.__timelines["s6-outro"] = tl;
         })();
       </script>

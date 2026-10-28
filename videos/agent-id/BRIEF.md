@@ -6,14 +6,14 @@ message: "A raw wallet address is 42 random characters; loreano.ai is one name, 
 destination: x-feed
 aspect: 1080x1920
 language: en
-length: 26s
+length: 28s
 ---
 
 ## Intent
 
 Vidéo pour la campagne Binance Wallet « My Agent ID » (#MyAgentID, date limite 31/10/2026 16:00 UTC). Elle montre à quoi sert concrètement l'Agent ID loreano.ai et ce qu'il change par rapport à une adresse classique.
 
-Déroulé (120 BPM, coupes à la mesure) : accroche sur le clip de Loreano au PC, avec une adresse 0x… interminable qui se tape → l'adresse se brouille et devient loreano.ai, puis la comparaison ✕ / ✓ → la carte Agent ID tourne et arrive, avec ses règles (un par personne, non transférable, pas renommable, gratuit hors frais BNB) → démonstration « Send 1 USDT to loreano.ai » : l'agent montre la vraie adresse, attend la confirmation → « dans AI Pro, en langage normal, dans ta limite journalière » → fin sur Loreano qui sourit : « Every onchain agent needs a name. Mine is loreano.ai ».
+Déroulé (120 BPM, coupes à la mesure) : accroche sur le clip de Loreano au PC, avec une adresse 0x… interminable qui se tape → l'adresse se brouille et devient loreano.ai, puis la comparaison ✕ / ✓ → la carte Agent ID tourne et arrive, avec ses règles (un par personne, non transférable, pas renommable, gratuit hors frais BNB) → démonstration « Send 1 USDT to loreano.ai » : l'agent montre la vraie adresse, attend la confirmation → « dans AI Pro, en langage normal, dans ta limite journalière » → fin sur Loreano qui sourit : « Every onchain agent needs a name. Mine is loreano.ai » ; la carte fait le tour de sa tête (derrière lui grâce au détourage assets/video/pc-cutout.webm), puis s’agrandit en haut pendant que son image s’efface.
 
 ## Assets
 
