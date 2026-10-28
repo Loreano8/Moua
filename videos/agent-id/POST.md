@@ -14,6 +14,6 @@ My Agent ID: loreano 🪪
 Why this name? It's my own. An agent that works for me should carry my name.
 
 Send to loreano.ai, not a 0x… string.
-My agent shows the real address first, and nothing moves until I confirm.
+My agent shows the real address, and nothing moves until I confirm.
 
 @BinanceWallet #MyAgentID
