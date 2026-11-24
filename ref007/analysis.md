@@ -10,6 +10,7 @@ Technique study only. Source files, frames and transcripts live in `ref007/v1…
 | 4 | TikTok, "every horror movie trailer" | 61.7 s | ~2.0 s |
 | 5 | TikTok, "Fall Hallmark movie trailers be like" | 80.3 s | ~2.6 s |
 | 6 | TikTok, "Netflix documentary trailers showing everything except the interview" | 63.6 s | ~2.4 s |
+| 7* | X post (user-supplied extra), AI 2D cartoon skit | 57.8 s | ~2.6 s |
 
 ---
 
@@ -72,6 +73,18 @@ Technique study only. Source files, frames and transcripts live in `ref007/v1…
 - **Text:** a top genre label, then a doc-style serif in all caps, typed on word by word ("A STORY WAITING TO BE…", "IN THEIR OWN WORDS", "EVERY LAST DETAIL", "A LIFETIME IN THE MAKING"), title, and "COMING SOON".
 - **Why it works cold:** you can read the documentary look (slow push-ins, B-roll of hands, drone shots) without context, and the gap between gravitas and nothing happening is self-explanatory.
 - **Weakness:** the gag is one-note, the middle is repetitive by design and feels slow, and the payoff line is quiet and easy to miss.
+
+## 7. Extra reference (user-supplied, not an organizer reference): X post, 2D AI cartoon skit (57.8 s)
+- **Source/context:** an X post promoting an AI video tool, which claims the creator "recreated" a viral Shorts format with it. This is a dialogue skit, not a trailer.
+- **Format:** flat 2D cartoon (thick outlines, round heads, stick limbs) on one painted backdrop, plus a corridor for the ending. It appears AI-generated, and the voices sound like TTS. English dialogue, 9:16.
+- **Premise:** a guard tells a prisoner of 30 years that he's free, and the prisoner refuses to leave because freedom costs money.
+- **Structure:** hook 0–3 ("you're finally free!" with the premise in line one) → setup 3–14 (the refusal: "my bed is here") → escalation 14–46 (each perk of freedom the guard offers gets a cost-based rebuttal: food, travel, a car) → reversal 46–52 (the guard gives up, and now the prisoner doesn't want to be left alone) → ending 52–57 ("don't forget my birthday cake" plus a narrator-style closing line, as the guard walks off down the corridor).
+- **Rhythm:** ~21 cuts, a very regular 2–3 s per shot. Each cut goes to whoever is speaking (shot/reverse-shot, alternating close-ups and two-shots), with occasional punch-ins on a reaction. Hard cuts only. Pacing is driven by the dialogue, not by music.
+- **Sound:** dialogue throughout, with no visible music bed. The gaps of about 0.5 s between lines are the comic timing.
+- **Text:** one-word kinetic captions (white, black outline, bold, centred low), one keyword per line. They're readable on mute and add punch.
+- **Why it works cold:** one location, two archetypes (guard and old prisoner), and one reversal everybody gets (freedom is expensive). It feels relatable with no context needed.
+- **Weakness:** it's a sketch, not a trailer, with no stakes, title card or escalation in scale. The robotic TTS delivery and static backgrounds flatten the jokes, and the template look is generic.
+- **Relevance to #007:** it shows that cheap AI 2D characters plus tight dialogue can carry a story. Borrow the single-location, single-reversal economy and the keyword captions, not the trailer structure (it has none).
 
 ---
 
