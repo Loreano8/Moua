@@ -1,0 +1,404 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #cfe0d6; }
+    #world-canvas { position: absolute; inset: 0; width: 1080px; height: 1920px; display: block; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1080" data-height="1920" data-duration="71.2">
+    <canvas id="world-canvas" width="1080" height="1920"></canvas>
+  </div>
+  <script>
+    (function () {
+      const TOTAL = 71.2;
+      const T = THREE;
+      const FONT = '"Archivo Black", "Inter", sans-serif';
+      // Canvas text needs the fonts first, so the whole set is built once they are loaded.
+      const fontsReady = Promise.all([document.fonts.load(`64px ${FONT}`), document.fonts.load("700 32px Inter"), document.fonts.load("italic 700 24px Inter")]).catch(() => {});
+      window.__hf = window.__hf || {}; window.__hf.buildReady = window.__hf.buildReady || {};
+      window.__hf.buildReady.world = fontsReady.then(build);
+
+      function build() {
+
+      // ---------- time helpers (everything is a pure function of t) ----------
+      const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+      const lerp = (a, b, s) => a + (b - a) * s;
+      const ss = (a, b, t) => { const x = cl((t - a) / (b - a)); return x * x * (3 - 2 * x); };
+      const backOut = (x) => { const c1 = 1.6, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+      const pop = (t0, t, d = 0.5) => (t <= t0 ? 0 : t >= t0 + d ? 1 : backOut((t - t0) / d));
+      // visible factor: pops in at a, shrinks out over the 0.3 s before b
+      const life = (t, a, b, d = 0.5) => (t < a || t >= b ? 0 : Math.min(pop(a, t, d), 1 - ss(b - 0.3, b, t)));
+      function mulberry32(a) { return function () { a |= 0; a = (a + 0x6d2b79f5) | 0; let x = Math.imul(a ^ (a >>> 15), 1 | a); x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x; return ((x ^ (x >>> 14)) >>> 0) / 4294967296; }; }
+      const rnd = mulberry32(7);
+      const V = (x, y, z) => new T.Vector3(x, y, z);
+      const vlerp = (a, b, s) => V(lerp(a.x, b.x, s), lerp(a.y, b.y, s), lerp(a.z, b.z, s));
+      // parabolic hop from a to b with apex height h
+      const arc = (a, b, s, h) => { const p = vlerp(a, b, s); p.y += h * 4 * s * (1 - s); return p; };
+
+      const C = { gold: 0xf2b705, danger: 0xe5484d, ok: 0x2fb673, ink: 0x1e1a16, wood: 0xb9824f, wall: 0xcfe0d6, steel: 0x8c96a0, tile: 0xfaf6ec, dark: 0x22252a };
+
+      // ---------- renderer, scene, light ----------
+      const canvas = document.getElementById("world-canvas");
+      const renderer = new T.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+      renderer.setPixelRatio(1);
+      renderer.setSize(1080, 1920, false);
+      renderer.outputColorSpace = T.SRGBColorSpace;
+      const scene = new T.Scene();
+      scene.background = new T.Color(C.wall);
+      const camera = new T.PerspectiveCamera(40, 1080 / 1920, 1, 600);
+      scene.add(new T.HemisphereLight(0xf4f1e8, 0x6b4a2e, 0.9));
+      const key = new T.DirectionalLight(0xffe2b8, 2.2); key.position.set(-40, 80, 50); scene.add(key);
+      const rim = new T.DirectionalLight(0xbfd8ff, 0.6); rim.position.set(50, 40, -60); scene.add(rim);
+
+      const mat = (c, o = {}) => new T.MeshStandardMaterial(Object.assign({ color: c, flatShading: true, roughness: 0.7, metalness: 0 }, o));
+      const box = (w, h, d, m) => new T.Mesh(new T.BoxGeometry(w, h, d), m);
+      const add = (parent, obj, x = 0, y = 0, z = 0) => { obj.position.set(x, y, z); parent.add(obj); return obj; };
+      const shadow = (r, op = 0.18) => { const m = new T.Mesh(new T.CircleGeometry(r, 24), new T.MeshBasicMaterial({ color: 0, transparent: true, opacity: op, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4 })); m.rotation.x = -Math.PI / 2; m.position.y = 0.25; return m; };
+
+      function canvasTex(w, h, draw) {
+        const c = document.createElement("canvas"); c.width = w; c.height = h;
+        const ctx = c.getContext("2d"); draw(ctx, w, h);
+        const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; tex.anisotropy = 4;
+        return { tex, ctx, c, redraw(fn) { fn(ctx, w, h); tex.needsUpdate = true; } };
+      }
+      function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+      function label(text, opts = {}) {
+        const fs = opts.size || 64, pad = 26, bg = opts.bg || "#F2B705", fg = opts.fg || "#1E1A16";
+        const probe = document.createElement("canvas").getContext("2d"); probe.font = `${fs}px ${FONT}`;
+        const w = Math.ceil(probe.measureText(text).width) + pad * 2, h = fs + pad * 1.6;
+        const ct = canvasTex(w, h, (ctx) => { ctx.fillStyle = bg; rr(ctx, 0, 0, w, h, 10); ctx.fill(); ctx.fillStyle = fg; ctx.font = `${fs}px ${FONT}`; ctx.textBaseline = "middle"; ctx.fillText(text, pad, h / 2 + 2); });
+        const s = new T.Sprite(new T.SpriteMaterial({ map: ct.tex, depthTest: false })); const k = (opts.height || 3) / h; s.scale.set(w * k, h * k, 1); s.renderOrder = 10; s.userData.base = s.scale.clone();
+        return s;
+      }
+
+      // ---------- set: wall + table ----------
+      add(scene, new T.Mesh(new T.PlaneGeometry(400, 300), new T.MeshBasicMaterial({ color: C.wall })), 0, 60, -60);
+      const table = new T.Group(); scene.add(table);
+      for (let i = 0; i < 5; i++) {
+        const shade = [0xb9824f, 0xb07a48, 0xbe8954, 0xb37d4a, 0xbb8551][i];
+        add(table, box(140, 4, 15.6, mat(shade)), 0, -2, -32 + i * 16);
+      }
+      add(table, box(140, 6, 2, mat(0x8f5f36)), 0, -5, 48);
+
+      // ---------- phone ----------
+      const phone = new T.Group(); add(scene, phone, -8, 0, 4);
+      const phoneTilt = new T.Group(); phone.add(phoneTilt); phoneTilt.position.y = 1; phoneTilt.rotation.set(-0.16, 0.22, 0);
+      add(phoneTilt, box(7.6, 15.4, 0.9, mat(C.dark, { roughness: 0.4 })), 0, 7.7, 0);
+      const screen = canvasTex(360, 720, () => {});
+      add(phoneTilt, new T.Mesh(new T.PlaneGeometry(6.8, 13.6), new T.MeshBasicMaterial({ map: screen.tex })), 0, 7.7, 0.46);
+      add(phone, box(6, 2.2, 3, mat(0x6d4a2c)), 0, 1.1, -1.6);
+      add(phone, shadow(5));
+      let screenState = "";
+      function drawScreen(state, t) {
+        if (state === screenState) return; screenState = state;
+        screen.redraw((ctx, w, h) => {
+          const broken = state === "broken";
+          ctx.fillStyle = broken ? "#101114" : "#F7F5EF"; ctx.fillRect(0, 0, w, h);
+          if (broken) {
+            ctx.strokeStyle = "#E5484D"; ctx.lineWidth = 5; ctx.lineCap = "round";
+            const r = mulberry32(3); const cx = 150, cy = 300;
+            for (let i = 0; i < 9; i++) { let x = cx, y = cy, a = (i / 9) * Math.PI * 2; ctx.beginPath(); ctx.moveTo(x, y); for (let k = 0; k < 5; k++) { a += (r() - 0.5) * 0.9; x += Math.cos(a) * 60; y += Math.sin(a) * 60; ctx.lineTo(x, y); } ctx.stroke(); }
+            ctx.fillStyle = "#E5484D"; ctx.font = `40px ${FONT}`; ctx.textAlign = "center"; ctx.fillText("CASSÉ", w / 2, 620);
+            return;
+          }
+          ctx.textAlign = "left"; ctx.fillStyle = "#1E1A16";
+          if (state === "app" || state === "locked") {
+            ctx.font = `30px ${FONT}`; ctx.fillText("Mon appli", 30, 70);
+            ctx.fillStyle = "#8A857B"; ctx.font = "600 24px Inter, sans-serif"; ctx.fillText("Solde", 30, 150);
+            ctx.fillStyle = "#1E1A16"; ctx.font = `58px ${FONT}`; ctx.fillText("0,52 ₿", 30, 220);
+            ctx.fillStyle = "#F2B705"; ctx.beginPath(); ctx.arc(290, 200, 34, 0, 7); ctx.fill();
+            ctx.fillStyle = "#E9E4D8"; rr(ctx, 30, 270, 300, 150, 16); ctx.fill();
+            ctx.fillStyle = "#5C574E"; ctx.font = "700 24px Inter, sans-serif"; ctx.fillText("Fonds gardés", 54, 330); ctx.fillText("par la plateforme", 54, 368);
+            if (state === "locked") {
+              ctx.fillStyle = "#E5484D"; rr(ctx, 20, 460, 320, 120, 16); ctx.fill();
+              ctx.fillStyle = "#FFFFFF"; ctx.font = `30px ${FONT}`; ctx.fillText("Retraits", 44, 512); ctx.fillText("suspendus", 44, 556);
+            } else {
+              ctx.fillStyle = "#1E1A16"; rr(ctx, 30, 470, 140, 70, 14); ctx.fill(); rr(ctx, 190, 470, 140, 70, 14); ctx.fill();
+              ctx.fillStyle = "#FFFFFF"; ctx.font = `22px ${FONT}`; ctx.fillText("Acheter", 44, 514); ctx.fillText("Vendre", 212, 514);
+            }
+          } else if (state === "keygen") {
+            ctx.font = `30px ${FONT}`; ctx.fillText("Portefeuille", 30, 70);
+            ctx.fillStyle = "#F2B705"; ctx.beginPath(); ctx.arc(180, 300, 110, 0, 7); ctx.fill();
+            ctx.fillStyle = "#1E1A16"; ctx.font = `40px ${FONT}`; ctx.textAlign = "center"; ctx.fillText("Clé privée", 180, 480); ctx.fillText("générée", 180, 530);
+          } else if (state === "notes" || state === "hacked") {
+            ctx.font = `34px ${FONT}`; ctx.fillText("Notes", 30, 70);
+            const ws = ["tigre", "nuage", "pomme", "rivière", "lampe", "forêt", "sable", "miroir"];
+            ws.forEach((wd, i) => { ctx.fillStyle = state === "hacked" ? "#E5484D" : "#1E1A16"; ctx.font = "700 32px Inter, sans-serif"; ctx.fillText(`${i + 1}. ${wd}`, 34, 140 + i * 56); });
+            if (state === "hacked") { ctx.fillStyle = "#E5484D"; rr(ctx, 20, 590, 320, 100, 14); ctx.fill(); ctx.fillStyle = "#fff"; ctx.font = `30px ${FONT}`; ctx.fillText("COPIÉ !", 108, 652); }
+          }
+        });
+      }
+
+      // ---------- platform vitrine + coins ----------
+      const vit = new T.Group(); add(scene, vit, 7, 0, -8); vit.userData.s = 0.8;
+      add(vit, box(17, 1.2, 11, mat(0x5b6470)), 0, 0.6, 0);
+      const glassM = mat(0xddf3f7, { transparent: true, opacity: 0.28, roughness: 0.1 });
+      add(vit, box(16, 12, 10, glassM), 0, 7.2, 0);
+      const frameM = mat(0x4a525c);
+      [[-8, -5], [8, -5], [-8, 5], [8, 5]].forEach(([x, z]) => add(vit, box(0.6, 12, 0.6, frameM), x, 7.2, z));
+      add(vit, box(17, 0.8, 11, frameM), 0, 13.4, 0);
+      const shutter = add(vit, new T.Group(), 0, 13.2, 5.4);
+      const shutterPanel = add(shutter, box(16.4, 1, 0.5, mat(0x7d8790)), 0, -0.5, 0);
+      const lockG = add(vit, new T.Group(), 0, 5, 6.2);
+      add(lockG, box(3.4, 2.8, 1.2, mat(C.danger, { roughness: 0.5 })), 0, 0, 0);
+      const shackle = add(lockG, new T.Mesh(new T.TorusGeometry(1.1, 0.35, 8, 16, Math.PI), mat(C.danger)), 0, 1.4, 0);
+      const vitSign = label("PLATEFORME", { height: 2.6, bg: "#1E1A16", fg: "#FFFFFF", size: 56 }); add(vit, vitSign, 0, 16.4, 0);
+      add(vit, shadow(10, 0.14));
+      const coinGeo = new T.CylinderGeometry(2.1, 2.1, 0.6, 16);
+      const coinM = mat(C.gold, { metalness: 0.45, roughness: 0.45 });
+      const coins = [];
+      for (let i = 0; i < 8; i++) { const c = new T.Mesh(coinGeo, coinM); scene.add(c); coins.push({ m: c, home: V(7 + ((i % 4) - 1.5) * 3.3, 1.4 + Math.floor(i / 4) * 0.6, -8 + (i % 2 ? 1.2 : -1.2)) }); }
+
+      // ---------- the user's safe ----------
+      const safe = new T.Group(); add(scene, safe, 17, 0, 8); safe.rotation.y = -0.5;
+      const steelM = mat(C.steel, { metalness: 0.35, roughness: 0.5 });
+      add(safe, box(12, 12, 12, steelM), 0, 6, 0);
+      const doorPivot = add(safe, new T.Group(), -5, 6, 6.1);
+      add(doorPivot, box(10, 10, 0.8, mat(0x9aa4ad, { metalness: 0.35, roughness: 0.45 })), 5, 0, 0);
+      add(doorPivot, new T.Mesh(new T.CylinderGeometry(1.7, 1.7, 0.7, 20), mat(0x3d434a)).rotateX(Math.PI / 2), 6.5, 1, 0.6);
+      add(doorPivot, box(0.6, 3.4, 0.6, mat(0x3d434a)), 6.5, -2.6, 0.6);
+      add(safe, box(12.4, 0.8, 12.4, mat(0x6f7881)), 0, 0.4, 0);
+      add(safe, shadow(9));
+
+      // ---------- golden key ----------
+      function makeKey(m) {
+        const g = new T.Group();
+        add(g, new T.Mesh(new T.TorusGeometry(2.4, 0.75, 8, 18), m), 0, 4.2, 0);
+        add(g, box(1.1, 8, 1.1, m), 0, -1.6, 0);
+        add(g, box(2.2, 0.9, 1.1, m), 1.1, -4.6, 0); add(g, box(1.6, 0.9, 1.1, m), 0.8, -2.8, 0); add(g, box(2.0, 0.9, 1.1, m), 1.0, -1.0, 0);
+        return g;
+      }
+      const keyM = mat(C.gold, { metalness: 0.5, roughness: 0.4 });
+      const goldKey = makeKey(keyM); scene.add(goldKey);
+      const shards = [];
+      const shardGeo = new T.TetrahedronGeometry(0.7);
+      for (let i = 0; i < 46; i++) { const s = new T.Mesh(shardGeo, keyM); scene.add(s); shards.push({ m: s, off: V((rnd() - 0.5) * 4, (rnd() - 0.3) * 10, (rnd() - 0.5) * 2), vel: V((rnd() - 0.5) * 24, rnd() * 10 - 2, (rnd() - 0.2) * 18), spin: rnd() * 8 }); }
+
+      // ---------- 24 word tiles ----------
+      const WORDS = ["tigre", "nuage", "pomme", "rivière", "lampe", "forêt", "sable", "miroir", "orage", "plume", "glace", "vélo", "pierre", "ruche", "étoile", "canard", "moulin", "bougie", "falaise", "renard", "tonneau", "jardin", "phare", "cerise"];
+      const tileGeo = new T.BoxGeometry(6.2, 2.6, 0.5);
+      const tileSide = mat(0xe6dfcd);
+      function tileFace(n, word, gold) {
+        return canvasTex(372, 156, (ctx, w, h) => {
+          ctx.fillStyle = "#FAF6EC"; ctx.fillRect(0, 0, w, h);
+          if (gold) { ctx.strokeStyle = "#F2B705"; ctx.lineWidth = 16; ctx.strokeRect(8, 8, w - 16, h - 16); }
+          ctx.fillStyle = "#A39C8C"; ctx.font = `34px ${FONT}`; ctx.textBaseline = "middle"; ctx.fillText(String(n), 22, h / 2 + 2);
+          ctx.fillStyle = "#1E1A16"; ctx.font = `46px ${FONT}`; ctx.fillText(word, n > 9 ? 92 : 72, h / 2 + 2);
+        }).tex;
+      }
+      const tiles = WORDS.map((wd, i) => {
+        const m = new T.Mesh(tileGeo, [tileSide, tileSide, tileSide, tileSide, new T.MeshStandardMaterial({ map: tileFace(i + 1, wd), roughness: 0.8 }), tileSide]);
+        scene.add(m); const c = i % 4, r = Math.floor(i / 4);
+        return { m, grid: V(-12 + c * 6.8, 33 - r * 3.4, 8) };
+      });
+      const tile25 = new T.Mesh(tileGeo, [tileSide, tileSide, tileSide, tileSide, new T.MeshStandardMaterial({ map: tileFace(25, "• • • • •", true), roughness: 0.8 }), tileSide]); scene.add(tile25);
+
+      // ---------- malware bug ----------
+      const bug = new T.Group(); scene.add(bug);
+      const bugM = mat(C.danger, { roughness: 0.5 });
+      add(bug, new T.Mesh(new T.SphereGeometry(1.6, 10, 8), bugM), 0, 0, 0).scale.set(1, 0.7, 1.3);
+      add(bug, new T.Mesh(new T.SphereGeometry(0.9, 8, 6), bugM), 0, 0.2, 2);
+      const legs = [];
+      for (let i = 0; i < 6; i++) { const l = add(bug, box(3.2, 0.3, 0.3, mat(0x7a1f22)), 0, -0.2, -1 + (i % 3) * 1.1); legs.push(l); }
+
+      // ---------- hardware wallet ----------
+      const dev = new T.Group(); add(scene, dev, 0, 0, 14);
+      add(dev, box(11, 1.6, 5.4, mat(0x2b2f36, { roughness: 0.45 })), 0, 0.8, 0);
+      const devScreen = canvasTex(400, 150, () => {});
+      add(dev, new T.Mesh(new T.PlaneGeometry(7, 2.6), new T.MeshBasicMaterial({ map: devScreen.tex })), -1, 1.62, 0).rotation.x = -Math.PI / 2;
+      add(dev, new T.Mesh(new T.CylinderGeometry(0.6, 0.6, 0.5, 12), mat(0x9aa4ad)), 4, 1.7, -1.2);
+      add(dev, new T.Mesh(new T.CylinderGeometry(0.6, 0.6, 0.5, 12), mat(0x9aa4ad)), 4, 1.7, 1.2);
+      add(dev, shadow(6.5));
+      let devState = "";
+      function drawDev(state) {
+        if (state === devState) return; devState = state;
+        devScreen.redraw((ctx, w, h) => {
+          ctx.fillStyle = "#0E1013"; ctx.fillRect(0, 0, w, h); ctx.textBaseline = "middle"; ctx.font = `44px ${FONT}`; ctx.textAlign = "center";
+          const txt = { idle: ["HORS LIGNE", "#BFC6CE"], key: ["CLÉ À L'ABRI", "#F2B705"], sign: ["SIGNER ?", "#FFFFFF"], signed: ["SIGNÉ ✓", "#2FB673"] }[state];
+          ctx.fillStyle = txt[1]; ctx.fillText(txt[0], w / 2, h / 2 + 2);
+        });
+      }
+      const txCard = new T.Group(); scene.add(txCard);
+      const txTex = canvasTex(400, 220, (ctx, w, h) => { ctx.fillStyle = "#FFFFFF"; rr(ctx, 0, 0, w, h, 24); ctx.fill(); ctx.fillStyle = "#1E1A16"; ctx.font = `40px ${FONT}`; ctx.fillText("Envoi", 30, 80); ctx.font = `54px ${FONT}`; ctx.fillText("0,1 ₿ →", 30, 160); });
+      add(txCard, new T.Mesh(new T.PlaneGeometry(8, 4.4), new T.MeshBasicMaterial({ map: txTex.tex, transparent: true })), 0, 0, 0);
+      const stamp = label("SIGNÉ ✓", { height: 2.4, bg: "#2FB673", fg: "#FFFFFF", size: 60 }); add(txCard, stamp, 2.6, -1.8, 0.4);
+
+      // ---------- paper, fire, water ----------
+      const paperTex = canvasTex(360, 480, () => {});
+      const paper = new T.Mesh(new T.PlaneGeometry(12, 16), new T.MeshStandardMaterial({ map: paperTex.tex, roughness: 0.95 }));
+      paper.rotation.x = -Math.PI / 2; add(scene, paper, -15, 0.08, 16);
+      let paperState = "";
+      function drawPaper(burn, wet) {
+        const st = burn.toFixed(1) + "/" + wet.toFixed(1); if (st === paperState) return; paperState = st;
+        paperTex.redraw((ctx, w, h) => {
+          ctx.fillStyle = "#FBF8EF"; ctx.fillRect(0, 0, w, h);
+          ctx.strokeStyle = "#C9D8E6"; ctx.lineWidth = 2; for (let y = 60; y < h; y += 34) { ctx.beginPath(); ctx.moveTo(14, y); ctx.lineTo(w - 14, y); ctx.stroke(); }
+          ctx.fillStyle = "#2A3A6A"; ctx.font = "italic 700 24px Inter, sans-serif";
+          for (let i = 0; i < 12; i++) ctx.fillText(`${i + 1}. ${WORDS[i]}`, 24 + (i % 2) * 168, 54 + Math.floor(i / 2) * 68);
+          if (burn > 0) { const g = ctx.createRadialGradient(w * 0.6, h * 0.7, 10, w * 0.6, h * 0.7, 40 + burn * 420); g.addColorStop(0, "rgba(20,12,8,0.95)"); g.addColorStop(0.7, "rgba(60,30,10,0.85)"); g.addColorStop(1, "rgba(120,60,20,0)"); ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); }
+          if (wet > 0) { ctx.fillStyle = `rgba(70,120,180,${0.45 * wet})`; ctx.fillRect(0, 0, w, h); }
+        });
+      }
+      const flames = [];
+      for (let i = 0; i < 9; i++) { const f = new T.Mesh(new T.ConeGeometry(1.3, 4, 7), mat(i % 2 ? 0xff8a1f : 0xffc531, { emissive: i % 2 ? 0xb34a00 : 0xa06d00, emissiveIntensity: 0.6 })); scene.add(f); flames.push({ m: f, at: V(-15 + (rnd() - 0.5) * 9, 0, 16 + (rnd() - 0.5) * 12), ph: rnd() * 6 }); }
+      const drops = [];
+      for (let i = 0; i < 14; i++) { const d = new T.Mesh(new T.SphereGeometry(0.55, 8, 6), mat(0x5aa0e6, { roughness: 0.2 })); d.scale.set(1, 1.6, 1); scene.add(d); drops.push({ m: d, at: V(-15 + (rnd() - 0.5) * 10, 0, 16 + (rnd() - 0.5) * 13), t0: 40.9 + rnd() * 0.6 }); }
+
+      // ---------- steel plate + cabinet ----------
+      const plateTex = canvasTex(420, 270, (ctx, w, h) => {
+        ctx.fillStyle = "#AEB6BD"; ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = "#59616A"; ctx.font = `30px ${FONT}`;
+        for (let i = 0; i < 12; i++) ctx.fillText(`${i + 1} ${WORDS[i].slice(0, 4).toUpperCase()}`, 24 + (i % 3) * 136, 52 + Math.floor(i / 3) * 62);
+      });
+      const plate = new T.Mesh(new T.BoxGeometry(14, 0.5, 9), [steelM, steelM, new T.MeshStandardMaterial({ map: plateTex.tex, metalness: 0.4, roughness: 0.45 }), steelM, steelM, steelM]);
+      scene.add(plate);
+      const cab = new T.Group(); add(scene, cab, 34, 0, -6); cab.rotation.y = -0.5;
+      add(cab, box(18, 12, 14, mat(0x8a5a33)), 0, 6, 0);
+      const drawer = add(cab, new T.Group(), 0, 6, 0);
+      add(drawer, box(16, 5, 13, mat(0x9c6a3f)), 0, 0, 0.6);
+      add(drawer, box(4, 0.8, 0.8, mat(0x3d434a)), 0, 0, 7.4);
+      add(cab, shadow(12));
+
+      // ---------- fake support bubble ----------
+      const bubble = new T.Group(); scene.add(bubble);
+      const bubTex = canvasTex(640, 380, (ctx, w, h) => {
+        ctx.fillStyle = "#FFFFFF"; rr(ctx, 0, 0, w, h - 40, 36); ctx.fill(); ctx.beginPath(); ctx.moveTo(80, h - 42); ctx.lineTo(60, h); ctx.lineTo(140, h - 42); ctx.fill();
+        ctx.fillStyle = "#3B82F6"; ctx.beginPath(); ctx.arc(70, 72, 34, 0, 7); ctx.fill();
+        ctx.fillStyle = "#1E1A16"; ctx.font = `38px ${FONT}`; ctx.fillText("Support ✔", 122, 86);
+        ctx.font = "700 34px Inter, sans-serif"; ctx.fillStyle = "#2B2722";
+        ["Pour débloquer ton compte,", "envoie-moi tes 24 mots."].forEach((l, i) => ctx.fillText(l, 40, 180 + i * 56));
+      });
+      add(bubble, new T.Mesh(new T.PlaneGeometry(24, 14.25), new T.MeshBasicMaterial({ map: bubTex.tex, transparent: true })), 0, 0, 0);
+      const xA = add(bubble, box(30, 1.8, 0.6, mat(C.danger)), 0, 0.6, 0.6); xA.rotation.z = 0.5;
+      const xB = add(bubble, box(30, 1.8, 0.6, mat(C.danger)), 0, 0.6, 0.7); xB.rotation.z = -0.5;
+      const scamTag = label("ARNAQUE", { height: 3.2, bg: "#E5484D", fg: "#FFFFFF", size: 64 }); add(bubble, scamTag, 0, -1, 1.4); scamTag.material.rotation = 0.12;
+
+      // ---------- recap column (exploded view) ----------
+      const recap = new T.Group(); scene.add(recap);
+      const rKey = makeKey(keyM); rKey.scale.setScalar(0.75);
+      const rTiles = new T.Group(); for (let i = 0; i < 24; i++) { const m = new T.Mesh(tileGeo, tiles[i].m.material); m.scale.setScalar(0.32); m.position.set(-3 + (i % 4) * 2.1, 1.6 - Math.floor(i / 4) * 0.9, 0); rTiles.add(m); }
+      const rDev = dev.clone(true); rDev.children.filter((c) => c.geometry && c.geometry.type === "CircleGeometry").forEach((c) => (c.visible = false)); rDev.scale.setScalar(0.62); rDev.rotation.x = 0.9;
+      const rPlate = plate.clone(); rPlate.scale.setScalar(0.5); rPlate.rotation.x = 1.0;
+      const rT25 = tile25.clone(); rT25.scale.setScalar(0.8);
+      const RECAP = [[rKey, "CLÉ PRIVÉE", 54.0], [rTiles, "24 MOTS", 54.69], [rDev, "BOÎTIER", 55.44], [rPlate, "PLAQUE ACIER", 55.97], [rT25, "PASSPHRASE", 56.9]].map(([o, txt, t0], i) => {
+        const y = 45 - i * 8.2; add(recap, o, -8, y, 10); const lb = label(txt, { height: 2.6, size: 58 }); lb.center.set(0, 0.5); add(recap, lb, -2.5, y, 11); return { o, lb, t0, s: o.scale.x };
+      });
+
+      // ---------- camera path: [t, camera position, target] ----------
+      const CAM = [
+        [0.0, V(0, 24, 74), V(0, 8, -2)], [7.4, V(0, 22, 66), V(0, 8, -2)],
+        [8.6, V(2, 22, 66), V(2, 10, 0)], [12.2, V(10, 18, 54), V(12, 8, 5)],
+        [13.8, V(-2, 16, 50), V(-3, 12, 4)], [17.0, V(-2, 15, 46), V(-3, 12, 4)],
+        [18.6, V(-2, 20, 68), V(-2, 19, 6)], [21.2, V(-9, 26, 36), V(-9, 26, 6)], [23.0, V(-4, 22, 52), V(-4, 20, 6)], [25.2, V(-4, 15, 48), V(-4, 12, 4)],
+        [26.2, V(-6, 12, 32), V(-8, 9, 4)], [29.4, V(-6, 11, 29), V(-8, 9, 4)],
+        [30.6, V(0, 30, 46), V(0, -3, 14)], [34.0, V(0, 26, 38), V(0, -3, 15)], [38.4, V(2, 28, 42), V(0, 1, 15)],
+        [39.4, V(-15, 30, 40), V(-15, -2, 16)], [42.6, V(-13, 26, 38), V(-14, -1, 15)],
+        [45.4, V(38, 28, 56), V(32, 4, -4)], [47.6, V(37, 27, 58), V(32, 5, -4)],
+        [48.8, V(0, 18, 40), V(0, 13, 8)], [51.4, V(0, 18, 34), V(0, 15, 8)], [53.8, V(0, 24, 40), V(0, 26, 8)],
+        [54.6, V(-2, 29, 80), V(-2, 29, 10)], [58.0, V(-2, 28, 76), V(-2, 28, 10)],
+        [58.9, V(0, 18, 84), V(0, 16, 12)], [64.4, V(0, 18, 78), V(0, 16, 12)],
+        [65.4, V(8, 20, 56), V(8, 8, 4)], [71.2, V(6, 36, 100), V(6, 10, 0)],
+      ];
+      function placeCamera(t) {
+        let i = 0; while (i < CAM.length - 2 && t > CAM[i + 1][0]) i++;
+        const [t0, p0, q0] = CAM[i], [t1, p1, q1] = CAM[i + 1];
+        const s = ss(t0, t1, t);
+        camera.position.copy(vlerp(p0, p1, s)); camera.lookAt(vlerp(q0, q1, s));
+      }
+
+      // ---------- the frame at time t ----------
+      const KEY_UP = V(2, 18, 8), SAFE_IN = V(16, 6, 12), DEV_AT = V(0, 2.2, 14);
+      function renderAt(t) {
+        t = cl(t, 0, TOTAL);
+        placeCamera(t);
+
+        // phone + screen
+        const phoneS = t < 29.6 ? 1 : 1 - ss(29.6, 30.2, t);
+        phone.visible = phoneS > 0.01; phone.scale.setScalar(Math.max(phoneS, 0.001));
+        drawScreen(t < 5.5 ? "app" : t < 8.0 ? "locked" : t < 15.4 ? "keygen" : t < 25.7 ? "broken" : t < 27.4 ? "notes" : "hacked", t);
+        phoneTilt.position.x = t > 15.4 && t < 15.9 ? Math.sin(t * 90) * 0.35 * (1 - ss(15.4, 15.9, t)) : 0;
+
+        // platform vitrine: shutter drops on "ferme", lifts again on "Alors", then the vitrine leaves
+        const shut = ss(5.4, 6.1, t) * (1 - ss(8.1, 8.8, t));
+        shutter.scale.y = 1; shutterPanel.scale.y = Math.max(0.01, shut * 12); shutterPanel.position.y = -0.5 * shut * 12;
+        const lk = life(t, 6.0, 8.4, 0.4); lockG.visible = lk > 0.01; lockG.scale.setScalar(Math.max(lk, 0.001));
+        const vs = t < 12.6 ? 1 : 1 - ss(12.6, 13.4, t); vit.visible = vs > 0.01; vit.scale.setScalar(Math.max(vs * 0.8, 0.001));
+
+        // coins: in the vitrine, then hop to the safe (10.0-12.0)
+        coins.forEach((c, i) => {
+          const s = ss(10.0 + i * 0.16, 10.9 + i * 0.16, t);
+          const p = arc(c.home, SAFE_IN, s, 12); c.m.position.copy(p);
+          c.m.rotation.set(s * 6 + i, s * 3, 0);
+          c.m.visible = t < 12.4 && !(s >= 1);
+          c.m.scale.setScalar(t < 12.6 ? 1 : 0.001);
+        });
+        // safe door: opens 9.6-10.2, closes 12.0-12.6, stays shut
+        doorPivot.rotation.y = -1.6 * ss(9.6, 10.2, t) * (1 - ss(12.0, 12.6, t));
+
+        // golden key
+        let kp = null, ks = 0, kr = 0;
+        if (t >= 9.0 && t < 15.6) { const s = ss(9.0, 10.3, t); kp = vlerp(V(-8, 9, 5), KEY_UP, s); ks = pop(9.0, t, 0.6); kr = t * 0.6; }
+        else if (t >= 24.5 && t < 31.9) { const s = ss(30.9, 31.9, t); kp = vlerp(V(-4, 20, 8), DEV_AT, s); ks = pop(24.5, t, 0.7) * (1 - s * 0.85); kr = t * 0.6; }
+        goldKey.visible = !!kp && ks > 0.01;
+        if (kp) { goldKey.position.copy(kp); goldKey.position.y += Math.sin(t * 2) * 0.3; goldKey.scale.setScalar(Math.max(ks, 0.001)); goldKey.rotation.set(0, kr, 0.25); }
+        // the key shatters on "cassé" (15.5)
+        shards.forEach((s) => {
+          const u = t - 15.55; s.m.visible = u > 0 && u < 1.4;
+          if (s.m.visible) { s.m.position.set(KEY_UP.x + s.off.x + s.vel.x * u, KEY_UP.y + s.off.y + s.vel.y * u - 14 * u * u, KEY_UP.z + s.off.z + s.vel.z * u); s.m.rotation.set(s.spin * u, s.spin * u * 0.7, 0); s.m.scale.setScalar(Math.max(0.001, 1 - u / 1.4)); }
+        });
+
+        // 24 tiles: land in the grid on "24" (19.0), then fly into the reformed key (23.9-24.8)
+        tiles.forEach((tl, i) => {
+          const tin = 18.9 + i * 0.06, s = pop(tin, t, 0.45), g = ss(23.9 + (i % 6) * 0.05, 24.8 + (i % 6) * 0.05, t);
+          tl.m.visible = t >= tin && g < 1;
+          if (tl.m.visible) { tl.m.position.copy(vlerp(tl.grid, V(-4, 20, 8), g)); tl.m.scale.setScalar(Math.max(0.001, s * (1 - g))); tl.m.rotation.set(0, 0, g * 2); }
+        });
+
+        // malware bug crawls up the phone (26.4-27.4) and sits on the screen
+        const bs = life(t, 26.2, 29.6, 0.3); bug.visible = bs > 0.01;
+        if (bug.visible) { const s = ss(26.3, 27.4, t); bug.position.copy(vlerp(V(0, 0.8, 12), V(-7.2, 9.6, 6.2), s)); bug.rotation.set(-1.2 * s, -0.9, 0); bug.scale.setScalar(bs * 1.2); legs.forEach((l, i) => (l.rotation.y = Math.sin(t * 22 + i * 1.7) * 0.35)); }
+
+        // hardware wallet
+        const ds = t < 29.8 ? 0 : pop(29.8, t, 0.6); dev.visible = ds > 0.01; dev.scale.setScalar(Math.max(ds, 0.001));
+        drawDev(t < 31.9 ? "idle" : t < 33.4 ? "key" : t < 34.3 ? "sign" : "signed");
+        const tc = t >= 32.4 && t < 36.4; txCard.visible = tc;
+        if (tc) {
+          const inS = ss(32.4, 33.3, t), outS = ss(34.4, 35.4, t);
+          txCard.position.copy(t < 34.3 ? vlerp(V(-14, 8, 16), V(0, 3, 14), inS) : vlerp(V(0, 3, 14), V(3, 11, 15), outS));
+          txCard.rotation.set(-0.9, 0, 0); const sc = t < 34.3 ? lerp(1, 0.4, inS) : lerp(0.4, 1, outS); txCard.scale.setScalar(sc * (1 - ss(36.0, 36.4, t)) + 0.001);
+          stamp.visible = t >= 34.3; stamp.scale.copy(stamp.userData.base).multiplyScalar(Math.max(0.001, pop(34.3, t, 0.4)));
+        }
+
+        // paper: appears, burns on "brûlent" (39.8), soaked on "mouillent" (40.9), leaves
+        const ps = life(t, 38.9, 41.9, 0.4); paper.visible = ps > 0.01; paper.scale.setScalar(Math.max(ps, 0.001));
+        drawPaper(ss(39.8, 40.9, t), ss(40.9, 41.4, t));
+        flames.forEach((f) => { const on = t >= 39.8 && t < 41.0; f.m.visible = on; if (on) { const k = pop(39.8, t, 0.3) * (1 - ss(40.8, 41.0, t)); f.m.position.set(f.at.x, 2 * k, f.at.z); f.m.scale.set(k, k * (1 + 0.25 * Math.sin(t * 18 + f.ph)), k); } });
+        drops.forEach((d) => { const u = t - d.t0; d.m.visible = u > 0 && u < 0.5; if (d.m.visible) d.m.position.set(d.at.x, 20 - 80 * u * u, d.at.z); });
+
+        // steel plate: appears where the paper was (42.0), slides into the far drawer (44.4-45.5)
+        const pls = t < 42.0 ? 0 : pop(42.0, t, 0.5); plate.visible = pls > 0.01 && t < 45.6;
+        if (plate.visible) { const s = ss(44.4, 45.5, t); plate.position.copy(arc(V(-14, 0.3, 15), V(34, 6.5, -1), s, 10)); plate.rotation.set(0, -0.5 * s, 0); plate.scale.setScalar(Math.max(0.001, pls)); }
+        drawer.position.z = 7 * ss(43.9, 44.5, t) * (1 - ss(45.6, 46.2, t));
+
+        // 25th word: appears on "25e" (50.3), flies away (52.2-53.6)
+        const t25 = pop(50.2, t, 0.5); tile25.visible = t >= 50.2 && t < 53.7;
+        if (tile25.visible) { const s = ss(52.2, 53.6, t); tile25.position.copy(arc(V(0, 16, 10), V(14, 52, 4), s, 4)); tile25.scale.setScalar(Math.max(0.001, t25 * 1.4)); tile25.rotation.set(0, 0, s * 1.5); }
+
+        // exploded recap
+        recap.visible = t >= 53.8 && t < 58.6;
+        RECAP.forEach((r) => { const k = recap.visible ? pop(r.t0, t, 0.45) * (1 - ss(58.2, 58.6, t)) : 0; r.o.visible = r.lb.visible = k > 0.01; r.o.scale.setScalar(Math.max(0.001, k * r.s)); r.lb.scale.copy(r.lb.userData.base).multiplyScalar(Math.max(0.001, k)); r.o.rotation.y = r.o === rTiles ? 0 : Math.sin(t * 0.8) * 0.4; });
+
+        // fake support message, struck through on "demande" (62.9)
+        const bb = life(t, 58.6, 64.7, 0.5); bubble.visible = bb > 0.01;
+        if (bubble.visible) { bubble.position.set(0, 20, 12); bubble.scale.setScalar(Math.max(bb, 0.001)); const x = ss(62.8, 63.2, t); xA.scale.x = xB.scale.x = Math.max(0.001, x); xA.visible = xB.visible = x > 0.01; scamTag.visible = t >= 63.1; scamTag.scale.copy(scamTag.userData.base).multiplyScalar(Math.max(0.001, pop(63.1, t, 0.4))); }
+
+        renderer.render(scene, camera);
+      }
+
+      renderAt(0);
+      window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: TOTAL }, 0);
+      window.__timelines["world"] = tl;
+      }
+    })();
+  </script>
+</template>

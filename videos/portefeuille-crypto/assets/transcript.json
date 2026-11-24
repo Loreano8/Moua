@@ -1,0 +1,1232 @@
+[
+  {
+    "text": "Si",
+    "start": 0.13,
+    "end": 0.31,
+    "id": "w0"
+  },
+  {
+    "text": "tes",
+    "start": 0.31,
+    "end": 0.33,
+    "id": "w1"
+  },
+  {
+    "text": "cryptos",
+    "start": 0.37,
+    "end": 0.8,
+    "id": "w2"
+  },
+  {
+    "text": "sont",
+    "start": 0.8,
+    "end": 1.07,
+    "id": "w3"
+  },
+  {
+    "text": "sur",
+    "start": 1.07,
+    "end": 1.27,
+    "id": "w4"
+  },
+  {
+    "text": "une",
+    "start": 1.27,
+    "end": 1.47,
+    "id": "w5"
+  },
+  {
+    "text": "appli",
+    "start": 1.47,
+    "end": 1.81,
+    "id": "w6"
+  },
+  {
+    "text": "d'échange,",
+    "start": 1.81,
+    "end": 2.52,
+    "id": "w7"
+  },
+  {
+    "text": "tu",
+    "start": 2.69,
+    "end": 2.71,
+    "id": "w8"
+  },
+  {
+    "text": "as",
+    "start": 2.71,
+    "end": 2.82,
+    "id": "w9"
+  },
+  {
+    "text": "un",
+    "start": 2.82,
+    "end": 2.93,
+    "id": "w10"
+  },
+  {
+    "text": "compte",
+    "start": 2.93,
+    "end": 3.28,
+    "id": "w11"
+  },
+  {
+    "text": "pas",
+    "start": 3.28,
+    "end": 3.43,
+    "id": "w12"
+  },
+  {
+    "text": "un",
+    "start": 3.51,
+    "end": 3.56,
+    "id": "w13"
+  },
+  {
+    "text": "portefeuille.",
+    "start": 3.56,
+    "end": 4.48,
+    "id": "w14"
+  },
+  {
+    "text": "Si",
+    "start": 4.48,
+    "end": 4.675,
+    "id": "w15"
+  },
+  {
+    "text": "la",
+    "start": 4.675,
+    "end": 4.87,
+    "id": "w16"
+  },
+  {
+    "text": "plateforme",
+    "start": 4.87,
+    "end": 5.48,
+    "id": "w17"
+  },
+  {
+    "text": "ferme,",
+    "start": 5.48,
+    "end": 5.97,
+    "id": "w18"
+  },
+  {
+    "text": "tes",
+    "start": 5.97,
+    "end": 6.18,
+    "id": "w19"
+  },
+  {
+    "text": "coins",
+    "start": 6.18,
+    "end": 6.53,
+    "id": "w20"
+  },
+  {
+    "text": "restent",
+    "start": 6.53,
+    "end": 7.01,
+    "id": "w21"
+  },
+  {
+    "text": "chez",
+    "start": 7.19,
+    "end": 7.3,
+    "id": "w22"
+  },
+  {
+    "text": "elle.",
+    "start": 7.3,
+    "end": 7.78,
+    "id": "w23"
+  },
+  {
+    "text": "Alors",
+    "start": 8.11,
+    "end": 8.13,
+    "id": "w24"
+  },
+  {
+    "text": "tu",
+    "start": 8.17,
+    "end": 8.26,
+    "id": "w25"
+  },
+  {
+    "text": "génères",
+    "start": 8.26,
+    "end": 8.61,
+    "id": "w26"
+  },
+  {
+    "text": "ta",
+    "start": 8.75,
+    "end": 8.85,
+    "id": "w27"
+  },
+  {
+    "text": "propre",
+    "start": 8.85,
+    "end": 9.21,
+    "id": "w28"
+  },
+  {
+    "text": "clé",
+    "start": 9.24,
+    "end": 9.43,
+    "id": "w29"
+  },
+  {
+    "text": "privée,",
+    "start": 9.43,
+    "end": 10,
+    "id": "w30"
+  },
+  {
+    "text": "celui",
+    "start": 10,
+    "end": 10.31,
+    "id": "w31"
+  },
+  {
+    "text": "qui",
+    "start": 10.49,
+    "end": 10.54,
+    "id": "w32"
+  },
+  {
+    "text": "a",
+    "start": 10.54,
+    "end": 10.61,
+    "id": "w33"
+  },
+  {
+    "text": "la",
+    "start": 10.61,
+    "end": 10.74,
+    "id": "w34"
+  },
+  {
+    "text": "clé",
+    "start": 10.74,
+    "end": 10.93,
+    "id": "w35"
+  },
+  {
+    "text": "à",
+    "start": 10.93,
+    "end": 11,
+    "id": "w36"
+  },
+  {
+    "text": "l'effond,",
+    "start": 11,
+    "end": 11.67,
+    "id": "w37"
+  },
+  {
+    "text": "ça",
+    "start": 11.73,
+    "end": 11.84,
+    "id": "w38"
+  },
+  {
+    "text": "s'appelle",
+    "start": 11.84,
+    "end": 12.28,
+    "id": "w39"
+  },
+  {
+    "text": "l'autogarde.",
+    "start": 12.5,
+    "end": 13.5,
+    "id": "w40"
+  },
+  {
+    "text": "Mais",
+    "start": 13.5,
+    "end": 13.82,
+    "id": "w41"
+  },
+  {
+    "text": "une",
+    "start": 13.82,
+    "end": 13.95,
+    "id": "w42"
+  },
+  {
+    "text": "clé,",
+    "start": 13.95,
+    "end": 14.27,
+    "id": "w43"
+  },
+  {
+    "text": "ça",
+    "start": 14.27,
+    "end": 14.31,
+    "id": "w44"
+  },
+  {
+    "text": "se",
+    "start": 14.45,
+    "end": 14.53,
+    "id": "w45"
+  },
+  {
+    "text": "perd,",
+    "start": 14.53,
+    "end": 14.91,
+    "id": "w46"
+  },
+  {
+    "text": "téléphone",
+    "start": 14.94,
+    "end": 15.51,
+    "id": "w47"
+  },
+  {
+    "text": "cassé,",
+    "start": 15.51,
+    "end": 15.96,
+    "id": "w48"
+  },
+  {
+    "text": "tout",
+    "start": 15.96,
+    "end": 16.22,
+    "id": "w49"
+  },
+  {
+    "text": "est",
+    "start": 16.22,
+    "end": 16.41,
+    "id": "w50"
+  },
+  {
+    "text": "perdu.",
+    "start": 16.41,
+    "end": 16.93,
+    "id": "w51"
+  },
+  {
+    "text": "Alors",
+    "start": 17.31,
+    "end": 17.45,
+    "id": "w52"
+  },
+  {
+    "text": "la",
+    "start": 17.45,
+    "end": 17.62,
+    "id": "w53"
+  },
+  {
+    "text": "clé",
+    "start": 17.69,
+    "end": 17.81,
+    "id": "w54"
+  },
+  {
+    "text": "est",
+    "start": 17.95,
+    "end": 18.16,
+    "id": "w55"
+  },
+  {
+    "text": "traduite",
+    "start": 18.17,
+    "end": 18.88,
+    "id": "w56"
+  },
+  {
+    "text": "en",
+    "start": 18.89,
+    "end": 19.07,
+    "id": "w57"
+  },
+  {
+    "text": "24",
+    "start": 19.07,
+    "end": 19.51,
+    "id": "w58"
+  },
+  {
+    "text": "mots,",
+    "start": 19.69,
+    "end": 20.13,
+    "id": "w59"
+  },
+  {
+    "text": "avec",
+    "start": 20.13,
+    "end": 20.39,
+    "id": "w60"
+  },
+  {
+    "text": "eux",
+    "start": 20.39,
+    "end": 20.58,
+    "id": "w61"
+  },
+  {
+    "text": "tu",
+    "start": 20.58,
+    "end": 20.71,
+    "id": "w62"
+  },
+  {
+    "text": "restors",
+    "start": 20.71,
+    "end": 21.1,
+    "id": "w63"
+  },
+  {
+    "text": "tout",
+    "start": 21.2,
+    "end": 21.42,
+    "id": "w64"
+  },
+  {
+    "text": "sur",
+    "start": 21.42,
+    "end": 21.5,
+    "id": "w65"
+  },
+  {
+    "text": "n'importe",
+    "start": 21.67,
+    "end": 22.18,
+    "id": "w66"
+  },
+  {
+    "text": "quel",
+    "start": 22.18,
+    "end": 22.44,
+    "id": "w67"
+  },
+  {
+    "text": "appareil.",
+    "start": 22.44,
+    "end": 23,
+    "id": "w68"
+  },
+  {
+    "text": "Ça",
+    "start": 23,
+    "end": 23.2,
+    "id": "w69"
+  },
+  {
+    "text": "s'appelle",
+    "start": 23.2,
+    "end": 23.74,
+    "id": "w70"
+  },
+  {
+    "text": "la",
+    "start": 23.74,
+    "end": 23.81,
+    "id": "w71"
+  },
+  {
+    "text": "phrase",
+    "start": 23.95,
+    "end": 24.28,
+    "id": "w72"
+  },
+  {
+    "text": "de",
+    "start": 24.28,
+    "end": 24.41,
+    "id": "w73"
+  },
+  {
+    "text": "récupération.",
+    "start": 24.44,
+    "end": 25.5,
+    "id": "w74"
+  },
+  {
+    "text": "Mais",
+    "start": 25.5,
+    "end": 25.81,
+    "id": "w75"
+  },
+  {
+    "text": "en",
+    "start": 25.81,
+    "end": 25.89,
+    "id": "w76"
+  },
+  {
+    "text": "photo",
+    "start": 25.89,
+    "end": 26.21,
+    "id": "w77"
+  },
+  {
+    "text": "ou",
+    "start": 26.21,
+    "end": 26.32,
+    "id": "w78"
+  },
+  {
+    "text": "dans",
+    "start": 26.45,
+    "end": 26.61,
+    "id": "w79"
+  },
+  {
+    "text": "tes",
+    "start": 26.61,
+    "end": 26.81,
+    "id": "w80"
+  },
+  {
+    "text": "notes,",
+    "start": 26.81,
+    "end": 27.3,
+    "id": "w81"
+  },
+  {
+    "text": "un",
+    "start": 27.3,
+    "end": 27.45,
+    "id": "w82"
+  },
+  {
+    "text": "mal",
+    "start": 27.45,
+    "end": 27.67,
+    "id": "w83"
+  },
+  {
+    "text": "wear",
+    "start": 27.67,
+    "end": 27.97,
+    "id": "w84"
+  },
+  {
+    "text": "la",
+    "start": 27.97,
+    "end": 28.02,
+    "id": "w85"
+  },
+  {
+    "text": "lit",
+    "start": 28.19,
+    "end": 28.34,
+    "id": "w86"
+  },
+  {
+    "text": "en",
+    "start": 28.34,
+    "end": 28.47,
+    "id": "w87"
+  },
+  {
+    "text": "une",
+    "start": 28.61,
+    "end": 28.71,
+    "id": "w88"
+  },
+  {
+    "text": "seconde.",
+    "start": 28.71,
+    "end": 29.37,
+    "id": "w89"
+  },
+  {
+    "text": "Alors",
+    "start": 29.81,
+    "end": 29.91,
+    "id": "w90"
+  },
+  {
+    "text": "la",
+    "start": 29.91,
+    "end": 30.07,
+    "id": "w91"
+  },
+  {
+    "text": "clé",
+    "start": 30.07,
+    "end": 30.31,
+    "id": "w92"
+  },
+  {
+    "text": "vit",
+    "start": 30.31,
+    "end": 30.56,
+    "id": "w93"
+  },
+  {
+    "text": "dans",
+    "start": 30.56,
+    "end": 30.85,
+    "id": "w94"
+  },
+  {
+    "text": "un",
+    "start": 30.94,
+    "end": 31.05,
+    "id": "w95"
+  },
+  {
+    "text": "petit",
+    "start": 31.05,
+    "end": 31.46,
+    "id": "w96"
+  },
+  {
+    "text": "boîtier",
+    "start": 31.46,
+    "end": 32.01,
+    "id": "w97"
+  },
+  {
+    "text": "jamais",
+    "start": 32.19,
+    "end": 32.48,
+    "id": "w98"
+  },
+  {
+    "text": "connecté",
+    "start": 32.61,
+    "end": 33.17,
+    "id": "w99"
+  },
+  {
+    "text": "à",
+    "start": 33.17,
+    "end": 33.25,
+    "id": "w100"
+  },
+  {
+    "text": "Internet.",
+    "start": 33.25,
+    "end": 34,
+    "id": "w101"
+  },
+  {
+    "text": "Il",
+    "start": 34,
+    "end": 34.12,
+    "id": "w102"
+  },
+  {
+    "text": "signe",
+    "start": 34.3,
+    "end": 34.42,
+    "id": "w103"
+  },
+  {
+    "text": "les",
+    "start": 34.42,
+    "end": 34.6,
+    "id": "w104"
+  },
+  {
+    "text": "transactions",
+    "start": 34.6,
+    "end": 35.32,
+    "id": "w105"
+  },
+  {
+    "text": "à",
+    "start": 35.32,
+    "end": 35.35,
+    "id": "w106"
+  },
+  {
+    "text": "l'intérieur,",
+    "start": 35.38,
+    "end": 36.16,
+    "id": "w107"
+  },
+  {
+    "text": "ça",
+    "start": 36.16,
+    "end": 36.28,
+    "id": "w108"
+  },
+  {
+    "text": "s'appelle",
+    "start": 36.28,
+    "end": 36.82,
+    "id": "w109"
+  },
+  {
+    "text": "un",
+    "start": 36.82,
+    "end": 36.94,
+    "id": "w110"
+  },
+  {
+    "text": "portefeuille",
+    "start": 36.94,
+    "end": 37.66,
+    "id": "w111"
+  },
+  {
+    "text": "matérielle.",
+    "start": 37.66,
+    "end": 38.48,
+    "id": "w112"
+  },
+  {
+    "text": "Mais",
+    "start": 38.48,
+    "end": 38.86,
+    "id": "w113"
+  },
+  {
+    "text": "les",
+    "start": 38.86,
+    "end": 38.96,
+    "id": "w114"
+  },
+  {
+    "text": "mots",
+    "start": 38.96,
+    "end": 39.21,
+    "id": "w115"
+  },
+  {
+    "text": "sur",
+    "start": 39.22,
+    "end": 39.31,
+    "id": "w116"
+  },
+  {
+    "text": "papier",
+    "start": 39.45,
+    "end": 39.81,
+    "id": "w117"
+  },
+  {
+    "text": "brûle,",
+    "start": 39.81,
+    "end": 40.19,
+    "id": "w118"
+  },
+  {
+    "text": "ce",
+    "start": 40.26,
+    "end": 40.38,
+    "id": "w119"
+  },
+  {
+    "text": "mouille",
+    "start": 40.39,
+    "end": 40.84,
+    "id": "w120"
+  },
+  {
+    "text": "se",
+    "start": 40.84,
+    "end": 40.97,
+    "id": "w121"
+  },
+  {
+    "text": "vole.",
+    "start": 40.97,
+    "end": 41.47,
+    "id": "w122"
+  },
+  {
+    "text": "Alors",
+    "start": 41.81,
+    "end": 41.85,
+    "id": "w123"
+  },
+  {
+    "text": "on",
+    "start": 41.87,
+    "end": 41.98,
+    "id": "w124"
+  },
+  {
+    "text": "les",
+    "start": 42.03,
+    "end": 42.11,
+    "id": "w125"
+  },
+  {
+    "text": "grave",
+    "start": 42.2,
+    "end": 42.55,
+    "id": "w126"
+  },
+  {
+    "text": "sur",
+    "start": 42.55,
+    "end": 42.76,
+    "id": "w127"
+  },
+  {
+    "text": "une",
+    "start": 42.76,
+    "end": 42.97,
+    "id": "w128"
+  },
+  {
+    "text": "plaque",
+    "start": 42.97,
+    "end": 43.38,
+    "id": "w129"
+  },
+  {
+    "text": "en",
+    "start": 43.39,
+    "end": 43.53,
+    "id": "w130"
+  },
+  {
+    "text": "acier,",
+    "start": 43.53,
+    "end": 44.02,
+    "id": "w131"
+  },
+  {
+    "text": "rangée",
+    "start": 44.19,
+    "end": 44.44,
+    "id": "w132"
+  },
+  {
+    "text": "loin",
+    "start": 44.44,
+    "end": 44.72,
+    "id": "w133"
+  },
+  {
+    "text": "du",
+    "start": 44.72,
+    "end": 44.78,
+    "id": "w134"
+  },
+  {
+    "text": "boîtier,",
+    "start": 44.88,
+    "end": 45.4,
+    "id": "w135"
+  },
+  {
+    "text": "ça",
+    "start": 45.5,
+    "end": 45.6,
+    "id": "w136"
+  },
+  {
+    "text": "s'appelle",
+    "start": 45.69,
+    "end": 45.99,
+    "id": "w137"
+  },
+  {
+    "text": "une",
+    "start": 46.33,
+    "end": 46.43,
+    "id": "w138"
+  },
+  {
+    "text": "sauvegarde",
+    "start": 46.43,
+    "end": 47.09,
+    "id": "w139"
+  },
+  {
+    "text": "métal.",
+    "start": 47.2,
+    "end": 47.5,
+    "id": "w140"
+  },
+  {
+    "text": "Et",
+    "start": 47.5,
+    "end": 47.82,
+    "id": "w141"
+  },
+  {
+    "text": "pour",
+    "start": 47.82,
+    "end": 47.95,
+    "id": "w142"
+  },
+  {
+    "text": "que",
+    "start": 47.95,
+    "end": 48.11,
+    "id": "w143"
+  },
+  {
+    "text": "la",
+    "start": 48.19,
+    "end": 48.31,
+    "id": "w144"
+  },
+  {
+    "text": "plaque",
+    "start": 48.45,
+    "end": 48.76,
+    "id": "w145"
+  },
+  {
+    "text": "seule",
+    "start": 48.76,
+    "end": 49.13,
+    "id": "w146"
+  },
+  {
+    "text": "ne",
+    "start": 49.13,
+    "end": 49.28,
+    "id": "w147"
+  },
+  {
+    "text": "suffise",
+    "start": 49.28,
+    "end": 49.8,
+    "id": "w148"
+  },
+  {
+    "text": "pas,",
+    "start": 49.8,
+    "end": 50.16,
+    "id": "w149"
+  },
+  {
+    "text": "un",
+    "start": 50.19,
+    "end": 50.31,
+    "id": "w150"
+  },
+  {
+    "text": "25e",
+    "start": 50.31,
+    "end": 50.78,
+    "id": "w151"
+  },
+  {
+    "text": "mot",
+    "start": 50.88,
+    "end": 51.04,
+    "id": "w152"
+  },
+  {
+    "text": "gardé",
+    "start": 51.04,
+    "end": 51.4,
+    "id": "w153"
+  },
+  {
+    "text": "à",
+    "start": 51.4,
+    "end": 51.5,
+    "id": "w154"
+  },
+  {
+    "text": "part,",
+    "start": 51.5,
+    "end": 51.98,
+    "id": "w155"
+  },
+  {
+    "text": "ça",
+    "start": 51.98,
+    "end": 52,
+    "id": "w156"
+  },
+  {
+    "text": "s'appelle",
+    "start": 52.19,
+    "end": 52.72,
+    "id": "w157"
+  },
+  {
+    "text": "une",
+    "start": 52.86,
+    "end": 52.93,
+    "id": "w158"
+  },
+  {
+    "text": "passe-phrase.",
+    "start": 52.93,
+    "end": 54,
+    "id": "w159"
+  },
+  {
+    "text": "Clé",
+    "start": 54,
+    "end": 54.18,
+    "id": "w160"
+  },
+  {
+    "text": "privée,",
+    "start": 54.31,
+    "end": 54.61,
+    "id": "w161"
+  },
+  {
+    "text": "24",
+    "start": 54.69,
+    "end": 55.05,
+    "id": "w162"
+  },
+  {
+    "text": "mots",
+    "start": 55.05,
+    "end": 55.3,
+    "id": "w163"
+  },
+  {
+    "text": "au",
+    "start": 55.3,
+    "end": 55.41,
+    "id": "w164"
+  },
+  {
+    "text": "boîtier,",
+    "start": 55.44,
+    "end": 55.97,
+    "id": "w165"
+  },
+  {
+    "text": "plaque",
+    "start": 55.97,
+    "end": 56.35,
+    "id": "w166"
+  },
+  {
+    "text": "en",
+    "start": 56.35,
+    "end": 56.47,
+    "id": "w167"
+  },
+  {
+    "text": "acier,",
+    "start": 56.47,
+    "end": 56.9,
+    "id": "w168"
+  },
+  {
+    "text": "passe-phrase.",
+    "start": 56.9,
+    "end": 57.87,
+    "id": "w169"
+  },
+  {
+    "text": "Attention,",
+    "start": 58.32,
+    "end": 58.74,
+    "id": "w170"
+  },
+  {
+    "text": "aucun",
+    "start": 58.74,
+    "end": 59.08,
+    "id": "w171"
+  },
+  {
+    "text": "support,",
+    "start": 59.08,
+    "end": 59.68,
+    "id": "w172"
+  },
+  {
+    "text": "aucun",
+    "start": 59.68,
+    "end": 60.01,
+    "id": "w173"
+  },
+  {
+    "text": "site",
+    "start": 60.02,
+    "end": 60.29,
+    "id": "w174"
+  },
+  {
+    "text": "n'a",
+    "start": 60.29,
+    "end": 60.47,
+    "id": "w175"
+  },
+  {
+    "text": "jamais",
+    "start": 60.47,
+    "end": 60.87,
+    "id": "w176"
+  },
+  {
+    "text": "besoin",
+    "start": 60.87,
+    "end": 61.27,
+    "id": "w177"
+  },
+  {
+    "text": "de",
+    "start": 61.27,
+    "end": 61.4,
+    "id": "w178"
+  },
+  {
+    "text": "tes",
+    "start": 61.4,
+    "end": 61.6,
+    "id": "w179"
+  },
+  {
+    "text": "24",
+    "start": 61.6,
+    "end": 61.87,
+    "id": "w180"
+  },
+  {
+    "text": "mots,",
+    "start": 62,
+    "end": 62.48,
+    "id": "w181"
+  },
+  {
+    "text": "qui",
+    "start": 62.48,
+    "end": 62.51,
+    "id": "w182"
+  },
+  {
+    "text": "les",
+    "start": 62.83,
+    "end": 62.88,
+    "id": "w183"
+  },
+  {
+    "text": "demande,",
+    "start": 62.88,
+    "end": 63.46,
+    "id": "w184"
+  },
+  {
+    "text": "te",
+    "start": 63.46,
+    "end": 63.58,
+    "id": "w185"
+  },
+  {
+    "text": "vol.",
+    "start": 63.7,
+    "end": 64,
+    "id": "w186"
+  },
+  {
+    "text": "Bravo,",
+    "start": 64.31,
+    "end": 64.56,
+    "id": "w187"
+  },
+  {
+    "text": "ce",
+    "start": 64.56,
+    "end": 64.71,
+    "id": "w188"
+  },
+  {
+    "text": "n'est",
+    "start": 64.72,
+    "end": 65.11,
+    "id": "w189"
+  },
+  {
+    "text": "plus",
+    "start": 65.12,
+    "end": 65.42,
+    "id": "w190"
+  },
+  {
+    "text": "une",
+    "start": 65.44,
+    "end": 65.68,
+    "id": "w191"
+  },
+  {
+    "text": "appli",
+    "start": 65.68,
+    "end": 66.08,
+    "id": "w192"
+  },
+  {
+    "text": "sur",
+    "start": 66.08,
+    "end": 66.32,
+    "id": "w193"
+  },
+  {
+    "text": "ton",
+    "start": 66.32,
+    "end": 66.52,
+    "id": "w194"
+  },
+  {
+    "text": "téléphone,",
+    "start": 66.69,
+    "end": 67.43,
+    "id": "w195"
+  },
+  {
+    "text": "c'est",
+    "start": 67.51,
+    "end": 67.86,
+    "id": "w196"
+  },
+  {
+    "text": "un",
+    "start": 67.86,
+    "end": 67.9,
+    "id": "w197"
+  },
+  {
+    "text": "coffre",
+    "start": 68,
+    "end": 68.43,
+    "id": "w198"
+  },
+  {
+    "text": "dont",
+    "start": 68.43,
+    "end": 68.5,
+    "id": "w199"
+  },
+  {
+    "text": "toi",
+    "start": 68.83,
+    "end": 68.94,
+    "id": "w200"
+  },
+  {
+    "text": "seul",
+    "start": 68.94,
+    "end": 69.22,
+    "id": "w201"
+  },
+  {
+    "text": "as",
+    "start": 69.36,
+    "end": 69.37,
+    "id": "w202"
+  },
+  {
+    "text": "la",
+    "start": 69.37,
+    "end": 69.51,
+    "id": "w203"
+  },
+  {
+    "text": "clé.",
+    "start": 69.51,
+    "end": 70,
+    "id": "w204"
+  }
+]

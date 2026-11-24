@@ -1,0 +1,37 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #root .term {
+      position: absolute; left: 0; right: 0; top: 330px;
+      display: flex; justify-content: center;
+    }
+    #root .term-in {
+      display: inline-block; max-width: 690px; text-align: center;
+      font-family: "Archivo Black", sans-serif; font-size: 62px; line-height: 1.05; color: #1e1a16;
+      background: #f2b705; padding: 18px 36px 22px; border-radius: 6px;
+    }
+    #root .term-kicker {
+      display: block; font-family: "Archivo Black", sans-serif; font-size: 40px; color: #1e1a16; margin-bottom: 8px; opacity: 0.75;
+    }
+    #root #lb-warn .term-in { background: #e5484d; color: #ffffff; }
+    #root #lb-final { top: 300px; }
+    #root #lb-final .term-in { background: #1e1a16; color: #ffffff; font-size: 76px; }
+    #root #lb-final .gold { color: #f2b705; }
+  </style>
+  <div id="root" data-composition-id="labels" data-width="1080" data-height="1920" data-duration="71.2">
+    <div id="lb-autogarde" class="clip term" data-start="12.28" data-duration="1.5"><div class="term-in"><span class="term-kicker">ÇA S'APPELLE</span>L'AUTO-GARDE</div></div>
+    <div id="lb-phrase" class="clip term" data-start="23.74" data-duration="2.0"><div class="term-in"><span class="term-kicker">ÇA S'APPELLE</span>LA PHRASE DE RÉCUPÉRATION</div></div>
+    <div id="lb-hw" class="clip term" data-start="36.82" data-duration="2.0"><div class="term-in"><span class="term-kicker">ÇA S'APPELLE</span>UN PORTEFEUILLE MATÉRIEL</div></div>
+    <div id="lb-metal" class="clip term" data-start="45.99" data-duration="2.0"><div class="term-in"><span class="term-kicker">ÇA S'APPELLE</span>UNE SAUVEGARDE MÉTAL</div></div>
+    <div id="lb-pass" class="clip term" data-start="52.72" data-duration="1.4"><div class="term-in"><span class="term-kicker">ÇA S'APPELLE</span>UNE PASSPHRASE</div></div>
+    <div id="lb-warn" class="clip term" data-start="58.4" data-duration="6.1"><div class="term-in">ATTENTION</div></div>
+    <div id="lb-final" class="clip term" data-start="67.9" data-duration="3.3"><div class="term-in">TOI SEUL AS<br /><span class="gold">LA CLÉ.</span></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    [["#lb-autogarde", 12.28], ["#lb-phrase", 23.74], ["#lb-hw", 36.82], ["#lb-metal", 45.99], ["#lb-pass", 52.72], ["#lb-warn", 58.4], ["#lb-final", 67.9]].forEach(([id, t]) => {
+      tl.fromTo(`${id} .term-in`, { scale: 0.6, y: -30 }, { scale: 1, y: 0, duration: 0.4, ease: "back.out(1.8)" }, t);
+    });
+    window.__timelines["labels"] = tl;
+  </script>
+</template>
