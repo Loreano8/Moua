@@ -219,7 +219,7 @@
       const txCard = new T.Group(); scene.add(txCard);
       const txTex = canvasTex(400, 220, (ctx, w, h) => { ctx.fillStyle = "#FFFFFF"; rr(ctx, 0, 0, w, h, 24); ctx.fill(); ctx.fillStyle = "#1E1A16"; ctx.font = `40px ${FONT}`; ctx.fillText("Envoi", 30, 80); ctx.font = `54px ${FONT}`; ctx.fillText("0,1 ₿ →", 30, 160); });
       add(txCard, new T.Mesh(new T.PlaneGeometry(8, 4.4), new T.MeshBasicMaterial({ map: txTex.tex, transparent: true })), 0, 0, 0);
-      const stamp = label("SIGNÉ ✓", { height: 2.4, bg: "#2FB673", fg: "#FFFFFF", size: 60 }); add(txCard, stamp, 2.6, -1.8, 0.4);
+      const stamp = label("SIGNÉ ✓", { height: 2.4, bg: "#2FB673", fg: "#FFFFFF", size: 60 }); add(txCard, stamp, 1.0, -1.8, 0.4);
 
       // ---------- paper, fire, water ----------
       const paperTex = canvasTex(360, 480, () => {});
@@ -250,6 +250,7 @@
       });
       const plate = new T.Mesh(new T.BoxGeometry(14, 0.5, 9), [steelM, steelM, new T.MeshStandardMaterial({ map: plateTex.tex, metalness: 0.4, roughness: 0.45 }), steelM, steelM, steelM]);
       scene.add(plate);
+      const plate2 = plate.clone(); scene.add(plate2);
       const cab = new T.Group(); add(scene, cab, 34, 0, -6); cab.rotation.y = -0.5;
       add(cab, box(18, 12, 14, mat(0x8a5a33)), 0, 6, 0);
       const drawer = add(cab, new T.Group(), 0, 6, 0);
@@ -292,7 +293,7 @@
         [30.6, V(0, 30, 46), V(0, -3, 14)], [34.0, V(0, 26, 38), V(0, -3, 15)], [38.4, V(2, 28, 42), V(0, 1, 15)],
         [39.4, V(-15, 30, 40), V(-15, -2, 16)], [42.6, V(-13, 26, 38), V(-14, -1, 15)],
         [45.4, V(38, 28, 56), V(32, 4, -4)], [47.6, V(37, 27, 58), V(32, 5, -4)],
-        [48.8, V(0, 18, 40), V(0, 13, 8)], [51.4, V(0, 18, 34), V(0, 15, 8)], [53.8, V(0, 24, 40), V(0, 26, 8)],
+        [48.8, V(0, 17, 44), V(0, 14, 9)], [51.4, V(0, 18, 42), V(0, 15, 9)], [53.8, V(0, 24, 40), V(0, 26, 8)],
         [54.6, V(-2, 29, 80), V(-2, 29, 10)], [58.0, V(-2, 28, 76), V(-2, 28, 10)],
         [58.9, V(0, 18, 84), V(0, 16, 12)], [64.4, V(0, 18, 78), V(0, 16, 12)],
         [65.4, V(8, 20, 56), V(8, 8, 4)], [71.2, V(6, 36, 100), V(6, 10, 0)],
@@ -362,8 +363,8 @@
         const tc = t >= 32.4 && t < 36.4; txCard.visible = tc;
         if (tc) {
           const inS = ss(32.4, 33.3, t), outS = ss(34.4, 35.4, t);
-          txCard.position.copy(t < 34.3 ? vlerp(V(-14, 8, 16), V(0, 3, 14), inS) : vlerp(V(0, 3, 14), V(3, 11, 15), outS));
-          txCard.rotation.set(-0.9, 0, 0); const sc = t < 34.3 ? lerp(1, 0.4, inS) : lerp(0.4, 1, outS); txCard.scale.setScalar(sc * (1 - ss(36.0, 36.4, t)) + 0.001);
+          txCard.position.copy(t < 34.3 ? vlerp(V(-14, 8, 16), V(0, 3, 14), inS) : vlerp(V(0, 3, 14), V(1.5, 6.5, 15.5), outS));
+          txCard.rotation.set(-0.9, 0, 0); const sc = t < 34.3 ? lerp(1, 0.4, inS) : lerp(0.4, 0.8, outS); txCard.scale.setScalar(sc * (1 - ss(36.0, 36.4, t)) + 0.001);
           stamp.visible = t >= 34.3; stamp.scale.copy(stamp.userData.base).multiplyScalar(Math.max(0.001, pop(34.3, t, 0.4)));
         }
 
@@ -378,9 +379,13 @@
         if (plate.visible) { const s = ss(44.4, 45.5, t); plate.position.copy(arc(V(-14, 0.3, 15), V(34, 6.5, -1), s, 10)); plate.rotation.set(0, -0.5 * s, 0); plate.scale.setScalar(Math.max(0.001, pls)); }
         drawer.position.z = 7 * ss(43.9, 44.5, t) * (1 - ss(45.6, 46.2, t));
 
+        // "pour que la plaque seule ne suffise pas": the plate comes back into view (48.0-53.8)
+        const p2 = life(t, 48.0, 53.9, 0.5); plate2.visible = p2 > 0.01;
+        if (plate2.visible) { plate2.position.set(0, 13.5 + Math.sin(t * 1.5) * 0.3, 8); plate2.rotation.set(1.05, Math.sin(t * 0.7) * 0.25, 0); plate2.scale.setScalar(Math.max(0.001, p2 * 0.6)); }
+
         // 25th word: appears on "25e" (50.3), flies away (52.2-53.6)
         const t25 = pop(50.2, t, 0.5); tile25.visible = t >= 50.2 && t < 53.7;
-        if (tile25.visible) { const s = ss(52.2, 53.6, t); tile25.position.copy(arc(V(0, 16, 10), V(14, 52, 4), s, 4)); tile25.scale.setScalar(Math.max(0.001, t25 * 1.4)); tile25.rotation.set(0, 0, s * 1.5); }
+        if (tile25.visible) { const s = ss(52.2, 53.6, t); tile25.position.copy(arc(V(0, 19.8, 8), V(14, 52, 4), s, 4)); tile25.scale.setScalar(Math.max(0.001, t25 * 1.4)); tile25.rotation.set(0, 0, s * 1.5); }
 
         // exploded recap
         recap.visible = t >= 53.8 && t < 58.6;
