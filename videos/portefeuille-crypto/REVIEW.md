@@ -13,6 +13,10 @@
 - Regardé : 18 images de contrôle, la planche de 12 plans, les planches `--review` (vue téléphone 360 px) et les corrections.
 - Non vérifié à l'oreille : la voix Kokoro (`ff_siwis`) a été contrôlée par retranscription, pas écoutée. « malware » est réécrit « mal ouère » pour la synthèse seulement.
 - Son : voix seule, pas de musique ni de bruitages (aucune source de musique sans compte HeyGen).
+- Rendu `renders/portefeuille-crypto.mp4` (non versionné) : 71,2 s, 1080×1920, 30 i/s, H.264 + AAC, 26,9 Mo, qualité « delivery », 7 min 22 s de rendu (GPU logiciel).
+- Son mesuré sur le fichier rendu : −16,6 LUFS intégré, crête vraie −1 dBTP, aucune saturation. Mesuré, pas écouté.
+- Images extraites du MP4 toutes les 4 s : la 3D est présente sur toute la durée, aucune image noire.
+- Le rendu a tourné avec le CLI 0.9.90 du lanceur, alors que le projet est figé sur 0.9.94 ; `check` passe sur les deux.
 
 ## Plan le plus faible
 - 48–54 s (passphrase) : la plaque et la tuile n°25 flottent devant le mur, sans lien physique avec la table ; avec plus de temps, une main ou le coffre en arrière-plan ancrerait le plan.
